@@ -5,7 +5,7 @@
 
         <ul>
             <li>
-                <NuxtLink to="/posts/1">Primer Post</NuxtLink>
+                <NuxtLink to="/posts/1">Primer Post <font-awesome-icon :icon="['fas', 'house']" /></NuxtLink>
             </li>
             <li>
                 <NuxtLink to="/posts/2">Segundo Post</NuxtLink>
