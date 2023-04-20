@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1>Principal page web </h1>
+        
+        <carrousel-product-component></carrousel-product-component>
+        <call-to-action></call-to-action>
     </div>
 </template>
 
