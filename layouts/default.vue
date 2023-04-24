@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <HeaderWeb></HeaderWeb>
-        <main class="container">
+        <main>
 
             <slot />
         </main>
@@ -45,8 +45,8 @@ useHead({
 .main-container {
     display: grid;
     grid-template-rows:1fr auto;
-    margin-top: 154px;
-    min-height: calc(100vh + 154px);
+    margin-top: 150px;
+    min-height: calc(100vh - 150px);
 
 }
 </style>

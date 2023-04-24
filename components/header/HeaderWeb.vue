@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav  ms-auto mb-2 mb-lg-0 gap-3">
+      <ul class="navbar-nav bg-dark ms-auto mb-2 mb-lg-0 gap-3">
         <li class="nav-item m-auto">
           <NuxtLink class="nav-link active" aria-current="page" to="/">Inicio</NuxtLink>
         </li>
@@ -28,18 +28,29 @@
 </template>
 
 <style scoped>
-@media screen and (max-width: 580px) {
-   .navbar{
-    padding: 48px .5rem !important;
-  }
+
+
+.navbar{
+  z-index: 999;
 }
+
+.container-fluid{
+  height: 54px;
+}
+@media screen and (max-width: 600px) {
+  .navbar{
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+}
+
 @media screen and (min-width: 992px) {
   .container-fluid{
   max-width: 70%;
   font-size: 1.2rem;
 }
 }
-
 
 .navbar-toggler:not(:disabled):not(.disabled):focus {
   outline: none;
