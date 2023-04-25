@@ -5,16 +5,16 @@
 
         <ul>
             <li>
-                <NuxtLink to="/posts/1">Primer Post <font-awesome-icon :icon="['fas', 'house']" /></NuxtLink>
+                <NuxtLink to="/">Primer Post <font-awesome-icon :icon="['fas', 'house']" /></NuxtLink>
             </li>
             <li>
-                <NuxtLink to="/posts/2">Segundo Post</NuxtLink>
+                <NuxtLink to="/">Segundo Post</NuxtLink>
             </li>
             <li>
-                <NuxtLink to="/posts/3">Tercer Post</NuxtLink>
+                <NuxtLink to="/">Tercer Post</NuxtLink>
             </li>
             <li>
-                <NuxtLink to="/posts/4">Cuarto Post</NuxtLink>
+                <NuxtLink to="/">Cuarto Post</NuxtLink>
             </li>
         </ul>
 

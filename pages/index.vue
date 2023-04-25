@@ -4,8 +4,6 @@
             <carrousel-product-component></carrousel-product-component>
             <speaker-banner-speaker></speaker-banner-speaker>
             <headphones-banner-product></headphones-banner-product>
-            
-            
             <hearhpones-hearphones></hearhpones-hearphones>
             <call-to-action></call-to-action>
             
