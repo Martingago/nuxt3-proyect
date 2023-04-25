@@ -1,8 +1,8 @@
 <template>
     <section
-        class="container d-flex justify-content-center align-items-center  flex-md-nowrap flex-md-row flex-column my-3">
+        class="container d-flex justify-content-center align-items-center  flex-md-nowrap my-5 flex-md-row flex-column gap-3">
 
-        <article class="d-flex flex-column justify-content-center align-items-center my-3 mx-2 shadow rounded p-3 col-lg-4">
+        <article class="d-flex flex-fill flex-grow-1 flex-column flex-fill justify-content-center align-items-center my-3 shadow rounded p-3 col-md-3">
             <NuxtLink to="/home">
                 <img class="my-img img-fluid w-100" src="@/assets/img/product/audiophile-cascos-inalambricos-producto-marca.png">
             </NuxtLink>
@@ -12,7 +12,7 @@
             </button>
         </article>
 
-        <article class="d-flex flex-column justify-content-center align-items-center my-3 mx-2 shadow rounded p-3 col-lg-4 ">
+        <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink to="/home">
                 <img class="my-img img-fluid w-100" src="@/assets/img/product/audiophile-altavoces-producto-marca.png">
             </NuxtLink>
@@ -22,11 +22,11 @@
             </button>
         </article>
         
-        <article class="d-flex flex-column justify-content-center align-items-center my-3 mx-2 shadow rounded p-3 col-lg-4 ">
+        <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink to="/home">
                 <img class="my-img img-fluid w-100" src="@/assets/img/product/audiophile-auriculares-inalambricos-producto-marca.jpg">
             </NuxtLink>
-            <h2>Headphones</h2>
+            <h2>Hearphones</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop
                 <font-awesome-icon icon="fa-solid fa-chevron-right" />
             </button>

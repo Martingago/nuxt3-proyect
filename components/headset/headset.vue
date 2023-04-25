@@ -6,7 +6,7 @@
                 <h3 class="">New product</h3>
                 <h2 class="text-uppercase  fw-bold fs-1"> XX99 Mark II <br> Headphones</h2>
                 <p class="mt-3 fs-5">Experiencia natural, sonido envolvente y una calidad de acabados excepcional hecho para los entusiastas pasionados de la música </p>
-                <button class="btn-go-to-headset mt-3 text-light">Ver producto</button>
+                <button class="btn-go-to-headset fs-5 mt-3 text-light">Ver producto</button>
             </article>
 
             <img class="img-article col-lg-4 img-fluid" src="@/assets/img/call-to-action/banner-audiophile-auriculares-inalambricos.png">
@@ -19,7 +19,7 @@
 <style scoped>
 
 .item-article{
-    z-index: 999;
+    z-index: 1;
     max-width: 500px;
 }
 .item-product-section{
