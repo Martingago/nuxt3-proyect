@@ -1,6 +1,6 @@
 <template>
     
-<div id="carouselExampleIndicators" class="carousel slide bg-light m-3 p-3 shadow rounded" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide bg-light p-3 rounded" data-bs-ride="carousel">
     <div class="carousel-indicators my-0">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active bg-dark"
             aria-current="true" aria-label="Slide 1"></button>
@@ -36,6 +36,12 @@
 </template>
 
 <style scoped>
+@media screen and (min-width: 992px) {
+    /* .carousel{
+    max-width: 420px;
+} */
+}
+
 
     img {
     aspect-ratio: 1 /1;

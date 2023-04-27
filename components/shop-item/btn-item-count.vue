@@ -1,65 +1,53 @@
 <template>
     <form>
         <div class="input-number">
-            <button class="input-number__btn input-number__btn--down" type="button" @click="decrement()">-</button>
-            <input class="input-number__input" type="number" :value="value" :min="min" :max="max">
-            <button class="input-number__btn input-number__btn--up" type="button"  @click="increment()">+</button>
+            <button class="input-number__btn input-number__btn--down" type="button" @click="decrement">-</button>
+            <input class="input-number__input" type="number" :value="valueCount" :min="minCount" :max="maxCount">
+            <button class="input-number__btn input-number__btn--up" type="button" @click="increment">+</button>
+            
         </div>
     </form>
 </template>
 
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-    value:{
-        type: Number,
-        default: 1
-    },
-    min: {
-        type: Number,
-        default: 1
-    },
-    max: {
-        type: Number,
-        default: 10
-    },
-    disabled:{
-        type: Boolean,
-        default: false
-    }
-
-})
+ 
+  minCount: {
+    type: Number,
+    default: 1
+  },
+  maxCount: {
+    type: Number,
+    default: 10
+  }
+});
 
 const emits = defineEmits(['update:count']);
 
-const updateValue = (event) => {
-    console.log("addfdf")
-    const newValue = Number(event.target.value)
-    if (!isNaN(newValue) && newValue >= props.min && newValue <= props.max) {
-        emits('update:count', newValue)
-    }
-}
+const valueCount = ref(1);
 
-//aumenta el valor
 const increment = () => {
-    if(props.value < props.max){
-        emits('update:count',  props.value +1);
-        console.log(props.value)
-        
-    }
+  if (valueCount.value < props.maxCount) {
+    valueCount.value++;
+    emits('update:count', valueCount.value)
+  }
 }
 
 const decrement = () => {
-    if(props.value>props.min){
-        console.log("puede restar")
-        count--;
-        emits('update:count', count);
-    }
+  if(valueCount.value > props.minCount){
+    valueCount.value--;
+    emits('update:count', valueCount.value)
+  }
 }
 
+
 </script>
+
+
+
+
 
 
 <style scoped>
