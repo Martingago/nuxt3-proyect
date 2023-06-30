@@ -1,6 +1,6 @@
 <template>
     <section
-        class="container d-flex justify-content-center align-items-center  flex-md-nowrap my-5 flex-md-row flex-column gap-4 gap-lg-5">
+        class="container d-flex  flex-md-nowrap my-5 flex-md-row flex-column align-items-between justify-content-between gap-4 p-0">
 
         <article class="d-flex flex-fill flex-grow-1 flex-column flex-fill justify-content-center align-items-center my-3 shadow rounded p-3 col-md-3">
             <NuxtLink class=" d-flex" to="/home">

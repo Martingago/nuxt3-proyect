@@ -1,36 +1,27 @@
 <template>
-    <div class="d-flex">
-        <div class="col-md-8">
-            <h3>Caraterísticas</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus error architecto iusto ad laborum. Voluptatum
+    <div class="d-flex flex-lg-row flex-column justify-content-between mt-5 gap-lg-4 gap-md-3">
+        <div class="col-lg-7 col-md-12 p-2">
+            <h3 class="text-uppercase fw-bold">Caraterísticas</h3>
+            <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus error architecto iusto ad laborum. Voluptatum
                 consequatur maxime minus nihil optio? Tempore minus fugit, aliquid dignissimos suscipit, ipsa magnam iure, neque
                 odit mollitia ipsum optio? Odio repellendus sunt ducimus ea similique inventore repudiandae fugiat veniam ex
-                porro iusto explicabo vel sapiente maiores, consequatur commodi error quidem libero mollitia illo dolore. Ab
-            numquam dolore atque non optio eos, sit, exercitationem quidem tempora debitis excepturi, ut sequi perspiciatis
-            obcaecati vel tempore. Ducimus eum est magnam autem facilis? Fugiat, ut distinctio tenetur laudantium molestias
-            adipisci dignissimos voluptas necessitatibus recusandae sed eveniet voluptate rem mollitia natus tempora illum
-            animi neque ea nesciunt cumque itaque expedita laboriosam! Debitis officia deserunt labore tempora? A minus
-            magni placeat sunt eius rem maiores? Doloremque voluptatibus iure, sunt, aperiam magnam at dolorem quod
-            necessitatibus inventore omnis, repellendus ab atque corrupti.</p>
+                porro iusto explicabo vel sapiente maiores, consequatur commodi   </p>
         </div>
         
-        <div class="specifications-item col-4">
-        <h3>Contenido</h3>
-        <ul class=" p-3">
-            <li class="d-flex">
-                <p>40 x 40 x 50</p>
+        <div class="specifications-item col-lg-4 col-md-12 p-2">
+        <h3 class="text-uppercase fw-bold">Contenido</h3>
+        <ul class="d-flex flex-sm-column flex-md-row flex-lg-column">
+            <li class="d-flex flex-fill">
+                <p class="fw-bold ">1x</p>
+                <p class="">Auricular </p>
             </li>
-            <li class="d-flex">
-                <p class="fw-bold">1</p>
-                <p >Auricular </p>
+            <li class="d-flex flex-fill">
+                <p class="fw-bold">1x</p>
+                <p class="">Manual de usuario</p>
             </li>
-            <li class="d-flex">
-                <p class="fw-bold">1</p>
-                <p>Manual de usuario</p>
-            </li>
-            <li class="d-flex">
-                <p class="fw-bold">1</p>
-                <p>cable de sonido 3.5mm de 2m</p>
+            <li class="d-flex flex-fill">
+                <p class="fw-bold">1x</p>
+                <p class="pr-2">cable de sonido 3.5mm de 2m</p>
             </li>
         </ul>
         </div>
@@ -40,8 +31,9 @@
 
 <style scoped>
 
-.specifications-item{
-    
+.specifications-item ul li > p:first-child{
+    color: rgb(230, 150, 75);
+    padding-right: .5rem;
 }
 
 

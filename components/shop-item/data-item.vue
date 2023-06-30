@@ -7,7 +7,7 @@
 
 
         <div class="price-data-product">
-            <p class="fs-5 fw-bold">{{ precioTotal }}</p>
+            <p class="fs-5 fw-bold">{{ precioTotal + "€" }}</p>
             <shop-item-btn-item-count class="btn-cant" @update:count="calculo"></shop-item-btn-item-count>
             <button class="text-light">Añadir al carrito</button>
         </div>
