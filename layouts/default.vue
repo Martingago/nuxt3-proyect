@@ -11,6 +11,7 @@
 </template>
 
 <script setup>
+
 import FooterWeb from '~~/components/footer/FooterWeb.vue'
 import HeaderWeb from '~~/components/header/HeaderWeb.vue';
 
@@ -38,6 +39,23 @@ useHead({
     ]
 }
 );
+
+
+onMounted(async ()=> {
+//     const email = "holdf@gmail.com";
+// const password = "holahola";
+//const credentials = await createUser(email, password);
+//console.log(credentials)
+
+// const credentials = await signInUser(email, password)
+// console.log(credentials);
+
+// const disconnect = await signOutUser()
+// console.log("disconnect: " + disconnect)
+
+})
+
+
 
 </script>
 
