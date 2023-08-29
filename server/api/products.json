@@ -1,0 +1,56 @@
+{
+    "productos": [
+      {
+        "titulo": "Auriculares",
+        "nombre": "XX99 MARK II HEADPHONES",
+        "descripcion": "Los nuevos XX99 auriculares son el pináculo del audio digital. Redefine la experiencia de unos auriculares premium reproduciendo el balanceado, profundo y preciso sonido con calidad de estudio de grabación",
+        "imagenes": [
+          "ruta/a/imagen1.jpg",
+          "ruta/a/imagen2.jpg",
+          "ruta/a/imagen3.jpg"
+        ],
+        "precio": 59.99,
+        "stock": 10,
+        "caracteristicas_tecnicas": [
+          "Cancelación de ruido",
+          "Conexión Bluetooth",
+          "Batería de larga duración"
+        ]
+      },
+      {
+        "titulo": "Altavoces",
+        "nombre": "ZX9 SPEAKER",
+        "descripcion": "Mejora a los altavoces premium que son fenomenalmente construidos para entregar un sonido realmente remarcable",
+        "imagenes": [
+          "ruta/a/imagen4.jpg",
+          "ruta/a/imagen5.jpg",
+          "ruta/a/imagen6.jpg"
+        ],
+        "precio": 99.99,
+        "stock": 5,
+        "caracteristicas_tecnicas": [
+          "Potencia de salida: 50W",
+          "Conexión inalámbrica",
+          "Control remoto"
+        ]
+      },
+      {
+        "titulo": "In-ear",
+        "nombre": "YX1 HEARPHONES",
+        "descripcion": "Auriculares compactos y cómodos para llevar a todas partes.",
+        "imagenes": [
+          "ruta/a/imagen7.jpg",
+          "ruta/a/imagen8.jpg",
+          "ruta/a/imagen9.jpg"
+        ],
+        "precio": 29.99,
+        "stock": 15,
+        "caracteristicas_tecnicas": [
+          "Diseño ergonómico",
+          "Cancelación de ruido",
+          "Control de volumen integrado"
+        ]
+      }
+    ]
+  }
+  

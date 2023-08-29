@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex container m-auto p-0 gap-2">
+    <div class="d-flex container m-auto p-0 gap-2 flex-column flex-md-row ">
 
         <figure class="col-sm-12 col-md-6">
             <img class="rounded img-fluid bg-dark" src="@/assets/img/call-to-action/banner-audiophile-auriculares-inalambricos.png"
