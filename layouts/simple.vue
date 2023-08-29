@@ -1,19 +1,14 @@
 <template>
-    <div class="main-container">
-        <HeaderWeb></HeaderWeb>
+        <div class="main-container">
         <main>
 
             <slot />
         </main>
         <FooterWeb></FooterWeb>
-
     </div>
 </template>
 
 <script setup>
-
-import FooterWeb from '~~/components/footer/FooterWeb.vue'
-import HeaderWeb from '~~/components/header/HeaderWeb.vue';
 
 useHead({
     titleTemplate: "%s - Intro a Nuxt",
@@ -48,13 +43,11 @@ onMounted(async ()=> {
 
 
 </script>
-
 <style scoped>
 .main-container {
     display: grid;
     grid-template-rows:1fr auto;
-    margin-top: 150px;
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh);
 
 }
 </style>
