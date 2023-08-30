@@ -11,7 +11,7 @@
             <NuxtLink to="/login" class="btn btn-warning p-1">Identificarse</NuxtLink>
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <p class="new-client-txt mb-0">¿Eres cliente nuevo?</p>
-                <NuxtLink class="new-client-link" to="/">Crear cuenta </NuxtLink>
+                <NuxtLink class="new-client-link" to="/users/createAccount">Crear cuenta </NuxtLink>
             </div>
         </div>
     </div>

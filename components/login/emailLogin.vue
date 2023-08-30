@@ -5,11 +5,11 @@
             <h2 class="text-center">Iniciar sesión</h2>
             <span>
                 <label for="formEmail" class="form-label m-0">Dirección de email:</label>
-                <input type="email" v-model="email" class="form-control" id="formEmail" placeholder="Email">
+                <input type="email" autocomplete="username" v-model="email" class="form-control" id="formEmail" placeholder="Email">
             </span>
             <span>
                 <label for="formPassword"  class="form-label m-0">Contraseña:</label>
-                <input type="password" v-model="password" id="formPassword" class="form-control" placeholder="Contraseña"
+                <input type="password" v-model="password" autocomplete="current-password" id="formPassword" class="form-control" placeholder="Contraseña"
                     aria-describedby="passwordHelpBlock">
             </span>
 
@@ -21,16 +21,13 @@
 
 <script setup>
 
-//Iniciar sesion:
-//const email = "holdf@gmail.com";
-//const password = "holahola";
 
 const email = ref("");
 const password = ref("");
 const signIn = async () => {
-    console.log(email.value, password.value)
     const credentials = await signInUser(email.value, password.value)
     console.log("sesion iniciada:", credentials);
+    return credentials;
 }
 
 </script>

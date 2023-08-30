@@ -40,8 +40,15 @@ useHead({
 }
 );
 
-
 onMounted(async ()=> {
+    const email = "test@example.com";
+    const password = "passwordtest";
+
+    const credentials = await signInUser(email, password);
+    console.log(credentials)
+
+    const login = await initUser();
+    console.log("login=> ", login)
 
 })
 

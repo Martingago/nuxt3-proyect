@@ -13,14 +13,17 @@
         </div>
         <ul class="navbar-nav bg-dark m-auto ms-auto mb-2 mb-lg-0 gap-3" v-else>
           <li class="nav-item m-auto" v-for="producto in productos" :key="producto.id">
-            <NuxtLink class="nav-link" :to="`${producto.titulo}`" :producto="producto">{{ producto.titulo }}</NuxtLink>
+            <NuxtLink class="nav-link" :to="`/${producto.titulo}`" :producto="producto">{{ producto.titulo }}</NuxtLink>
           </li>
         </ul>
       </div>
 
       <ButtonsLoginButon></ButtonsLoginButon>
+      <ButtonsLogOutButon></ButtonsLogOutButon>
+
       <NuxtLink class="navbar-brand fs-5 order-first order-lg-last" to="/"><font-awesome-icon
-          :icon="['fas', 'cart-shopping']" /></NuxtLink>
+          :icon="['fas', 'cart-shopping']" />
+        </NuxtLink>
     </div>
   </nav>
 </template>
@@ -32,10 +35,6 @@ const productoData = ref([]);
 const { data: p, error, pending } = await useFetch('/api/products');
 //console.log(p, error)
 const productos = toRaw(p.value.productos.productos);
-
-
-
-
 
 </script>
 

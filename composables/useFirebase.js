@@ -37,6 +37,7 @@ const initUser = async () => {
             console.log(uid);
             // ...
         } else {
+            console.log("no estas")
         }
     });
 }
