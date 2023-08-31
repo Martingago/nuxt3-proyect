@@ -1,8 +1,10 @@
 <template>
     <div class="main-container">
-        <HeaderWeb></HeaderWeb>
+        <HeaderWeb :userData = firebase></HeaderWeb>
         <main>
 
+            <div v-if="firebase">Iniciada la sesion</div>
+            <div v-else>Sesion sin iniciar</div>
             <slot />
         </main>
         <FooterWeb></FooterWeb>
@@ -41,16 +43,11 @@ useHead({
 );
 
 onMounted(async ()=> {
-    const email = "test@example.com";
-    const password = "passwordtest";
-
-    const credentials = await signInUser(email, password);
-    console.log(credentials)
-
-    const login = await initUser();
-    console.log("login=> ", login)
-
+    const route = useRoute();
+console.log("route:", route.redirectedFrom)
 })
+const login = await initUser();
+const firebase = useFirebaseUser();
 
 
 

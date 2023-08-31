@@ -2,6 +2,7 @@
   <nav class="navbar bg-dark fixed-top navbar-expand-lg p-5" data-bs-theme="dark">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand fs-2 order-first " to="/">Audiophile</NuxtLink>
+      <!-- <pre>{{ props }}</pre> -->
       <button class="btn border-0 navbar-toggler ms-auto order-first" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -17,9 +18,9 @@
           </li>
         </ul>
       </div>
-
-      <ButtonsLoginButon></ButtonsLoginButon>
-      <ButtonsLogOutButon></ButtonsLogOutButon>
+      <ButtonsLogOutButon v-if="props.userData"></ButtonsLogOutButon>
+      <ButtonsLoginButon v-else></ButtonsLoginButon>
+      
 
       <NuxtLink class="navbar-brand fs-5 order-first order-lg-last" to="/"><font-awesome-icon
           :icon="['fas', 'cart-shopping']" />
@@ -29,6 +30,12 @@
 </template>
 
 <script setup>
+
+const props = defineProps({
+  userData: Object
+})
+
+console.log("props",props.userData)
 
 const productoData = ref([]);
 
