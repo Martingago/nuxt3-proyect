@@ -1,5 +1,5 @@
 <template>
-    <NuxtLayout :name="layout">
+    <NuxtLayout>
         <div class="container h-100 w-fit d-flex flex-column p-3 p-md-5">
 
             <login-emailLogin></login-emailLogin>
@@ -13,10 +13,9 @@
 
 <script setup>
 definePageMeta({
-    layout: false,
+    layout: "simple",
 });
 
-const layout = "simple";
 </script>
 
 <style scoped>

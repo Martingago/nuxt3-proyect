@@ -35,13 +35,6 @@ useHead({
 }
 );
 
-
-onMounted(async ()=> {
-
-})
-
-
-
 </script>
 <style scoped>
 .main-container {
