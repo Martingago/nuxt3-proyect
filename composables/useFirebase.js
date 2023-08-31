@@ -17,13 +17,11 @@ const createUser = async (email, password) => {
 
 const signInUser = async (email, password) => {
     const auth = getAuth();
-    const lastVisitedPage = sessionStorage.getItem('lastVisitedPage');
-    console.log("ultima pagina:", lastVisitedPage)
-    //Registrar usuario
     const credentials = await signInWithEmailAndPassword(auth, email, password)
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log(errorCode)
         });
         return credentials;
 }
@@ -37,14 +35,8 @@ const initUser = async () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
-            console.log("Sesion iniciada: ",uid);
-            // ...
-        } else {
-            console.log("no estas")
-            
-        }
+        } 
         firebaseUser.value = user;
-        console.log("datos del usuario:", firebaseUser.value)
     });
 }
 

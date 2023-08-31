@@ -1,7 +1,7 @@
 <template>
     <div class="btn-container position-relative">
         <!-- Boton de iniciar sesion -->
-        <button id="btn-login-user" type="button" class="btn btn-primary" @click="signIn" @mouseover="showPopOver = true"
+        <button id="btn-login-user" type="button" class="btn btn-primary" @click="navigateTo('/login')" @mouseover="showPopOver = true"
             @mouseleave="showPopOver = false">Iniciar
             sesion
         </button>
@@ -21,8 +21,6 @@
 <script setup>
 
 const showPopOver = ref(false);
-
-
 
 </script>
 

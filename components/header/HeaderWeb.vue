@@ -2,7 +2,6 @@
   <nav class="navbar bg-dark fixed-top navbar-expand-lg p-5" data-bs-theme="dark">
     <div class="container-fluid">
       <NuxtLink class="navbar-brand fs-2 order-first " to="/">Audiophile</NuxtLink>
-      <!-- <pre>{{ props }}</pre> -->
       <button class="btn border-0 navbar-toggler ms-auto order-first" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -34,8 +33,6 @@
 const props = defineProps({
   userData: Object
 })
-
-console.log("props",props.userData)
 
 const productoData = ref([]);
 

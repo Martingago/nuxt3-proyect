@@ -26,6 +26,7 @@ export default defineNuxtConfig({
   ],
   css: [
     '~/assets/css/global.css',
+    'bootstrap/dist/css/bootstrap.min.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
   ],
 
