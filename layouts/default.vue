@@ -2,9 +2,6 @@
     <div class="main-container">
         <HeaderWeb :userData = firebase></HeaderWeb>
         <main>
-
-            <div v-if="firebase">Iniciada la sesion</div>
-            <div v-else>Sesion sin iniciar</div>
             <slot />
         </main>
         <FooterWeb></FooterWeb>

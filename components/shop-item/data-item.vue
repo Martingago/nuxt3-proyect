@@ -57,12 +57,6 @@ const calculo = (value) => {
     }
 }
 
-/* @media screen and (min-width: 1250px) {
-    .data-product{
-        max-width: 450px;
-    }
-} */
-
 button {
     background-color: rgb(230, 150, 75);
 }

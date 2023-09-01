@@ -1,6 +1,6 @@
 <template>
     <div class="main-container">
-        <main :userData = firebase>
+        <main>
 
             <slot />
         </main>
@@ -14,8 +14,8 @@ useHead({
     titleTemplate: "%s - Intro a Nuxt",
 }
 );
-const login = await initUser();
-const firebase = useFirebaseUser();
+//const login = await initUser();
+//const firebase = useFirebaseUser();
 
 </script>
 

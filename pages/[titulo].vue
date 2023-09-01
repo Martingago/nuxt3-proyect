@@ -26,7 +26,7 @@ const {data : p, error, pending} = await useFetch("/api/products");
 //console.log(p, error, pending);
 const productos = toRaw(p.value.productos.productos); 
 const dataProduct = productos.find(item => item.titulo === titulo)
-//console.log(dataProduct)
+console.log(dataProduct)
 </script>
 
 <style scoped>

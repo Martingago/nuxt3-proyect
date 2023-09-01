@@ -5,8 +5,6 @@
 </template>
 
 <script setup>
-
-const login = await initUser();
-const firebase = useFirebaseUser();
+console.log("-- APP --")
 
 </script>
