@@ -32,8 +32,6 @@ const initUser = async () => {
     //Se añade la informacion del usuario en el store:
     const firebaseUser = useFirebaseUser();
     firebaseUser.value = auth.currentUser;
-
-    const userCookie = useCookie('userCookie')
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
@@ -42,7 +40,6 @@ const initUser = async () => {
             console.log("auth changed", user)
         }
         firebaseUser.value = user;
-        userCookie.value = user; //ignorar el error 
     });
 }
 

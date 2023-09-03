@@ -19,15 +19,8 @@
 <script setup>
 
 definePageMeta({
-  
-  // or middleware: 'auth'
-})
-
-definePageMeta({
     layout: "simple",
 });
-
-const login = await initUser();
 const firebase = useFirebaseUser();
 
 </script>
