@@ -1,7 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
+
 export { getDataFromStore }
-
-
 
 
 const getDataFromStore = async () => {

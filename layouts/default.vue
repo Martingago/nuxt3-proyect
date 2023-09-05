@@ -9,7 +9,10 @@
 </template>
 
 <script setup>
+
 const firebase = useFirebaseUser();
+
+
 
 </script>
 

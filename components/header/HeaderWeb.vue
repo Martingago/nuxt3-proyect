@@ -14,6 +14,7 @@
 
         <ul class="navbar-nav bg-dark  mb-2 mb-lg-0 gap-3">
           <NuxtLink to="/">Inicio</NuxtLink>
+          <NuxtLink to="/admin">admin</NuxtLink>
           <NuxtLink to="/productos">Productos</NuxtLink>
           <ButtonsLogOutButon v-if="props.userData"></ButtonsLogOutButon>
           <ButtonsLoginButon v-else></ButtonsLoginButon>

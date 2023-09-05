@@ -15,18 +15,21 @@ export default defineNuxtPlugin(nuxtApp => {
     };
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    //Initialize FireStore
     const db = getFirestore(app);
     console.log("app:", app)
-    initUser();
-
-    //initialize Firestores
     console.log("db:", db)
     const auth = getAuth();
+    const init = initUser();
+    console.log("auth", auth);
+
+
     //Exportamos valores:
     nuxtApp.vueApp.provide('db', db);
+    nuxtApp.vueApp.provide('init', init);
+    nuxtApp.provide('int', init)
     nuxtApp.provide('auth', auth);
     nuxtApp.vueApp.provide('auth', auth);
     nuxtApp.provide('db', db);
-
-    return {db, auth}
+    
 });

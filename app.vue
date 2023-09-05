@@ -5,6 +5,6 @@
 </template>
 
 <script setup>
-console.log("-- APP --")
-
+console.log("-- APP --");
+const firebase = useFirebaseUser();
 </script>

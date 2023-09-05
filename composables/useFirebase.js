@@ -27,7 +27,7 @@ const signInUser = async (email, password) => {
 }
 
 
-const initUser = async () => {
+const initUser =  () => {
     const auth = getAuth();
     //Se añade la informacion del usuario en el store:
     const firebaseUser = useFirebaseUser();
