@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-                <span class="category-selected">{{ dataNotification.nombre_categoria }}</span> ha sido eliminado con éxito
+             {{ message }}
             </div>
         </div>
     </div>
@@ -16,10 +16,7 @@
 <script setup>
 
 const props = defineProps({
-    dataNotification:{
-        type: Object,
-        required: true
-    }
+    message : String
 })
 </script>
 

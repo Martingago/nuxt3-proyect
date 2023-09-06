@@ -10,9 +10,9 @@
             <div class="d-flex flex-column">
                 <label for="descripcionCategoria">Breve descipción de la categoría</label>
                 <textarea class="p-1" v-model="descripcionCategoria" name="descipcionCategoria" id="descripcionCategoria"
-                    cols="30" rows="5" placeholder="Descripción"  required></textarea>
+                    cols="30" rows="5" placeholder="Descripción" required></textarea>
             </div>
-            <pre>{{ dataCategory }}</pre>
+            <!-- <pre>{{ dataCategory }}</pre> -->
             <!-- loading -->
             <div v-if="loading"
                 class="loading position-absolute d-flex flex-column  justify-content-center align-items-center">
@@ -27,6 +27,7 @@
         </div>
 
     </form>
+    
 </template>
 
 <script setup>
@@ -35,6 +36,10 @@ const nombreCategoria = ref("");
 const descripcionCategoria = ref("");
 const idCategoria = ref("");
 const loading = ref(false);
+
+const pushmsg= ref("");
+
+const emit = defineEmits(['toast-msg'])
 
 const props = defineProps({
     action: String,
@@ -45,11 +50,11 @@ const props = defineProps({
 
 //En caso de editar texto coloca como valor por defecto del texto la información obtenida
 watch(() => props.dataCategory, (newVal) => {
-  if (props.action === 'edit' && newVal) {
-    nombreCategoria.value = newVal.nombre_categoria;
-    descripcionCategoria.value = newVal.descripcion_categoria;
-    idCategoria.value = newVal.id;
-  }
+    if (props.action === 'edit' && newVal) {
+        nombreCategoria.value = newVal.nombre_categoria;
+        descripcionCategoria.value = newVal.descripcion_categoria;
+        idCategoria.value = newVal.id;
+    }
 })
 
 const docData = {
@@ -62,19 +67,25 @@ const addCategory = async () => {
     docData.descripcion_categoria = descripcionCategoria.value;
     try {
         loading.value = true;
-        if (props.action === 'add') { //Añadir categoria
-            console.log("Añadiendo nueva categoría")
+        if (props.action === 'add') {
+            //Añadir categoria
             await subirCategoria(docData);
+             pushmsg.value = `${docData.nombre_categoria} ha sido publicado correctamente`;
+
             //reestablece a vacio los textos del formulario
             nombreCategoria.value = "";
             descripcionCategoria.value = "";
-        }else if(props.action === 'edit'){ //editar categoria
+        } else if (props.action === 'edit') {
+            //editar categoria
+
             await actualizarCategoriaProducto(idCategoria.value, docData);
-        }else{
+            pushmsg.value = `${docData.nombre_categoria} ha sido actualizado correctamente`;
+        } else {
             console.log("error inesperado")
         }
-
         loading.value = false;
+        //se realiza el emit
+        emit('toast-msg', pushmsg.value);
     } catch (error) {
         console.log(error)
     }

@@ -22,10 +22,11 @@
             </div>
         </div>
     </div>
-    <modal-toast :dataNotification="selectedItem"></modal-toast>
 </template>
 
 <script setup>
+
+const emit = defineEmits(['toast-msg'])
 
 const props = defineProps({
     selectedItem: {
@@ -33,6 +34,8 @@ const props = defineProps({
         required: true
     }
 })
+
+const delmsg = ref("");
 
 const handleAccept = () => {
     const id = props.selectedItem.id;
@@ -42,10 +45,8 @@ const handleAccept = () => {
     const { $bootstrap } = useNuxtApp();
     const modal = $bootstrap.Modal.getInstance(myModalEl);
     modal.hide();
-    //mostrar toast
-    var toastEl = document.getElementById('liveToast');
-    var toast = new $bootstrap.Toast(toastEl);
-    toast.show();
+    delmsg.value = `${props.selectedItem.nombre_categoria} ha sido eliminado`
+    emit('toast-msg', delmsg.value);
 }
 
 </script>

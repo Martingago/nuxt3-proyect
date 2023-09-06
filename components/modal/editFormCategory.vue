@@ -7,7 +7,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <forms-addCategoryProduct action="edit" title="Editar categoría de producto" buttonText="Actualizar categoría" :dataCategory="selectedItem"></forms-addCategoryProduct>
+                    <forms-addCategoryProduct action="edit" title="Editar categoría de producto" buttonText="Actualizar categoría" @toast-msg="actualizarDatos" :dataCategory="selectedItem"></forms-addCategoryProduct>
                 </div>
             </div>
         </div>
@@ -15,6 +15,11 @@
 </template>
 
 <script setup>
+
+const emit = defineEmits(['toast-msg']);
+const actualizarDatos = (msg) => {
+    emit('toast-msg', msg)
+}
 
 const props = defineProps({
     selectedItem : Object,

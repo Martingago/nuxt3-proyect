@@ -34,8 +34,8 @@
 
     </section>
     <!-- Ventana modal de confirmacion de eliminacion de datos -->
-    <ModalDeleteElement :selectedItem="selectedItem"></ModalDeleteElement>
-    <ModalEditFormCategory :selectedItem="selectedItem"></ModalEditFormCategory>
+    <ModalDeleteElement @toast-msg="actualizarDatos" :selectedItem="selectedItem"></ModalDeleteElement>
+    <ModalEditFormCategory @toast-msg="actualizarDatos" :selectedItem="selectedItem"></ModalEditFormCategory>
 </template>
 
 <script setup>
@@ -44,7 +44,11 @@ const data = ref({});
 const loading = ref(false);
 const selectedItem = ref({});
 
-
+const emit = defineEmits(['toast-msg'])
+const actualizarDatos = (msg) => {
+    console.log("algo pasa")
+    emit('toast-msg', msg)
+}
 
 onMounted(async () => {
     data.value = await listarCategoriaProducto();
