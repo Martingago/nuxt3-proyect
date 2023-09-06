@@ -4,7 +4,7 @@
 <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
 
   
-  <forms-addCategoryProduct></forms-addCategoryProduct>
+  <forms-addCategoryProduct action="add" title="Añadir categoría de producto" buttonText="Subir producto"></forms-addCategoryProduct>
   <forms-uploadProduct></forms-uploadProduct>
 </div>
 

@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="addCategory" class="d-flex flex-column  gap-3 container shadow rounded p-3">
         <fieldset class="d-flex flex-column gap-3 position-relative">
-            <h3 class="text-center">Añadir categoria de producto</h3>
+            <h3 class="text-center">{{ title }}</h3>
             <div class=" d-flex flex-column">
                 <label for="nombreCategoria">Nombre de la categoria</label>
                 <input v-model="nombreCategoria" type="text" name="nombreCategoria" id="nombreCategoria"
@@ -9,9 +9,10 @@
             </div>
             <div class="d-flex flex-column">
                 <label for="descripcionCategoria">Breve descipción de la categoría</label>
-                <textarea class="p-1" v-model="descripcionCategoria" name="descipcionCategoria" id="descripcionCategoria" cols="30"
-                    rows="3" placeholder="Descripción" required></textarea>
+                <textarea class="p-1" v-model="descripcionCategoria" name="descipcionCategoria" id="descripcionCategoria"
+                    cols="30" rows="5" placeholder="Descripción"  required></textarea>
             </div>
+            <pre>{{ dataCategory }}</pre>
             <!-- loading -->
             <div v-if="loading"
                 class="loading position-absolute d-flex flex-column  justify-content-center align-items-center">
@@ -22,7 +23,7 @@
             </div>
         </fieldset>
         <div class="d-flex justify-content-end">
-            <button class="btn btn-primary m-end" :disabled="loading">Subir categoria</button>
+            <button class="btn btn-primary m-end" :disabled="loading">{{ buttonText }}</button>
         </div>
 
     </form>
@@ -32,7 +33,24 @@
 
 const nombreCategoria = ref("");
 const descripcionCategoria = ref("");
+const idCategoria = ref("");
 const loading = ref(false);
+
+const props = defineProps({
+    action: String,
+    title: String,
+    buttonText: String,
+    dataCategory: Object
+})
+
+//En caso de editar texto coloca como valor por defecto del texto la información obtenida
+watch(() => props.dataCategory, (newVal) => {
+  if (props.action === 'edit' && newVal) {
+    nombreCategoria.value = newVal.nombre_categoria;
+    descripcionCategoria.value = newVal.descripcion_categoria;
+    idCategoria.value = newVal.id;
+  }
+})
 
 const docData = {
     nombre_categoria: "default",
@@ -44,16 +62,24 @@ const addCategory = async () => {
     docData.descripcion_categoria = descripcionCategoria.value;
     try {
         loading.value = true;
-        await subirCategoria(docData)
-        nombreCategoria.value = "";
-        descripcionCategoria.value = "";
+        if (props.action === 'add') { //Añadir categoria
+            console.log("Añadiendo nueva categoría")
+            await subirCategoria(docData);
+            //reestablece a vacio los textos del formulario
+            nombreCategoria.value = "";
+            descripcionCategoria.value = "";
+        }else if(props.action === 'edit'){ //editar categoria
+            await actualizarCategoriaProducto(idCategoria.value, docData);
+        }else{
+            console.log("error inesperado")
+        }
+
         loading.value = false;
     } catch (error) {
         console.log(error)
     }
 
 }
-
 
 </script>
 

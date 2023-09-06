@@ -4,6 +4,7 @@
         <table v-if="loading" class="m-3">
             <thead>
                 <tr>
+                    <th>Opciones</th>
                     <th>Categoria</th>
                     <th>Descripcion categoria</th>
                 </tr>
@@ -11,6 +12,13 @@
             <tbody>
                 <!-- Agrega filas aquí -->
                 <tr v-for="item in data" :key="item.id" class="elemento-categoria">
+                    <td class="options"><button class="w-100 mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="handleClick(item)" >
+                            <font-awesome-icon :icon="['fas', 'trash-can']" />
+                        </button>
+                        <button class="w-100 mt-1" data-bs-toggle="modal" data-bs-target="#editCategoryModal" @click="handleClick(item)">
+                            <font-awesome-icon :icon="['fas', 'pen']" />
+                        </button>
+                    </td>
                     <td>{{ item.nombre_categoria }}</td>
                     <td>{{ item.descripcion_categoria }}</td>
                 </tr>
@@ -25,19 +33,28 @@
         </div>
 
     </section>
+    <!-- Ventana modal de confirmacion de eliminacion de datos -->
+    <ModalDeleteElement :selectedItem="selectedItem"></ModalDeleteElement>
+    <ModalEditFormCategory :selectedItem="selectedItem"></ModalEditFormCategory>
 </template>
 
 <script setup>
 
 const data = ref({});
 const loading = ref(false);
+const selectedItem = ref({});
+
+
 
 onMounted(async () => {
-    console.log(data.value)
     data.value = await listarCategoriaProducto();
     loading.value = true;
 })
 
+
+const handleClick = (object) => {
+    selectedItem.value = object;
+}
 </script>
 
 <style scoped>
@@ -47,8 +64,18 @@ table {
 
 table td,
 th {
-    height: 20px;
     padding: .25rem;
     border: 2px solid black
+}
+
+.id-selected {
+    font-weight: 600;
+    text-decoration: underline;
+    color: rgb(56, 56, 56)
+}
+
+.category-selected {
+    font-weight: 600;
+    text-transform: uppercase;
 }
 </style>
