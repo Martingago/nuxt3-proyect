@@ -1,41 +1,23 @@
-import { addDoc, collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 export { subirCategoria, listarCategoriaProducto, eliminarCategoriaProducto, actualizarCategoriaProducto }
 
+const FIRESTORE_NAME = "categoria_productos";
+
+//Sube datos de las categorias al la BBDD
 const subirCategoria = async (docData) => {
-    const { $db } = useNuxtApp();
-    const docRef = await addDoc(collection($db, "categoria_productos"), docData);
-    console.log("Document written with ID: ", docRef.id);
+    await uploadDatatoStore(FIRESTORE_NAME, docData);
 }
 
-
+//Lista los elementos existentes  de categorias en la BBDD
 const listarCategoriaProducto = async () => {
-    const { $db } = useNuxtApp();
-    const data = [];
-    const querySnapshot = await getDocs(collection($db, "categoria_productos"));
-    querySnapshot.forEach((doc) => {
-
-        const item = {
-            ...doc.data(),
-            id: doc.id,
-        };
-        data.push(item);
-    });
-    return data;
+    return getDataFromStore(FIRESTORE_NAME);
 }
 
+//Elimina un objeto categoria de la BBDD
 const eliminarCategoriaProducto = async (identificador) => {
-    const { $db } = useNuxtApp();
-    await deleteDoc(doc($db, "categoria_productos", identificador));
+    deleteFromStore(FIRESTORE_NAME, identificador);
 }
 
+//Actualiza informacion de un objeto específico de la BBDD
 const actualizarCategoriaProducto = async (identificador, data) => {
-    const { $db } = useNuxtApp();
-    try {
-        const docRef = doc($db, "categoria_productos", identificador)
-        await updateDoc(docRef, data)
-
-    } catch (error) {
-        console.log(error)
-    }
-
+    updateDataToStore(FIRESTORE_NAME, identificador, data)
 }

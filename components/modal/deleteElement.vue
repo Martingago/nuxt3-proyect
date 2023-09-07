@@ -11,7 +11,7 @@
                     <h4 class="w-100 text-center fs-2 mb-3"> ATENCIÓN</h4>
                     <p class="text-center mb-0 fs-5">Categoria: <span class="category-selected">"{{
                         selectedItem.nombre_categoria }}" </span> con identificador: <span class="id-selected">{{
-        selectedItem.id }}</span> será eliminada.</p>
+                        selectedItem.id }}</span> será eliminada.</p>
                     <p class="text-center fs-5">Esto puede afectar a aquellos productos que estén vinculados a ésta
                         categoría</p>
                 </div>
@@ -39,7 +39,7 @@ const delmsg = ref("");
 
 const handleAccept = () => {
     const id = props.selectedItem.id;
-    eliminarCategoriaProducto(id);
+    deleteFromStore("categoria_productos", id)
     //Cerrar ventana
     const myModalEl = document.getElementById('deleteModal');
     const { $bootstrap } = useNuxtApp();

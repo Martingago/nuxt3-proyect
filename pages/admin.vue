@@ -1,12 +1,16 @@
 <template>
-    <h4>Pagina de admin</h4>
-    <admin-listCategory @toast-msg="mostrarToast"></admin-listCategory>
-<div class="container d-flex flex-column justify-content-center align-items-center gap-4">
-
-  
-  <forms-addCategoryProduct  @toast-msg="mostrarToast" action="add" title="Añadir categoría de producto" buttonText="Subir producto"></forms-addCategoryProduct>
-  <forms-uploadProduct></forms-uploadProduct>
-</div>
+    <div class="d-flex flex-column gap-2 m-3">
+      <h1 class="text-center">Página de administración</h1>
+      <h3>Categoria de productos</h3>
+      <ModalAddFormCategory @toast-msg="mostrarToast"></ModalAddFormCategory>
+      <admin-listCategory @toast-msg="mostrarToast"></admin-listCategory>
+      <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
+      
+        <FormsUploadImage></FormsUploadImage>
+        
+        <forms-uploadProduct></forms-uploadProduct>
+      </div>
+    </div>
 <!-- Toast de notificaciones -->
 <modal-toast :message="msgToast"></modal-toast>
 

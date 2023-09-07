@@ -16,7 +16,7 @@
 
 const data = ref();
 onMounted(async () => {
-   data.value = await getDataFromStore()
+   data.value = await getDataFromStore("productos")
 })
 
 </script>

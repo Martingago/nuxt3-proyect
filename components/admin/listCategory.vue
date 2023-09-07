@@ -1,7 +1,7 @@
 <template>
+    <!-- Tabla con el listado de elementos categoria -->
     <section class="d-flex flex-column gap-3">
-        <h2 class="text-center">Listado de Categorias de producto</h2>
-        <table v-if="loading" class="m-3">
+        <table v-if="loading">
             <thead>
                 <tr>
                     <th>Opciones</th>
@@ -46,7 +46,6 @@ const selectedItem = ref({});
 
 const emit = defineEmits(['toast-msg'])
 const actualizarDatos = (msg) => {
-    console.log("algo pasa")
     emit('toast-msg', msg)
 }
 
@@ -54,8 +53,6 @@ onMounted(async () => {
     data.value = await listarCategoriaProducto();
     loading.value = true;
 })
-
-
 const handleClick = (object) => {
     selectedItem.value = object;
 }

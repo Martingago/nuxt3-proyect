@@ -12,7 +12,6 @@
                 <textarea class="p-1" v-model="descripcionCategoria" name="descipcionCategoria" id="descripcionCategoria"
                     cols="30" rows="5" placeholder="Descripción" required></textarea>
             </div>
-            <!-- <pre>{{ dataCategory }}</pre> -->
             <!-- loading -->
             <div v-if="loading"
                 class="loading position-absolute d-flex flex-column  justify-content-center align-items-center">
@@ -25,19 +24,10 @@
         <div class="d-flex justify-content-end">
             <button class="btn btn-primary m-end" :disabled="loading">{{ buttonText }}</button>
         </div>
-
     </form>
-    
 </template>
 
 <script setup>
-
-const nombreCategoria = ref("");
-const descripcionCategoria = ref("");
-const idCategoria = ref("");
-const loading = ref(false);
-
-const pushmsg= ref("");
 
 const emit = defineEmits(['toast-msg'])
 
@@ -48,6 +38,16 @@ const props = defineProps({
     dataCategory: Object
 })
 
+//Elementos del formulario:
+const nombreCategoria = ref("");
+const descripcionCategoria = ref("");
+
+const idCategoria = ref(""); //id del documento (edición)
+const loading = ref(false); //loading
+const pushmsg = ref(""); //mensaje del toast
+
+
+
 //En caso de editar texto coloca como valor por defecto del texto la información obtenida
 watch(() => props.dataCategory, (newVal) => {
     if (props.action === 'edit' && newVal) {
@@ -56,28 +56,32 @@ watch(() => props.dataCategory, (newVal) => {
         idCategoria.value = newVal.id;
     }
 })
-
+//Objeto que tiene la informacion que se subirá/modificará a la BBDD
 const docData = {
-    nombre_categoria: "default",
+    nombre_categoria: "Default",
     descripcion_categoria: "Descripcion default de la categoria"
 }
-
+/**
+ * sube o actualiza los datos dependiendo de la información recibida en el componente || add: nuevo fichero || edit: modificar fichero existente
+ */
 const addCategory = async () => {
     docData.nombre_categoria = nombreCategoria.value;
     docData.descripcion_categoria = descripcionCategoria.value;
+
     try {
         loading.value = true;
         if (props.action === 'add') {
             //Añadir categoria
             await subirCategoria(docData);
-             pushmsg.value = `${docData.nombre_categoria} ha sido publicado correctamente`;
+            pushmsg.value = `${docData.nombre_categoria} ha sido publicado correctamente`;
 
             //reestablece a vacio los textos del formulario
             nombreCategoria.value = "";
             descripcionCategoria.value = "";
         } else if (props.action === 'edit') {
             //editar categoria
-
+            //await updateDataToStore("categoria_productos", idCategoria.value, docData)
+            console.log("id: ", idCategoria.value)
             await actualizarCategoriaProducto(idCategoria.value, docData);
             pushmsg.value = `${docData.nombre_categoria} ha sido actualizado correctamente`;
         } else {
