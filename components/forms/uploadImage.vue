@@ -8,8 +8,9 @@
 
 <script setup>
 
-const imagenes = ref([]);
-const storageRef = ref({});
+//const imagenes = ref([]);
+//const storageRef = ref({});
+
 //propiedades:
 const imagen = ref(null);
 const idProducto = ref('');

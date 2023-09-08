@@ -1,5 +1,5 @@
 import { ref, uploadBytes } from "firebase/storage";
-export { subirFicheroPortada }
+export { subirFicheroPortada, uploadArrayImages }
 
 
 
@@ -14,7 +14,7 @@ const subirFicheroPortada = async (id, file) => {
             await uploadBytes(imagesRef, file).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
-        }else{
+        } else {
             console.log("no se ha añadido una imagen")
         }
     } catch (error) {
@@ -22,3 +22,29 @@ const subirFicheroPortada = async (id, file) => {
     }
 
 }
+
+/**
+ * Permite subir un grupo de imagenes a la BBDD
+ * @param {*} id 
+ * @param {*} arrayFiles 
+ */
+const uploadArrayImages = async (coleccion, id, arrayFiles) => {
+    const { $storage } = useNuxtApp();
+    try {
+        if (arrayFiles && arrayFiles.length >0) {
+            for (let i = 0; i < arrayFiles.length; i++) {
+                const path = `${coleccion}/${id}/views/${arrayFiles[i].name}` //path conformado por el id de producto y la carpeta de views
+                const imageRef = ref($storage, path);
+                 await uploadBytes(imageRef, arrayFiles[i]).then((snapshot) => {
+                    console.log(`Uploaded a blob or file!: [${i+1} de: ${arrayFiles.length}]`);
+                });
+            }
+        } else {
+            console.log("No existen imagenes en el array")
+        }
+    } catch (error) {
+        console.log(`Ha ocurrido un error al subir los archivos: ${error}`)
+    }
+    console.log("Los archivos se han subido con éxito!")
+}
+

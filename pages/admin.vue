@@ -7,6 +7,7 @@
       <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
       
         <FormsUploadImage></FormsUploadImage>
+        <FormsUploadArrayImages></FormsUploadArrayImages>
         
         <forms-uploadProduct></forms-uploadProduct>
       </div>
