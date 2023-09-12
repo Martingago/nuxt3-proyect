@@ -23,6 +23,11 @@
                 <textarea id="descripcionProducto" required cols="1" rows="4"
                     v-model="datos_articulo.descripcion_articulo"></textarea>
             </div>
+
+            <div class="d-flex flex-column">
+                <label for="marcaProducto">Marca del producto</label>
+                <input type="text" name="marcaProducto" v-model="datos_articulo.marca" id="marcaProducto">
+            </div>
         </fieldset>
 
         <!-- Características -->
@@ -35,6 +40,13 @@
                 <button @click="eliminarCaracteristica(index)" class="btn btn-danger">Eliminar</button>
             </div>
             <button @click="agregarCaracteristica" class="btn btn-primary  mt-2 mx-auto">Añadir Característica</button>
+        </fieldset>
+
+        <fieldset class="d-flex flex-column p2- bg-light">
+            <legend class="text-center">Imágenes del producto</legend>
+            <FormsUploadImage @portada-image-update="hanldePortadaImage"></FormsUploadImage>
+            <FormsUploadArrayImages @array-images-update="handleImages"></FormsUploadArrayImages>
+
         </fieldset>
 
         <fieldset class="d-flex flex-column gap-2 rounded bg-light p-2">
@@ -50,8 +62,8 @@
                 <div class="d-flex flex-column">
                     <label for="precioProducto">Precio venta (PVP)</label>
                     <span class="d-flex flex-row justify-content-left align-items-left gap-1">
-                        <input type="number" step="0.01" min="0.10" name="precioProducto" id="precioProducto" class="text-end"
-                            required v-model="datos_articulo.precio_venta" @input="checkAlert">
+                        <input type="number" step="0.01" min="0.10" name="precioProducto" id="precioProducto"
+                            class="text-end" required v-model="datos_articulo.precio_venta" @input="checkAlert">
                         <p class="m-left my-auto fw-600 fs-5">€</p>
                     </span>
                 </div>
@@ -89,7 +101,8 @@
             </div>
             <div class="notification-area rounded">
                 <p v-if="alerta" class="alert alert-danger m-0 p-1">Error! El precio no puede ser menor o igual a 0</p>
-                <p v-if="alertaUpdt" class="alert alert-warning m-0 p-1">Atencion! El precio del producto se ha actualizado de
+                <p v-if="alertaUpdt" class="alert alert-warning m-0 p-1">Atencion! El precio del producto se ha actualizado
+                    de
                     <span class="fw-bold">{{ pvpDesfase }}€</span> a <span class="fw-bold">{{ datos_articulo.precio_venta
                     }}€</span> en base a los descuentos aplicados
                 </p>
@@ -122,13 +135,37 @@ const datos_articulo = ref({
     nombre_articulo: "",
     etiquetas_articulo: [],
     descripcion_articulo: "",
+    marca: "",
     caracteristicas_articulo: [{ caracteristica: "" }],
+    imagenes_producto: {
+        id: "",
+        portada: {},
+        views: []
+    },
     precio_venta: null,
     descuento: null,
     porcentaje_descuento: null,
     precio_anterior: null,
     stock_articulo: null
 })
+
+//imagenes temporales recibidas desde los componentes hijos (selectores de imagenes)
+const temp_images = ref({
+    temp_portada: {},
+    temp_views: []
+})
+
+
+
+const hanldePortadaImage = (image) => {
+    console.log("imagen recibida:", image);
+    temp_images.value.temp_portada = image;
+}
+
+const handleImages = (images) => {
+    console.log("imagenes recibidas:", images)
+    temp_images.value.temp_views = images;
+}
 
 
 //determinar si tiene descuento o no:
@@ -175,7 +212,7 @@ const checkAlert = () => {
     }
 }
 
-const subirProducto = () => {
+const subirProducto = async () => {
     //salta alerta de error de precio
     if (datos_articulo.value.precio_venta < 1) {
         alerta.value = true;
@@ -183,9 +220,27 @@ const subirProducto = () => {
         //se produce un update en el precio en caso de que no se haya producido antes
         calcularPVP();
         if (alertaUpdt.value == true) {
-            console.log("el producto se subirá con la siguiente alerta: Actualización de precio")
+            console.log("el producto se subirá con la siguiente alerta: Actualización de precio");
+
         }
-        console.log(datos_articulo.value)
+        //se suben las imagenes
+        const idImages = Date.now();
+        const arrayImages = temp_images.value.temp_views;
+        const imagenPortada = temp_images.value.temp_portada;
+        datos_articulo.value.imagenes_producto.id = idImages;
+    
+        if(imagenPortada){
+            console.log("subiendo imagen principal...")
+            const imageResult =  await uploadMainImage("productos_images", idImages, imagenPortada);
+            datos_articulo.value.imagenes_producto.portada = imageResult
+        }
+        if(arrayImages){
+            console.log("subiendo conjunto de imágenes...")
+            const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
+            datos_articulo.value.imagenes_producto.views = arrayResult;
+        }
+        console.log("datos para subir:", datos_articulo.value)
+        uploadDatatoStore("productos", datos_articulo.value)
     }
 
 }
@@ -221,4 +276,5 @@ form {
 
 .fw-bold {
     text-decoration: bold;
-}</style>
+}
+</style>

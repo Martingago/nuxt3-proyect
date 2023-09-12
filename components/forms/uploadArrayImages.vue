@@ -4,26 +4,23 @@
         <input type="file" @change="seleccionarImagenes($event)" accept="image/*" name="uploadArrayImages"
             id="uploadArrayImages" multiple>
             <!-- preview de imagenes -->
-        <div id="preview-images" class="preview-images d-flex gap-2 rounded">
+        <div class="preview-images d-flex gap-2 rounded">
             <img @click="eliminarImagen(index)" class="preview-img border border-2" v-for="(src, index) in images"
                 :key="index" :src="src">
         </div>
-        <!-- <button @click="uploadArrayImages('productos_images', Date.now(), arrayImages)" class="btn btn-primary"
-            type="button"> Subir imagen</button> -->
     </div>
 </template>
 
 
 <script setup>
 
-const emit = defineEmits(['arrayImages-update'])
+const emit = defineEmits(['array-images-update'])
 
 const arrayImages = ref([]);
 const images = ref([]);
 
 watch(arrayImages.value, ()=> {
-    console.log("emitiendo datos de arrayImages:", arrayImages.value)
-    emit('arrayImages-update', arrayImages.value)
+    emit('array-images-update', arrayImages.value)
 })
 
 
@@ -37,7 +34,6 @@ const seleccionarImagenes = (event) => {
         }
         reader.readAsDataURL(files[i]);
     }
-    console.log(arrayImages.value)
 }
 
 const eliminarImagen = (index) => {

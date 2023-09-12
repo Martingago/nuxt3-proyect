@@ -1,25 +1,27 @@
 <template>
-    <form @submit.prevent="subirFichero" enctype="multipart/form-data">
-        <label for="uploadImage">Cargar imágen de portada</label>
-        <input @change="clickImage($event)" type="file" accept="image/*" name="uploadImage" id="uploadImage">
-        <img @click="eliminarImagen" class="preview-image" v-if="imageURL" :src="imageURL" alt="imagen de portada de la aplicación">
-        <button class="btn btn-primary" @click="subirFichero" :disabled="!imagen" type="button"> Subir imagen</button>
-    </form>
+        <div class=" d-flex flex-column gap-2">
+            <label for="uploadImage">Cargar imágen de portada</label>
+            <input @change="clickImage($event)" type="file" accept="image/*" name="uploadImage" id="uploadImage">
+            <div class="preview-image">
+                <img @click="eliminarImagen" class="preview-image" v-if="imageURL" :src="imageURL" alt="imagen de portada de la aplicación">
+            </div>
+        </div>
 </template>
 
 <script setup>
 
-//const imagenes = ref([]);
-//const storageRef = ref({});
+const emit = defineEmits(['portada-image-update'])
 
 //propiedades:
-const imagen = ref(null);
-const idProducto = ref('');
-const imageURL = ref(null)
+const imagen = ref({}); //datos que se suben a la BBDD
+const imageURL = ref(null); //imagen que carga como HTML
+
+watch(imagen , ()=> {
+    emit('portada-image-update', imagen.value)
+})
 
 const clickImage = (e) => {
     imagen.value = e.target.files[0];
-    idProducto.value = 'Ref34sdEf345dfdDsdsCD3DS234';
     let reader = new FileReader();
         reader.onloadend = function() {
             imageURL.value = reader.result;
@@ -32,16 +34,10 @@ const eliminarImagen = () => {
     imageURL.value = null;
     imagen.value = null;
 }
-
-
-
-const subirFichero = async () => {
-    await subirFicheroPortada(idProducto.value, imagen.value);
-}
-
 </script>
 
 <style scoped> 
+
 .preview-image{
     width: 120px;
     height: 120px;

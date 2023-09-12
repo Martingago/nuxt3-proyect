@@ -1,26 +1,27 @@
 import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
-export { subirFicheroPortada, uploadArrayImages }
+export { uploadMainImage, uploadArrayImages }
 
 
 
-const subirFicheroPortada = async (id, file) => {
+const uploadMainImage = async (coleccion, id, file) => {
     const { $storage } = useNuxtApp();
-
+    let urlImage = "";
     try {
         if (file) {
-            const path = `productos_images/${id}/portada/${file.name}` //path conformado por el id del producto y la carpeta portada
-            const imagesRef = ref($storage, path);
+            const path = `${coleccion}/${id}/portada/${file.name}` //path conformado por el id del producto y la carpeta portada
+            const imageRef = ref($storage, path);
             // 'file' comes from the Blob or File API
-            await uploadBytes(imagesRef, file).then((snapshot) => {
+            await uploadBytes(imageRef, file).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
+            urlImage = await getDownloadURL(imageRef);
         } else {
             console.log("no se ha añadido una imagen")
         }
     } catch (error) {
         console.log(error)
     }
-
+    return urlImage;
 }
 
 /**
@@ -37,11 +38,11 @@ const uploadArrayImages = async (coleccion, id, arrayFiles) => {
         if (arrayFiles && arrayFiles.length >0) {
             for (let i = 0; i < arrayFiles.length; i++) {  
                 const path = `${coleccion}/${id}/views/${arrayFiles[i].name}` //path conformado por el id de producto y la carpeta de views
-                const imageRef = ref($storage, path);
-                 await uploadBytes(imageRef, arrayFiles[i]).then((snapshot) => {
+                const imagesRef = ref($storage, path);
+                 await uploadBytes(imagesRef, arrayFiles[i]).then((snapshot) => {
                     console.log(`Uploaded a blob or file!: [${i+1} de: ${arrayFiles.length}]`);
                 });
-                const urlImage =  await getDownloadURL(imageRef);
+                const urlImage =  await getDownloadURL(imagesRef);
                 arrayImages.push(urlImage)
             }
         } else {
@@ -51,7 +52,7 @@ const uploadArrayImages = async (coleccion, id, arrayFiles) => {
         console.log(`Ha ocurrido un error al subir los archivos: ${error}`)
     }
     console.log("Los archivos se han subido con éxito!")
-    console.log(arrayImages)
+    console.log("array de lectura:", arrayImages)
     return arrayImages
 }
 

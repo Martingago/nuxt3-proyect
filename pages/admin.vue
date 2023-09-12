@@ -4,10 +4,7 @@
       <h3>Categoria de productos</h3>
       <ModalAddFormCategory @toast-msg="mostrarToast"></ModalAddFormCategory>
       <admin-listCategory @toast-msg="mostrarToast"></admin-listCategory>
-      <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
-        <FormsUploadImage></FormsUploadImage>
-        <FormsUploadArrayImages></FormsUploadArrayImages>
-        
+      <div class="container d-flex flex-column justify-content-center align-items-center gap-4">  
         <forms-uploadProduct></forms-uploadProduct>
       </div>
     </div>
