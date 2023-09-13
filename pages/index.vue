@@ -17,9 +17,10 @@
 //   // or middleware: 'auth'
 // })
 
+
 useHead(
     {
-        title: "Home",
+        title: "Audiophile - Los mejores equipos de sonido del mercado",
     }    
 );
 

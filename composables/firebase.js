@@ -1,6 +1,41 @@
-import { addDoc, collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, where } from "firebase/firestore";
 
-export { uploadDatatoStore, getDataFromStore, deleteFromStore, updateDataToStore }
+export { uploadDatatoStore, getSingleDocumentData, getDataFromStore, deleteFromStore, updateDataToStore, getProductByAtribute }
+
+
+const getSingleDocumentData = async (coleccion, id) => {
+    const { $db } = useNuxtApp();
+    const docRef = doc($db, coleccion, id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        return docSnap.data();
+    } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+        return null;
+    }
+}
+
+const getProductByAtribute = async (coleccion, atributo, valor) => {
+    const { $db } = useNuxtApp();
+    const productosRef = collection($db, coleccion);
+    const q = query(productosRef, where(atributo, "==", valor));
+    const querySnapshot = await getDocs(q);
+    let producto = null;
+    querySnapshot.forEach((doc) => {
+        if(producto != null){
+            return
+        }
+        const item = {
+            id: doc.id,
+            ...doc.data()
+        }
+        producto = item;
+    })
+    return producto;
+}
+
 
 /**
  * Obtiene informacion procediente de una colección especificada
@@ -62,14 +97,14 @@ const deleteFromStore = async (coleccion, identificador) => {
  * @param {*} data información actualizada que se sobreescribirá a los datos del fichero
  */
 const updateDataToStore = async (coleccion, identificador, data) => {
-    console.log("id",identificador)
+    console.log("id", identificador)
     try {
         const { $db } = useNuxtApp();
         const docRef = doc($db, coleccion, identificador)
         await updateDoc(docRef, data)
 
     } catch (error) {
-        console.log("aqui error:",error)
+        console.log("aqui error:", error)
     }
 
 }

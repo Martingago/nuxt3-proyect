@@ -1,33 +1,66 @@
 <template>
-    
-    <div class="p-4 text-center m-5 shadow rounded">
-        <h2>Bienvenido a los Posts!</h2>
-
-        <ul>
-            <li>
-                <NuxtLink to="/">Primer Post <font-awesome-icon :icon="['fas', 'house']" /></NuxtLink>
-            </li>
-            <li>
-                <NuxtLink to="/">Segundo Post</NuxtLink>
-            </li>
-            <li>
-                <NuxtLink to="/">Tercer Post</NuxtLink>
-            </li>
-            <li>
-                <NuxtLink to="/">Cuarto Post</NuxtLink>
-            </li>
-        </ul>
-
-
+    <div v-if="!loading">
+        <p>Cargando...</p>
     </div>
+    <section v-else id="productos-container" class="container my-2">
+        <h1 class="text-center">Listado de productos</h1>
+        <ProductArticleSelect v-for="producto in data" :key="producto.id" :datoProducto="producto"></ProductArticleSelect>
+    </section>
 </template>
+
 <script setup>
 
-useHead({
-    title: "Post"
+const data = ref([]);
+const loading = ref(false)
 
+useHead({
+    title: "Audiophile | Productos de Alta Fidelidad para Amantes del Sonido"
 })
 
+onMounted(async () => {
+    console.log(data.value)
+    if (!data.value.length >0) {
+        loading.value = true
+        data.value = await getDataFromStore("productos"); 
+   
+    }
 
+    console.log(data.value)
+})
 
 </script>
+
+<style scoped>
+#productos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 240px));
+    justify-content: center;
+    align-self: center;
+    gap: 1rem;
+    margin: auto;
+}
+
+#productos-container h1 {
+    grid-column: 1 / -1;
+}
+
+@media screen and (max-width: 767px) {
+    #productos-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 230px));
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #productos-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 170px));
+        gap: .5rem
+    }
+}
+
+@media screen and (max-width: 390px) {
+    #productos-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 250px));
+    }
+
+}
+</style>

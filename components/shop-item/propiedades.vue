@@ -1,40 +1,57 @@
 <template>
-    <div class="d-flex flex-lg-row flex-column justify-content-between mt-5 gap-lg-4 gap-md-3">
-        <div class="col-lg-7 col-md-12 p-2">
-            <h3 class="text-uppercase fw-bold">Caraterísticas</h3>
-            <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus error architecto iusto ad laborum. Voluptatum
-                consequatur maxime minus nihil optio? Tempore minus fugit, aliquid dignissimos suscipit, ipsa magnam iure, neque
-                odit mollitia ipsum optio? Odio repellendus sunt ducimus ea similique inventore repudiandae fugiat veniam ex
-                porro iusto explicabo vel sapiente maiores, consequatur commodi   </p>
-        </div>
-        
-        <div class="specifications-item col-lg-4 col-md-12 p-2">
-        <h3 class="text-uppercase fw-bold">Contenido</h3>
-        <ul class="d-flex flex-sm-column flex-md-row flex-lg-column">
-            <li class="d-flex flex-fill">
-                <p class="fw-bold ">1x</p>
-                <p class="">Auricular </p>
-            </li>
-            <li class="d-flex flex-fill">
-                <p class="fw-bold">1x</p>
-                <p class="">Manual de usuario</p>
-            </li>
-            <li class="d-flex flex-fill">
-                <p class="fw-bold">1x</p>
-                <p class="pr-2">cable de sonido 3.5mm de 2m</p>
-            </li>
-        </ul>
-        </div>
-    </div>
+    <div class="d-flex flex-column gap-2">
 
+        <h3 class="text-uppercase fw-bold mb-2">Caracteristicas</h3>
+        <ul class="caracteristicas-producto">
+            <li v-for="caracteristica in dataProduct" :key="caracteristica" class="d-flex">
+                <p class="d-flex justify-content-start align-items-start mb-2"><font-awesome-icon class="dot" :icon="['fas', 'circle']" /> </p>
+                <p class="caracteristica mb-2 ">
+                    {{ caracteristica.caracteristica }}
+                </p>
+            </li>
+
+        </ul>
+    </div>
 </template>
 
 <style scoped>
 
-.specifications-item ul li > p:first-child{
+.caracteristicas-producto{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+div ul li>p:first-child {
     color: rgb(230, 150, 75);
     padding-right: .5rem;
 }
 
+.dot{
+    padding-top: .65rem;
+    width: 7px;
+    height: 7px;
+}
+
+.caracteristica{
+    text-align: left;
+}
+
+@media screen and (max-width:1399px) {
+    .caracteristicas-producto{
+        grid-template-columns: repeat(1, auto);
+    }
+}
 
 </style>
+
+
+<script setup>
+const props = defineProps({
+    dataProduct: Object,
+    required: true
+})
+
+console.log("caracteristicas:", props.dataProduct)
+
+
+</script>

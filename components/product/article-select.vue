@@ -1,10 +1,10 @@
 <template>
-    <article @click="visitProductPage(datoProducto.id)"
+    <article @click="visitProductPage(datoProducto.slug)"
     :class="{'shadow border': showBtn}"
 
     @mouseenter="showBtn = true"  @mouseleave="showBtn = false" class="product-article d-flex flex-column p-2 rounded">
         <div class="img-container">
-            <img class="img-fluida img-fluid" :src="datoProducto.imagenes_producto.portada">
+            <img class="img-fluida img-fluid" loading="lazy" :src="datoProducto.imagenes_producto.portada">
         </div>
         <hr class="my-0">
         <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>
@@ -19,8 +19,8 @@
             </div>
         </div>
         
-        <div class="container-btn">
-            <button  v-if="showBtn" class="btn btn-dark w-100">Añadir al carrito</button>
+        <div class="container-btn mt-2">
+            <button  v-if="showBtn" @click="addToChart" class="btn btn-dark w-100">Añadir al carrito</button>
         </div>
     </article>
 </template>
@@ -35,8 +35,14 @@ const props = defineProps({
 })
 
 const visitProductPage = (producto) => {
-    console.log(producto)
+    navigateTo(`/productos/${producto}`)
 }
+
+const addToChart = (event) => {
+    event.stopPropagation();
+    console.log("añadiendo al carrito!")
+}
+
 
 
 </script>
@@ -52,7 +58,7 @@ const visitProductPage = (producto) => {
 }
 
 .title-product{
-    height: 38px;
+    height: 48px;
     font-size: .9rem;
     line-height: 1rem;
     color: lightslategray;

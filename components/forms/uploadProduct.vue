@@ -133,6 +133,7 @@ const pvpDesfase = ref(0);
 
 const datos_articulo = ref({
     nombre_articulo: "",
+    slug: "",
     etiquetas_articulo: [],
     descripcion_articulo: "",
     marca: "",
@@ -156,6 +157,11 @@ const temp_images = ref({
 })
 
 
+const slugTitle = () => {
+    const cadena = datos_articulo.value.nombre_articulo;
+    const slug = cadena.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    datos_articulo.value.slug = slug;
+}
 
 const hanldePortadaImage = (image) => {
     console.log("imagen recibida:", image);
@@ -239,6 +245,7 @@ const subirProducto = async () => {
             const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
             datos_articulo.value.imagenes_producto.views = arrayResult;
         }
+        slugTitle();
         console.log("datos para subir:", datos_articulo.value)
         uploadDatatoStore("productos", datos_articulo.value)
     }

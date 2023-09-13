@@ -1,8 +1,7 @@
 <template>
     <div class="data-product d-flex flex-column p-2 justify-content-center align-itemsm-md-center align-items-lg-left">
-        <h2 class="text-uppercase fw-bold fs-1">xx99 mark ii <br> headphones</h2>
-        <p class="fs-5">Los nuevos XX99 auriculares son el pináculo del audio digital. Redefine la experiencia de unos auriculares
-            premium reproduciendo el balanceado, profundo y preciso sonido con calidad de estudio de grabación
+        <h2 class="text-uppercase fw-bold fs-1">{{ dataProduct.nombre_articulo }}</h2>
+        <p class="fs-5">{{ dataProduct.descripcion_articulo }}
         </p>
 
 
@@ -17,7 +16,12 @@
 
 <script setup>
 
-const precio = 1999.00;
+const props = defineProps({
+    dataProduct : Object,
+    required: true
+})
+
+const precio = props.dataProduct.precio_venta;
 let precioTotal = ref(precio);
 
 const calculo = (value) => {

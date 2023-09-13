@@ -1,19 +1,43 @@
 <template>
     <div class="p-2 text-center m-4 shadow rounded">
-        <h2>Bienvenido al Post #{{ id }}</h2>
+        <div v-if="loading">
+            <p>Cargando...</p>
+        </div>
+
+        <div v-else>
+            <div v-if="existe">
+                <product-info :product="data"></product-info>
+            </div>
+            <div v-else>
+                <p>Error 404, el producto no existe! :(</p>
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script setup>
-
 const { id } = useRoute().params;
-//Comprueba que el ID es el mismo que el de la ruta
-definePageMeta({
-    validate: async (route) => {
-        const nuxtApp = useNuxtApp();
-        return /^\d+$/.test(route.params.id);
-    }
-});
+const data = ref({});
 
+const loading = ref(true);
+const existe = ref(true);
+
+const head = ref('Audiophile')
+useHead(
+    {
+        title: head,
+    } );
+
+onMounted(async()=> {
+    data.value = await getProductByAtribute("productos","slug", id);
+    if(data.value){
+        head.value = data.value.nombre_articulo
+        loading.value = false
+    }else{
+        loading.value = false;
+        existe.value = false
+    }
+})
 
 </script>
