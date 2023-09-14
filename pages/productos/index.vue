@@ -1,46 +1,56 @@
 <template>
-    <div v-if="!loading">
-        <p>Cargando...</p>
-    </div>
-    <section v-else id="productos-container" class="container my-2">
+    <div class="container-index mx-5">
         <h1 class="text-center">Listado de productos</h1>
-        <ProductArticleSelect v-for="producto in data" :key="producto.id" :datoProducto="producto"></ProductArticleSelect>
-    </section>
+
+        <FiltersContainerFilter></FiltersContainerFilter>
+
+            <div v-if="loading">
+                <p>Cargando...</p>
+            </div>
+            <section v-else id="productos-container" class="p-2">
+                <ProductArticleSelect v-for="producto in store.productos" :key="producto.id" :datoProducto="producto">
+                </ProductArticleSelect>
+            </section>  
+    </div>
 </template>
 
 <script setup>
-
-const data = ref([]);
-const loading = ref(false)
+import { storeProducts } from '@/store/productStore.js';
 
 useHead({
     title: "Audiophile | Productos de Alta Fidelidad para Amantes del Sonido"
 })
 
-onMounted(async () => {
-    console.log(data.value)
-    if (!data.value.length >0) {
-        loading.value = true
-        data.value = await getDataFromStore("productos"); 
-   
-    }
 
-    console.log(data.value)
+const store = storeProducts();
+const loading = ref(true);
+const getData = async () => {
+    await store.fetchData();
+}
+onMounted(() => {
+    loading.value = store.loading
 })
+
+getData();
 
 </script>
 
 <style scoped>
+
+.container-index{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
 #productos-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 240px));
     justify-content: center;
     align-self: center;
     gap: 1rem;
-    margin: auto;
 }
 
-#productos-container h1 {
+.container-index h1 {
     grid-column: 1 / -1;
 }
 

@@ -15,8 +15,6 @@ const props = defineProps({
     product: Object
 })
 
-console.log("props:", props.product);
-
 
 </script>
 

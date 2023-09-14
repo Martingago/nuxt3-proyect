@@ -8,6 +8,16 @@ export default defineNuxtConfig({
       FIREBASE_API_KEY: process.env.FIREBASE_API_KEY, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
     }
   },
+  modules:[
+    '@pinia/nuxt',
+  ],
+  pinia: {
+    autoImports: [
+      // automatically imports `defineStore`
+      'defineStore', // import { defineStore } from 'pinia'
+      ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+    ],
+  },
   build: {
     transpile: [
         '@fortawesome/vue-fontawesome',

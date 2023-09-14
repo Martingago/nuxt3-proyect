@@ -14,6 +14,14 @@
     </div>
 </template>
 
+<script setup>
+const props = defineProps({
+    dataProduct: Object,
+    required: true
+})
+
+</script>
+
 <style scoped>
 
 .caracteristicas-producto{
@@ -45,13 +53,3 @@ div ul li>p:first-child {
 </style>
 
 
-<script setup>
-const props = defineProps({
-    dataProduct: Object,
-    required: true
-})
-
-console.log("caracteristicas:", props.dataProduct)
-
-
-</script>

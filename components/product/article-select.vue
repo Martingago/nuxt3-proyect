@@ -4,7 +4,7 @@
 
     @mouseenter="showBtn = true"  @mouseleave="showBtn = false" class="product-article d-flex flex-column p-2 rounded">
         <div class="img-container">
-            <img class="img-fluida img-fluid" loading="lazy" :src="datoProducto.imagenes_producto.portada">
+            <img class="img-fluida img-fluid" loading="lazy" :src="datoProducto.imagenes_producto.portada" :alt="'Producto de la tienda audiophile: '+datoProducto.nombre_articulo">
         </div>
         <hr class="my-0">
         <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>
@@ -18,7 +18,9 @@
                 
             </div>
         </div>
-        
+        <div class="last-units-container" >
+            <p v-if="datoProducto.stock_articulo <= 10" class="text-center mb-0 last-units">Últimas unidades</p>
+        </div>
         <div class="container-btn mt-2">
             <button  v-if="showBtn" @click="addToChart" class="btn btn-dark w-100">Añadir al carrito</button>
         </div>
@@ -42,8 +44,6 @@ const addToChart = (event) => {
     event.stopPropagation();
     console.log("añadiendo al carrito!")
 }
-
-
 
 </script>
 
@@ -69,7 +69,6 @@ const addToChart = (event) => {
     text-transform: uppercase;
     font-weight: 600;
 }
-
 
 
 .img-container{
@@ -125,6 +124,15 @@ const addToChart = (event) => {
 
 .container-btn{
     height: 38px
+}
+
+.last-units-container{
+    height: 19.19px;
+}
+.last-units{
+    font-size: .8rem;
+    font-weight: 600;
+    color: brown
 }
 
 </style>
