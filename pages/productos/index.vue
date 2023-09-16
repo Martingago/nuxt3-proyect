@@ -26,9 +26,11 @@ const store = storeProducts();
 const loading = ref(true);
 const getData = async () => {
     await store.fetchData();
+    loading.value = false;
 }
 onMounted(() => {
     loading.value = store.loading
+    
 })
 
 getData();

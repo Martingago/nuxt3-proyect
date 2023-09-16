@@ -23,7 +23,7 @@
             <p class="fw-600 mb-1">Categorias:</p>
             <div v-for="categoria in categorias" :key="categoria.id">
                 <input type="checkbox" :name="categoria.id" :id="categoria.id">
-                <label :for="categoria.id" class="px-1">{{  categoria.nombre_categoria}}</label>
+                <label :for="categoria.id" class="px-1">{{  categoria.nombre}}</label>
             </div>
         </div>
     </aside>
@@ -42,8 +42,6 @@ onMounted(async ()=> {
 
 
 </script>
-
-
 
 <style scoped>
 aside {

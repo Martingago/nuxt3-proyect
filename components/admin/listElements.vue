@@ -5,22 +5,24 @@
             <thead>
                 <tr>
                     <th>Opciones</th>
-                    <th>Categoria</th>
-                    <th>Descripcion categoria</th>
+                    <th>{{ props.text_referencia }}</th>
+                    <th>Descripcion {{ props.text_referencia }}</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Agrega filas aquí -->
                 <tr v-for="item in data" :key="item.id" class="elemento-categoria">
-                    <td class="options"><button class="w-100 mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="handleClick(item)" >
+                    <td class="options"><button class="button m-1" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            @click="handleClick(item, 'delete')">
                             <font-awesome-icon :icon="['fas', 'trash-can']" />
                         </button>
-                        <button class="w-100 mt-1" data-bs-toggle="modal" data-bs-target="#editCategoryModal" @click="handleClick(item)">
+                        <button class="button m-1" data-bs-toggle="modal" data-bs-target="#addModal"
+                            @click="handleClick(item, 'edit')">
                             <font-awesome-icon :icon="['fas', 'pen']" />
                         </button>
                     </td>
-                    <td>{{ item.nombre_categoria }}</td>
-                    <td>{{ item.descripcion_categoria }}</td>
+                    <td>{{  item.nombre }}</td>
+                    <td>{{ item.descripcion }}</td>
                 </tr>
             </tbody>
         </table>
@@ -31,11 +33,7 @@
             <p>Cargando datos...</p>
 
         </div>
-
     </section>
-    <!-- Ventana modal de confirmacion de eliminacion de datos -->
-    <ModalDeleteElement @toast-msg="actualizarDatos" :selectedItem="selectedItem"></ModalDeleteElement>
-    <ModalEditFormCategory @toast-msg="actualizarDatos" :selectedItem="selectedItem"></ModalEditFormCategory>
 </template>
 
 <script setup>
@@ -44,23 +42,47 @@ const data = ref({});
 const loading = ref(false);
 const selectedItem = ref({});
 
-const emit = defineEmits(['toast-msg'])
-const actualizarDatos = (msg) => {
-    emit('toast-msg', msg)
+const props = defineProps({
+    text_referencia: String,
+    referencia_datos: String,
+})
+
+const emit = defineEmits(['emit-data']);
+
+const cargarDatos = async () => {
+    console.log(props.referencia_datos)
+    data.value = await getDataFromStore(props.referencia_datos);
+    loading.value = true;
 }
 
-onMounted(async () => {
-    data.value = await listarCategoriaProducto();
-    loading.value = true;
-})
-const handleClick = (object) => {
-    selectedItem.value = object;
+cargarDatos();
+
+const handleClick = (object, value) => {
+    selectedItem.value = {
+        text_referencia: props.text_referencia,
+        referencia_datos: props.referencia_datos,
+        action: value,
+        form_data: object
+    }
+    emit('emit-data', selectedItem.value)
 }
+
+
 </script>
 
 <style scoped>
 table {
     border: 2px solid black
+}
+.options{
+    width: 96px
+}
+.button{
+    display: inline-flex;
+    width: 35px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
 }
 
 table td,

@@ -1,5 +1,5 @@
 <template>
-    <div class="modal modal-lg fade" data-bs-backdrop="static" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel"
+    <div class="modal modal-lg fade" data-bs-backdrop="static" id="addModal" tabindex="-1" aria-labelledby="addModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -7,9 +7,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <forms-addCategoryProduct action="edit" title="Editar categoría de producto" 
-                    buttonText="Actualizar categoría" @toast-msg="actualizarDatos" :dataCategory="selectedItem">
-                </forms-addCategoryProduct>
+                    <forms-addFormData  :getData="dataObject" @toast-msg="actualizarDatos"></forms-addFormData>
                 </div>
             </div>
         </div>
@@ -24,8 +22,13 @@ const actualizarDatos = (msg) => {
 }
 
 const props = defineProps({
-    selectedItem : Object,
-    required: true
+    dataObject: Object,
 })
 
 </script>
+
+<style scoped>
+.btn-primary {
+    width: fit-content;
+}
+</style>
