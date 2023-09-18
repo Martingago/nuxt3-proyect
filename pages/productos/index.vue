@@ -25,7 +25,7 @@ useHead({
 const store = storeProducts();
 const loading = ref(true);
 const getData = async () => {
-    await store.fetchData();
+    await store.getProductData("productos");
     loading.value = false;
 }
 onMounted(() => {

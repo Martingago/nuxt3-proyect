@@ -46,11 +46,8 @@ const getDataFromStore = async (coleccion) => {
     const { $db } = useNuxtApp();
     try {
         const querySnapshot = await getDocs(collection($db, coleccion));
-        querySnapshot.forEach(async (doc) =>{
+        querySnapshot.forEach(async (doc) => {
             //se le añade su ID de su coleccion
-        console.log("marca", doc.data().marca)
-            const dato = await getSingleDocumentData("marca_productos", doc.data().marca);
-            console.log(dato)
             const item = {
                 id: doc.id,
                 ...doc.data()

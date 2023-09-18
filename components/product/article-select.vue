@@ -8,7 +8,7 @@
         </div>
         <hr class="my-0">
         <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>
-        <h6 class="brand-product mb-0">{{ datoProducto.marca }}</h6>
+        <h6 class="brand-product mb-0">{{ datoProducto.nombre_marca }}</h6>
 
         <div class="d-flex gap-2">
             <p class="actual-prize mb-0" :class="{'high-text': datoProducto.descuento}" > {{ datoProducto.precio_venta }}€</p>
