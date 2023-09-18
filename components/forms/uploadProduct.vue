@@ -8,6 +8,7 @@
                 <input type="text" required v-model="datos_articulo.nombre_articulo" name="nombre" id="nombreProducto"
                     placeholder="Nombre del producto">
             </div>
+            <!-- Etiqueta del producto -->
             <div class="d-flex flex-column">
                 <label for="etiquetaProducto">Etiqueta del producto | <span class="help-info">Ctrl + click para selección
                         múltiple</span> |</label>
@@ -15,18 +16,22 @@
                     name="etiquetaProducto" id="etiquetaProducto" v-model="datos_articulo.etiquetas_articulo" multiple
                     required>
                     <option v-for="categoria in dataCategorias" :key="categoria.id" :value="categoria.id">{{
-                        categoria.nombre_categoria }}</option>
+                        categoria.nombre }}</option>
                 </select>
             </div>
+            <!-- Descripcion del producto -->
             <div class="d-flex flex-column">
                 <label for="descripcionProducto">Descripción del producto</label>
                 <textarea id="descripcionProducto" required cols="1" rows="4"
                     v-model="datos_articulo.descripcion_articulo"></textarea>
             </div>
-
+            <!-- Marca del producto -->
             <div class="d-flex flex-column">
                 <label for="marcaProducto">Marca del producto</label>
-                <input type="text" name="marcaProducto" v-model="datos_articulo.marca" id="marcaProducto">
+                <select class="form-select" aria-label="Sección de seleccion de Marca de producto" name="marcaProducto"
+                    id="marcaProducto" v-model="datos_articulo.marca" required>
+                        <option v-for="marca in dataBrands" :key="marca.id" :value="marca.id">{{ marca.nombre }}</option>
+                </select>
             </div>
         </fieldset>
 
@@ -122,11 +127,13 @@
 <script setup>
 onMounted(async () => {
     dataCategorias.value = await getDataFromStore('categoria_productos');
+    dataBrands.value = await getDataFromStore('marca_productos')
 })
-
 
 //obtener datos de las categorias:
 const dataCategorias = ref([]);
+//obtener datos de las marcas:
+const dataBrands = ref([]);
 const alerta = ref(false);
 const alertaUpdt = ref(false);
 const pvpDesfase = ref(0);
@@ -234,13 +241,13 @@ const subirProducto = async () => {
         const arrayImages = temp_images.value.temp_views;
         const imagenPortada = temp_images.value.temp_portada;
         datos_articulo.value.imagenes_producto.id = idImages;
-    
-        if(imagenPortada){
+
+        if (imagenPortada) {
             console.log("subiendo imagen principal...")
-            const imageResult =  await uploadMainImage("productos_images", idImages, imagenPortada);
+            const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
             datos_articulo.value.imagenes_producto.portada = imageResult
         }
-        if(arrayImages){
+        if (arrayImages) {
             console.log("subiendo conjunto de imágenes...")
             const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
             datos_articulo.value.imagenes_producto.views = arrayResult;

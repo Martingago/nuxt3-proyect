@@ -2,7 +2,6 @@ import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, 
 
 export { uploadDatatoStore, getSingleDocumentData, getDataFromStore, deleteFromStore, updateDataToStore, getProductByAtribute }
 
-
 const getSingleDocumentData = async (coleccion, id) => {
     const { $db } = useNuxtApp();
     const docRef = doc($db, coleccion, id);
@@ -24,7 +23,7 @@ const getProductByAtribute = async (coleccion, atributo, valor) => {
     const querySnapshot = await getDocs(q);
     let producto = null;
     querySnapshot.forEach((doc) => {
-        if(producto != null){
+        if (producto != null) {
             return
         }
         const item = {
@@ -47,8 +46,11 @@ const getDataFromStore = async (coleccion) => {
     const { $db } = useNuxtApp();
     try {
         const querySnapshot = await getDocs(collection($db, coleccion));
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach(async (doc) =>{
             //se le añade su ID de su coleccion
+        console.log("marca", doc.data().marca)
+            const dato = await getSingleDocumentData("marca_productos", doc.data().marca);
+            console.log(dato)
             const item = {
                 id: doc.id,
                 ...doc.data()

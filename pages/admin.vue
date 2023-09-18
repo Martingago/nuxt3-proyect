@@ -54,13 +54,11 @@ const mostrarToast = (msg) => {
 //maneja los datos recibidos de los formularios
 const handleData = (data) => {
   dataModal.value = data;
-  console.log(dataModal.value)
 }
 
 //Funcion que maneja añadir datos a la BBDD
 const handleAdd = (data) => {
   dataModal.value = data;
-  console.log(dataModal.value)
 }
 
 

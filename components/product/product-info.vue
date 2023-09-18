@@ -15,7 +15,6 @@ const props = defineProps({
     product: Object
 })
 
-
 </script>
 
 <style scoped>

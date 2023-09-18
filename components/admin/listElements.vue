@@ -50,7 +50,6 @@ const props = defineProps({
 const emit = defineEmits(['emit-data']);
 
 const cargarDatos = async () => {
-    console.log(props.referencia_datos)
     data.value = await getDataFromStore(props.referencia_datos);
     loading.value = true;
 }
