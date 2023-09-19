@@ -16,7 +16,7 @@
       @emit-data="handleData"></admin-listElements>
     <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
 
-
+      <admin-listProducts></admin-listProducts>
       <p>Subir producto:</p>
       <forms-uploadProduct></forms-uploadProduct>
     </div>
