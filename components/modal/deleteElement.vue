@@ -12,9 +12,9 @@
                     <h4 class="w-100 text-center fs-2 mb-3"> ATENCIÓN</h4>
                     <p class="text-center mb-0 fs-5"><span class="fl">{{ selectedItem.text_referencia }}</span>: <span
                             class="category-selected">"{{
-                                selectedItem.form_data?.nombre }}" </span> con identificador: <span class="id-selected">{{
-        selectedItem.form_data?.id }}</span> será eliminada.</p>
-                    <p class="text-center fs-5">Esto puede afectar a aquellos productos que estén vinculados con la
+                                selectedItem.form_data?.nombre || selectedItem.form_data?.nombre_articulo }}" </span> con identificador: <span class="id-selected">{{
+        selectedItem.form_data?.id }}</span> será eliminado.</p>
+                    <p v-if="selectedItem.form_data?.nombre" class="text-center fs-5">Esto puede afectar a aquellos productos que estén vinculados con la
                         {{ selectedItem.text_referencia }} seleccionada</p>
                 </div>
                 <div class="modal-footer">
@@ -37,13 +37,26 @@ const props = defineProps({
     }
 })
 
+
 const delmsg = ref("");
 
 const handleAccept = () => {
     const id = props.selectedItem.form_data.id; //id del documento
     const coleccion = props.selectedItem.referencia_datos; //referencia de la coleccion
-    const nombre = props.selectedItem.form_data.nombre;
-    deleteFromStore(coleccion, id)
+    let nombre;
+    if(props.selectedItem.action === 'delete-product' ){
+        //elimina las imagenes del storage:
+        nombre = props.selectedItem.form_data.nombre_articulo;
+        const idImagenes = props.selectedItem.form_data.imagenes_producto.id;
+        const referencia = 'productos_images/'+idImagenes;
+        console.log("eliminando imagenes...")
+        console.log("imagenes eliminadas...")
+        deleteAllContentFromReference(referencia)
+    }else{
+        nombre = props.selectedItem.form_data.nombre;
+    }
+    console.log("eliminando datos...")
+    //deleteFromStore(coleccion, id)
     //Cerrar ventana
     const myModalEl = document.getElementById('deleteModal');
     const { $bootstrap } = useNuxtApp();

@@ -11,23 +11,23 @@
                     <th>Marca</th>
                 </tr>
             </thead>
-            <tr v-for="producto in store.productos" :key="producto.id" class="alert"
-                :class="{ 'alert-success': producto.stock_articulo > 10, 'alert-warning': producto.stock_articulo <= 10, 'alert-danger': producto.stock_articulo == 0 }">
+            <tr v-for="producto in store.productos" :key="producto.id"
+                :class="{ 'success': producto.stock_articulo > 10, 'warning': producto.stock_articulo <= 10, 'danger': producto.stock_articulo < 1 }">
                 <td class="options">
-                    <button class="button m-1" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                        @click="handleClick(producto, 'delete')">
+                    <button class="button m-0" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                        @click="handleClick(producto, 'delete-product')">
                         <font-awesome-icon :icon="['fas', 'trash-can']" />
                     </button>
-                    <button class="button m-1" data-bs-toggle="modal" data-bs-target="#addModal"
+                    <button class="button m-0" data-bs-toggle="modal" data-bs-target="#addModal"
                         @click="handleClick(producto, 'edit')">
                         <font-awesome-icon :icon="['fas', 'pen']" />
                     </button>
                 </td>
                 <td>{{ producto.nombre_articulo }}</td>
-                <td>{{ producto.stock_articulo }}</td>
-                <td>{{ producto.precio_venta }}€</td>
-                <td>
-                    {{ producto.descuento ? producto.porcentaje_descuento : 'Sin descuento' }}
+                <td class="stock">{{ producto.stock_articulo }} uds</td>
+                <td class="price">{{ producto.precio_venta }}€</td>
+                <td class="discount">
+                    {{ producto.descuento  ? producto.porcentaje_descuento + '%' : 'Sin descuento' }}
                 </td>
                 <td>{{ producto.nombre_marca }}</td>
             </tr>
@@ -47,27 +47,30 @@ import { storeProducts } from '@/store/productStore.js';
 const loading = ref(false);
 const datos = ref([]);
 const store = storeProducts();
+const emit = defineEmits(['emit-data']);
 
 
 const cargarDatos = async () => {
     await store.getProductData("productos");
     loading.value = true;
-    console.log(store.productos[0])
+    console.log("producto:", store.productos[0])
 }
 cargarDatos();
 
-const emit = defineEmits(['emit-data']);
-const selectedItem = ref({});
-const handleClick = (object, value) => {
 
-    selectedItem.value = object;
+
+const selectedItem = ref({}); //datos del objeto seleccionado que se enviarán al padre
+
+const handleClick = (object, value) => {
+    selectedItem.value = {
+        form_data: object,
+        action: value,
+        text_referencia: "Producto",
+        referencia_datos: "productos"
+    }
     console.log(selectedItem.value)
     emit('emit-data', selectedItem.value)
 }
-
-
-
-
 
 </script>
 
@@ -76,32 +79,63 @@ table {
     border: 2px solid black
 }
 
-.options {
-    width: 96px
+tr{
+    display: grid;
+    grid-template-columns: 80px 200px 55px 60px 100px auto;
+    height: 30px;
+    
 }
-
+/* Cabecera */
+tr th{
+    display: flex;
+    justify-content: left;
+    padding: .2rem;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: .8rem;
+}
+/* Elementos */
+tr td{
+    display: flex;
+    align-items: center;
+    font-size: .8rem;
+    line-height: .9rem;
+    overflow: hidden;
+    white-space:  nowrap;
+    text-overflow: ellipsis;
+    padding: .2rem;
+    margin: 0;
+    width: 100%;
+}
+.options{
+    gap: 3px;
+}
 .button {
     display: inline-flex;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     justify-content: center;
     align-items: center;
+    margin: 2px;
 }
 
 table td,
 th {
-    padding: .25rem;
-    border: 2px solid black
+    border: 1px solid black
 }
 
-.id-selected {
-    font-weight: 600;
-    text-decoration: underline;
-    color: rgb(56, 56, 56)
+.success{
+    background-color: #d1e7dd;
+}
+.warning{
+    background-color: #fff3cd;
+}
+.danger{
+    background-color: #f8d7da;
 }
 
-.category-selected {
-    font-weight: 600;
-    text-transform: uppercase;
+
+.stock, .price, .discount{
+    justify-content: end;
 }
 </style>

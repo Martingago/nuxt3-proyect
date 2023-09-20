@@ -11,18 +11,18 @@
             </thead>
             <tbody>
                 <!-- Agrega filas aquí -->
-                <tr v-for="item in data" :key="item.id" class="elemento-categoria">
-                    <td class="options"><button class="button m-1" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                <tr v-for="item in data" :key="item.id" class="elemento-data">
+                    <td class="options"><button class="button" data-bs-toggle="modal" data-bs-target="#deleteModal"
                             @click="handleClick(item, 'delete')">
                             <font-awesome-icon :icon="['fas', 'trash-can']" />
                         </button>
-                        <button class="button m-1" data-bs-toggle="modal" data-bs-target="#addModal"
+                        <button class="button" data-bs-toggle="modal" data-bs-target="#addModal"
                             @click="handleClick(item, 'edit')">
                             <font-awesome-icon :icon="['fas', 'pen']" />
                         </button>
                     </td>
-                    <td>{{  item.nombre }}</td>
-                    <td>{{ item.descripcion }}</td>
+                    <td class="name">{{  item.nombre }}</td>
+                    <td class="descripcion">{{ item.descripcion }}</td>
                 </tr>
             </tbody>
         </table>
@@ -73,31 +73,50 @@ const handleClick = (object, value) => {
 table {
     border: 2px solid black
 }
+
+tr{
+    display: grid;
+    grid-template-columns: 80px 130px auto;
+    height: 30px;
+}
+/* Cabecera */
+tr th{
+    display: flex;
+    justify-content: left;
+    padding: .2rem;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: .8rem;
+}
+/* Elementos */
+tr td{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: .8rem;
+    line-height: .9rem;
+    overflow: hidden;
+    white-space:  nowrap;
+    text-overflow: ellipsis;
+    padding: .2rem;
+    width: 100%;
+}
+
 .options{
-    width: 96px
+    gap: 3px;
 }
 .button{
     display: inline-flex;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     justify-content: center;
     align-items: center;
 }
 
 table td,
 th {
-    padding: .25rem;
-    border: 2px solid black
+    border: 1px solid black
 }
 
-.id-selected {
-    font-weight: 600;
-    text-decoration: underline;
-    color: rgb(56, 56, 56)
-}
 
-.category-selected {
-    font-weight: 600;
-    text-transform: uppercase;
-}
 </style>

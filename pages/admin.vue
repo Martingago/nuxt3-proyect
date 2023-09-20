@@ -14,9 +14,12 @@
 
     <admin-listElements referencia_datos="marca_productos" text_referencia="marca"
       @emit-data="handleData"></admin-listElements>
+
+    <!-- Productos -->
+      <admin-listProducts @emit-data="handleData"></admin-listProducts>
     <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
 
-      <admin-listProducts></admin-listProducts>
+      
       <p>Subir producto:</p>
       <forms-uploadProduct></forms-uploadProduct>
     </div>
