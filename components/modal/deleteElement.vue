@@ -50,13 +50,12 @@ const handleAccept = () => {
         const idImagenes = props.selectedItem.form_data.imagenes_producto.id;
         const referencia = 'productos_images/'+idImagenes;
         console.log("eliminando imagenes...")
-        console.log("imagenes eliminadas...")
         deleteAllContentFromReference(referencia)
     }else{
         nombre = props.selectedItem.form_data.nombre;
     }
     console.log("eliminando datos...")
-    //deleteFromStore(coleccion, id)
+    deleteFromStore(coleccion, id)
     //Cerrar ventana
     const myModalEl = document.getElementById('deleteModal');
     const { $bootstrap } = useNuxtApp();

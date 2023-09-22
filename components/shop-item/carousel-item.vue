@@ -28,6 +28,7 @@
 
     img {
     aspect-ratio: 1 /1;
+    object-fit: contain;
 }
 
 button:hover{

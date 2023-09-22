@@ -62,15 +62,29 @@ const uploadArrayImages = async (coleccion, id, arrayFiles) => {
     return arrayImages
 }
 
-
+/**
+ * Recibe como parametro el identificador de la imagen y elimina TODOS los datos de las carpetas y subcarpetas existentes en la BBDD
+ * @param {*} identificador 
+ */
 const deleteAllContentFromReference = async (identificador) => {
     const { $storage } = useNuxtApp();
-    const mainRef = ref($storage, identificador+"/views"); //referencia del objeto a eliminar portada
+    const mainRef = ref($storage, identificador);
     const listMain = await listAll(mainRef);
+    //Se recorren todas las carpetas que existen:
+    listMain.prefixes.forEach(async (folderRef) => {
+        const submainRef = await listAll(folderRef);
+        submainRef.items.forEach(imagen => {
+            const img = imagen._location.path_;
+            const imageRef = ref($storage, img)
+            // Delete the file
+            deleteObject(imageRef).then(() => {
+                console.log("imagen eliminada")
+                // File deleted successfully
+            }).catch((error) => {
+                console.log(error)
+                // Uh-oh, an error occurred!
+            });
+        });
+    })
 
-    listMain.items.forEach((folderRef) => {
-        console.log(folderRef._location.path_)
-        // deleteObject(folderRef.fullPath);
-      })
-    
 }

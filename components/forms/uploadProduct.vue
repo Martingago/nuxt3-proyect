@@ -1,4 +1,5 @@
 <template>
+    
     <form @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
         <h3 class=" text-center">Añadir producto</h3>
         <fieldset class="d-flex flex-column gap-2 bg-light rounded p-2">
@@ -128,6 +129,21 @@
 onMounted(async () => {
     dataCategorias.value = await getDataFromStore('categoria_productos');
     dataBrands.value = await getDataFromStore('marca_productos')
+})
+
+const props = defineProps({
+    getData: Object
+})
+
+watch(() => props.getData.form_data, (newVal) => {
+    console.log("datos que se reciben:", props.getData.form_data)
+    if (props.getData.action === 'edit' && newVal) {
+        console.log("actualizar producto");
+        datos_articulo.value.nombre_articulo = newVal.nombre_articulo
+    }else{
+        //Elimina los datos para que el formulario esté limpio
+        console.log("noooo")
+    }
 })
 
 //obtener datos de las categorias:

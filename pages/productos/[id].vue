@@ -20,6 +20,7 @@
 const { id } = useRoute().params;
 const data = ref({});
 
+
 const loading = ref(true);
 const existe = ref(true);
 
@@ -38,6 +39,7 @@ onMounted(async()=> {
         loading.value = false;
         existe.value = false
     }
+    //console.log(data.value)
 })
 
 </script>

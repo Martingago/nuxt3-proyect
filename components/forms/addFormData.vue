@@ -49,7 +49,6 @@ const pushmsg = ref(""); //mensaje del toast
 watch(() => props.getData.form_data, (newVal) => {
     if (props.getData.action === 'edit' && newVal) {
         txt_placeholder.value = "Editar"
-        console.log(newVal.nombre)
          formData.value.nombre = newVal.nombre;
          formData.value.descripcion = newVal.descripcion;
     }else{
@@ -59,6 +58,7 @@ watch(() => props.getData.form_data, (newVal) => {
         formData.value.descripcion = "";
     }
 })
+
 
 /**
  * sube o actualiza los datos dependiendo de la información recibida en el componente || add: nuevo fichero || edit: modificar fichero existente

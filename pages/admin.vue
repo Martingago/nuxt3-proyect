@@ -3,25 +3,24 @@
     <h1 class="text-center">Página de administración</h1>
     <h3>Categoria de productos</h3>
     <!-- Categorias -->
-    <FormsButtonAddData  text_referencia="categoria" action="add"
-      referencia_datos="categoria_productos" @emit-value="handleAdd"></FormsButtonAddData>
+    <FormsButtonAddData text_referencia="categoria" action="add" referencia_datos="categoria_productos"
+      @emit-value="handleAdd"></FormsButtonAddData>
 
     <admin-listElements referencia_datos="categoria_productos" text_referencia="categoria"
       @emit-data="handleData"></admin-listElements>
     <!-- Marcas -->
-    <FormsButtonAddData  text_referencia="marca" action="add"
-      referencia_datos="marca_productos" @emit-value="handleAdd"></FormsButtonAddData>
+    <FormsButtonAddData text_referencia="marca" action="add" referencia_datos="marca_productos" @emit-value="handleAdd">
+    </FormsButtonAddData>
 
     <admin-listElements referencia_datos="marca_productos" text_referencia="marca"
       @emit-data="handleData"></admin-listElements>
 
     <!-- Productos -->
-      <admin-listProducts @emit-data="handleData"></admin-listProducts>
-    <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
+    <FormsButtonAddData text_referencia="producto" action="add" referencia_datos="productos" @emit-value="handleAdd">
+    </FormsButtonAddData>
 
-      
-      <p>Subir producto:</p>
-      <forms-uploadProduct></forms-uploadProduct>
+    <admin-listProducts @emit-data="handleData"></admin-listProducts>
+    <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
     </div>
   </div>
 
@@ -57,6 +56,7 @@ const mostrarToast = (msg) => {
 //maneja los datos recibidos de los formularios
 const handleData = (data) => {
   dataModal.value = data;
+  console.log("actualizacion de objeto a enviar a los hijos:", dataModal.value)
 }
 
 //Funcion que maneja añadir datos a la BBDD

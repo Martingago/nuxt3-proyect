@@ -53,7 +53,6 @@ const emit = defineEmits(['emit-data']);
 const cargarDatos = async () => {
     await store.getProductData("productos");
     loading.value = true;
-    console.log("producto:", store.productos[0])
 }
 cargarDatos();
 
@@ -68,9 +67,9 @@ const handleClick = (object, value) => {
         text_referencia: "Producto",
         referencia_datos: "productos"
     }
-    console.log(selectedItem.value)
     emit('emit-data', selectedItem.value)
 }
+
 
 </script>
 
