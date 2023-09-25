@@ -52,11 +52,13 @@ watch(() => props.getData.form_data, (newVal) => {
          formData.value.nombre = newVal.nombre;
          formData.value.descripcion = newVal.descripcion;
     }else{
+        console.log("adaddsd")
         txt_placeholder.value = "Añadir"
         //Elimina los datos para que el formulario esté limpio
         formData.value.nombre = "";
         formData.value.descripcion = "";
     }
+    console.log("algo")
 })
 
 

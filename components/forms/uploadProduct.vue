@@ -43,15 +43,15 @@
                 class="d-flex gap-2">
                 <input type="text" class="form-control" v-model="caracteristica.caracteristica" required
                     placeholder="Añadir característica" />
-                <button @click="eliminarCaracteristica(index)" class="btn btn-danger">Eliminar</button>
+                <button @click.prevent="store.eliminarCaracteristica(index)" class="btn btn-danger">Eliminar</button>
             </div>
-            <button @click="agregarCaracteristica" class="btn btn-primary  mt-2 mx-auto">Añadir Característica</button>
+            <button @click.prevent="store.agregarCaracteristica" class="btn btn-primary  mt-2 mx-auto">Añadir Característica</button>
         </fieldset>
 
         <fieldset class="d-flex flex-column p2- bg-light">
             <legend class="text-center">Imágenes del producto</legend>
-            <FormsUploadImage @portada-image-update="hanldePortadaImage"></FormsUploadImage>
-            <FormsUploadArrayImages @array-images-update="handleImages"></FormsUploadArrayImages>
+            <FormsUploadImage @portada-image-update="store.hanldePortadaImage"></FormsUploadImage>
+            <FormsUploadArrayImages @array-images-update="store.handleArrayImages"></FormsUploadArrayImages>
 
         </fieldset>
 
@@ -76,7 +76,7 @@
                 <div class="d-flex gap-2">
                     <div class="d-flex flex-column">
                         <label for="descuentoProducto">Inluye descuento</label>
-                        <select @change="hasDiscount($event)" name="decuentoProducto" id="descuentoProducto">
+                        <select @change="store.hasDiscount($event)" name="decuentoProducto" id="descuentoProducto">
                             <option value="false">NO</option>
                             <option value="true"> SI</option>
                         </select>
@@ -100,18 +100,13 @@
                             </span>
                         </div>
                         <button :disabled="!datos_articulo.descuento" class="btn btn-primary p-0 mt-2"
-                            @click.prevent="calcularPVP">Calcular
+                            @click.prevent="store.calcularPVP">Calcular
                             PVP</button>
                     </div>
                 </div>
             </div>
             <div class="notification-area rounded">
-                <p v-if="alerta" class="alert alert-danger m-0 p-1">Error! El precio no puede ser menor o igual a 0</p>
-                <p v-if="alertaUpdt" class="alert alert-warning m-0 p-1">Atencion! El precio del producto se ha actualizado
-                    de
-                    <span class="fw-bold">{{ pvpDesfase }}€</span> a <span class="fw-bold">{{ datos_articulo.precio_venta
-                    }}€</span> en base a los descuentos aplicados
-                </p>
+                <p v-if="alertas.alerta.valor" class="alert alert-danger m-0 p-1">{{ alertas.alerta.mensaje }}</p>
             </div>
         </fieldset>
 
@@ -126,14 +121,26 @@
 </template>
 
 <script setup>
+import {manageProducts} from '~/store/manageProduct.js';
+
+const store = manageProducts();
+const datos_articulo = store.producto //Objeto del producto
+const temp_images = store.temp_images; //imagenes temporales
+const alertas = store.item_state;
+
 onMounted(async () => {
+    //Recibe las categorias de producto que existen
     dataCategorias.value = await getDataFromStore('categoria_productos');
+    //recibe las marcas de producto que existen
     dataBrands.value = await getDataFromStore('marca_productos')
 })
 
 const props = defineProps({
     getData: Object
 })
+
+const emit = defineEmits(['toast-msg'])
+
 
 watch(() => props.getData.form_data, (newVal) => {
     console.log("datos que se reciben:", props.getData.form_data)
@@ -152,88 +159,10 @@ const dataCategorias = ref([]);
 const dataBrands = ref([]);
 const alerta = ref(false);
 const alertaUpdt = ref(false);
-const pvpDesfase = ref(0);
-
-const datos_articulo = ref({
-    nombre_articulo: "",
-    slug: "",
-    etiquetas_articulo: [],
-    descripcion_articulo: "",
-    marca: "",
-    caracteristicas_articulo: [{ caracteristica: "" }],
-    imagenes_producto: {
-        id: "",
-        portada: {},
-        views: []
-    },
-    precio_venta: null,
-    descuento: null,
-    porcentaje_descuento: null,
-    precio_anterior: null,
-    stock_articulo: null
-})
-
-//imagenes temporales recibidas desde los componentes hijos (selectores de imagenes)
-const temp_images = ref({
-    temp_portada: {},
-    temp_views: []
-})
-
-
-const slugTitle = () => {
-    const cadena = datos_articulo.value.nombre_articulo;
-    const slug = cadena.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    datos_articulo.value.slug = slug;
-}
-
-const hanldePortadaImage = (image) => {
-    console.log("imagen recibida:", image);
-    temp_images.value.temp_portada = image;
-}
-
-const handleImages = (images) => {
-    console.log("imagenes recibidas:", images)
-    temp_images.value.temp_views = images;
-}
-
-
-//determinar si tiene descuento o no:
-const hasDiscount = (event) => {
-    datos_articulo.value.descuento = event.target.value === 'true';
-    if (event.target.value === 'false') {
-        datos_articulo.value.porcentaje_descuento = null;
-        datos_articulo.value.precio_anterior = null;
-    }
-}
-
-const agregarCaracteristica = () => {
-    datos_articulo.value.caracteristicas_articulo.push({ caracteristica: "" })
-}
-
-const eliminarCaracteristica = (index) => {
-    datos_articulo.value.caracteristicas_articulo.splice(index, 1)
-}
-
-//Calcula el PVP en base a los datos de los descuentos
-const calcularPVP = () => {
-    if (datos_articulo.value.porcentaje_descuento >= 1 && datos_articulo.value.porcentaje_descuento < 100) {
-        const descuento = 1 - datos_articulo.value.porcentaje_descuento / 100;
-        const calculoDescuento = Number(descuento * datos_articulo.value.precio_anterior).toFixed(2);
-        //Notificar de que el precio de producto se ha cambiado:
-        pvpDesfase.value = datos_articulo.value.precio_venta
-        if (datos_articulo.value.precio_venta != calculoDescuento) {
-            console.log(`el precio se ha actualizado de: ${pvpDesfase.value} a ${calculoDescuento}`)
-            alertaUpdt.value = true;
-            alerta.value = false;
-        }
-
-        datos_articulo.value.precio_venta = Number(calculoDescuento);
-    }
-}
 
 //comprueba alertas
 const checkAlert = () => {
-    if (datos_articulo.value.precio_venta <= 0) {
+    if (datos_articulo.precio_venta <= 0) {
         alerta.value = true
     } else {
         alertaUpdt.value = false
@@ -243,34 +172,36 @@ const checkAlert = () => {
 
 const subirProducto = async () => {
     //salta alerta de error de precio
-    if (datos_articulo.value.precio_venta < 1) {
+    if (datos_articulo.precio_venta < 1) {
         alerta.value = true;
     } else {
         //se produce un update en el precio en caso de que no se haya producido antes
-        calcularPVP();
+        store.calcularPVP();
         if (alertaUpdt.value == true) {
             console.log("el producto se subirá con la siguiente alerta: Actualización de precio");
 
         }
         //se suben las imagenes
         const idImages = Date.now();
-        const arrayImages = temp_images.value.temp_views;
-        const imagenPortada = temp_images.value.temp_portada;
-        datos_articulo.value.imagenes_producto.id = idImages;
+        const arrayImages = temp_images.temp_views;
+        const imagenPortada = temp_images.temp_portada;
+        datos_articulo.imagenes_producto.id = idImages;
 
         if (imagenPortada) {
             console.log("subiendo imagen principal...")
             const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
-            datos_articulo.value.imagenes_producto.portada = imageResult
+            datos_articulo.imagenes_producto.portada = imageResult
         }
         if (arrayImages) {
             console.log("subiendo conjunto de imágenes...")
             const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
-            datos_articulo.value.imagenes_producto.views = arrayResult;
+            datos_articulo.imagenes_producto.views = arrayResult;
         }
-        slugTitle();
-        console.log("datos para subir:", datos_articulo.value)
-        uploadDatatoStore("productos", datos_articulo.value)
+        store.slugTitle();
+        console.log("datos para subir:", datos_articulo)
+        uploadDatatoStore("productos", datos_articulo)
+        const msg = `${datos_articulo.nombre_articulo} ha sido subido con éxito`;
+        emit('toast-msg', msg)
     }
 
 }
