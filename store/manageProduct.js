@@ -2,27 +2,8 @@ import { defineStore } from "pinia";
 
 export const manageProducts = defineStore("manage_products", {
     state: () => ({
-        //array de productos
-        productos: [],
         //producto
-        producto: {
-            nombre_articulo: "",
-            slug: "",
-            etiquetas_articulo: [],
-            descripcion_articulo: "",
-            marca: "",
-            caracteristicas_articulo: [{ caracteristica: "" }],
-            imagenes_producto: {
-                id: "",
-                portada: {},
-                views: []
-            },
-            precio_venta: null,
-            descuento: null,
-            porcentaje_descuento: null,
-            precio_anterior: null,
-            stock_articulo: null
-        },
+        producto: {},
         //Imagenes temporales 
         temp_images: {
             temp_portada: {},
@@ -45,6 +26,29 @@ export const manageProducts = defineStore("manage_products", {
             const cadena = this.producto.nombre_articulo;
             const slug = cadena.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
             this.producto.slug = slug;
+        },
+        initProducto(){
+            this.producto = {
+                nombre_articulo: "",
+                slug: "",
+                etiquetas_articulo: [],
+                descripcion_articulo: "",
+                marca: "",
+                caracteristicas_articulo: [{ caracteristica: "" }],
+                imagenes_producto: {
+                    id: "",
+                    portada: {},
+                    views: []
+                },
+                precio_venta: null,
+                descuento: false,
+                porcentaje_descuento: null,
+                precio_anterior: null,
+                stock_articulo: null
+            }
+        },
+        setProducto(dataProduct){
+            this.producto = dataProduct;
         },
 
         //Establece una imagen temporal recibida como imagen de portada

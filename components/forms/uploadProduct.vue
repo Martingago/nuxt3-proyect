@@ -1,5 +1,4 @@
 <template>
-    
     <form @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
         <h3 class=" text-center">Añadir producto</h3>
         <fieldset class="d-flex flex-column gap-2 bg-light rounded p-2">
@@ -31,7 +30,7 @@
                 <label for="marcaProducto">Marca del producto</label>
                 <select class="form-select" aria-label="Sección de seleccion de Marca de producto" name="marcaProducto"
                     id="marcaProducto" v-model="datos_articulo.marca" required>
-                        <option v-for="marca in dataBrands" :key="marca.id" :value="marca.id">{{ marca.nombre }}</option>
+                    <option v-for="marca in dataBrands" :key="marca.id" :value="marca.id">{{ marca.nombre }}</option>
                 </select>
             </div>
         </fieldset>
@@ -45,7 +44,8 @@
                     placeholder="Añadir característica" />
                 <button @click.prevent="store.eliminarCaracteristica(index)" class="btn btn-danger">Eliminar</button>
             </div>
-            <button @click.prevent="store.agregarCaracteristica" class="btn btn-primary  mt-2 mx-auto">Añadir Característica</button>
+            <button @click.prevent="store.agregarCaracteristica" class="btn btn-primary  mt-2 mx-auto">Añadir
+                Característica</button>
         </fieldset>
 
         <fieldset class="d-flex flex-column p2- bg-light">
@@ -121,12 +121,18 @@
 </template>
 
 <script setup>
-import {manageProducts} from '~/store/manageProduct.js';
+import { manageProducts } from '~/store/manageProduct.js';
 
 const store = manageProducts();
-const datos_articulo = store.producto //Objeto del producto
+store.initProducto(); //inicializado en 0 el producto
+
+const datos_articulo = ref(store.producto); //Objeto del producto
 const temp_images = store.temp_images; //imagenes temporales
 const alertas = store.item_state;
+
+const props = defineProps({
+    getData: Object
+})
 
 onMounted(async () => {
     //Recibe las categorias de producto que existen
@@ -135,23 +141,21 @@ onMounted(async () => {
     dataBrands.value = await getDataFromStore('marca_productos')
 })
 
-const props = defineProps({
-    getData: Object
-})
+
 
 const emit = defineEmits(['toast-msg'])
 
 
 watch(() => props.getData.form_data, (newVal) => {
-    console.log("datos que se reciben:", props.getData.form_data)
     if (props.getData.action === 'edit' && newVal) {
-        console.log("actualizar producto");
-        datos_articulo.value.nombre_articulo = newVal.nombre_articulo
-    }else{
+        store.setProducto(newVal);
+        datos_articulo.value = store.producto;
+    } else {
         //Elimina los datos para que el formulario esté limpio
-        console.log("noooo")
+        store.initProducto();
+        datos_articulo.value = store.producto
     }
-})
+}, { immediate: true })
 
 //obtener datos de las categorias:
 const dataCategorias = ref([]);
@@ -162,7 +166,7 @@ const alertaUpdt = ref(false);
 
 //comprueba alertas
 const checkAlert = () => {
-    if (datos_articulo.precio_venta <= 0) {
+    if (datos_articulo.value.precio_venta <= 0) {
         alerta.value = true
     } else {
         alertaUpdt.value = false
@@ -172,37 +176,44 @@ const checkAlert = () => {
 
 const subirProducto = async () => {
     //salta alerta de error de precio
-    if (datos_articulo.precio_venta < 1) {
-        alerta.value = true;
-    } else {
-        //se produce un update en el precio en caso de que no se haya producido antes
-        store.calcularPVP();
-        if (alertaUpdt.value == true) {
-            console.log("el producto se subirá con la siguiente alerta: Actualización de precio");
+    if (props.getData.action === 'add') {
 
-        }
-        //se suben las imagenes
-        const idImages = Date.now();
-        const arrayImages = temp_images.temp_views;
-        const imagenPortada = temp_images.temp_portada;
-        datos_articulo.imagenes_producto.id = idImages;
+        if (datos_articulo.value.precio_venta < 1) {
+            alerta.value = true;
+        } else {
+            //se produce un update en el precio en caso de que no se haya producido antes
+            store.calcularPVP();
+            if (alertaUpdt.value == true) {
+                console.log("el producto se subirá con la siguiente alerta: Actualización de precio");
+            }
+            //se suben las imagenes
+            const idImages = Date.now();
+            const arrayImages = temp_images.temp_views;
+            const imagenPortada = temp_images.temp_portada;
+            datos_articulo.value.imagenes_producto.id = idImages;
 
-        if (imagenPortada) {
-            console.log("subiendo imagen principal...")
-            const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
-            datos_articulo.imagenes_producto.portada = imageResult
+            if (imagenPortada) {
+                console.log("subiendo imagen principal...")
+                const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
+                datos_articulo.value.imagenes_producto.portada = imageResult
+            }
+            if (arrayImages) {
+                console.log("subiendo conjunto de imágenes...")
+                const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
+                datos_articulo.value.imagenes_producto.views = arrayResult;
+            }
+            store.slugTitle();
+            console.log("datos para subir:", datos_articulo.value)
+            uploadDatatoStore("productos", datos_articulo.value)
+            const msg = `${datos_articulo.value.nombre_articulo} ha sido subido con éxito`;
+            emit('toast-msg', msg)
         }
-        if (arrayImages) {
-            console.log("subiendo conjunto de imágenes...")
-            const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
-            datos_articulo.imagenes_producto.views = arrayResult;
-        }
-        store.slugTitle();
-        console.log("datos para subir:", datos_articulo)
-        uploadDatatoStore("productos", datos_articulo)
-        const msg = `${datos_articulo.nombre_articulo} ha sido subido con éxito`;
-        emit('toast-msg', msg)
     }
+    else if (props.getData.action === 'edit') {
+        store.slugTitle();
+        console.log("editandoooo ", datos_articulo.value);
+    }
+
 
 }
 

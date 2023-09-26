@@ -1,5 +1,6 @@
 <template>
     <section class="d-flex flex-column gap-3">
+
         <table v-if="loading">
             <thead>
                 <tr>
@@ -45,7 +46,6 @@
 import { storeProducts } from '@/store/productStore.js';
 
 const loading = ref(false);
-const datos = ref([]);
 const store = storeProducts();
 const emit = defineEmits(['emit-data']);
 
@@ -55,8 +55,6 @@ const cargarDatos = async () => {
     loading.value = true;
 }
 cargarDatos();
-
-
 
 const selectedItem = ref({}); //datos del objeto seleccionado que se enviarán al padre
 

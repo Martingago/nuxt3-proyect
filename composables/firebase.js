@@ -7,11 +7,11 @@ const getSingleDocumentData = async (coleccion, id) => {
     const docRef = doc($db, coleccion, id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
+        //console.log("Document data:", docSnap.data());
         return docSnap.data();
     } else {
         // docSnap.data() will be undefined in this case
-        console.log("No such document!");
+        //console.log("No such document!");
         return null;
     }
 }

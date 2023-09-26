@@ -7,7 +7,7 @@ export { uploadMainImage, uploadArrayImages, deleteAllContentFromReference }
  * @param {*} coleccion 
  * @param {*} id 
  * @param {*} file 
- * @returns 
+ * @returns string de la direccion de la imagen
  */
 const uploadMainImage = async (coleccion, id, file) => {
     const { $storage } = useNuxtApp();
@@ -35,7 +35,7 @@ const uploadMainImage = async (coleccion, id, file) => {
  * @param {*} coleccion 
  * @param {*} id 
  * @param {*} arrayFiles 
- * @returns 
+ * @returns array de strings que contienen la direccion de la imagen
  */
 const uploadArrayImages = async (coleccion, id, arrayFiles) => {
     const arrayImages = [];

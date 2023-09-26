@@ -7,7 +7,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">  
-                    <pre>{{ dataObject }}</pre>
+                    
                     <forms-addFormData v-if="dataObject.referencia_datos != 'productos'" :getData="dataObject" @toast-msg="actualizarDatos"></forms-addFormData>
                     <forms-uploadProduct v-if="dataObject.referencia_datos === 'productos' " :getData="dataObject" @toast-msg="actualizarDatos"></forms-uploadProduct>
                 </div>
@@ -26,6 +26,7 @@ const actualizarDatos = (msg) => {
 const props = defineProps({
     dataObject: Object,
 })
+
 </script>
 
 <style scoped>
