@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
+    <form v-if="!loading" @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
         <h3 class=" text-center">Añadir producto</h3>
         <fieldset class="d-flex flex-column gap-2 bg-light rounded p-2">
             <legend class="text-center">Datos principales</legend>
@@ -118,6 +118,19 @@
         </fieldset>
         <button class="btn btn-primary">Subir producto</button>
     </form>
+    <!-- Spinner -->
+    <div v-else class="loading position-relative">
+        <div v-if="disabled" class="spinner-border m-auto " role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div v-else>
+            <p class="alert alert-success mb-0">El producto se ha subido con éxito!</p>
+        </div>
+        <ul class="list-updates position-absolute">
+            <li class="noti-msg" v-for="mensaje in uploadMsg" :key="mensaje">{{ mensaje }}</li>
+        </ul>
+        <button @click="clearData" class="btn btn-primary confirm-prod" :disabled="disabled">Aceptar</button>
+    </div>
 </template>
 
 <script setup>
@@ -131,6 +144,9 @@ const datos_articulo = ref(store.producto); //Objeto del producto
 const temp_images = store.temp_images; //imagenes temporales
 const alertas = store.item_state;
 
+const loading = ref(false);
+const uploadMsg = ref([]);
+const disabled = ref(false);
 const props = defineProps({
     getData: Object
 })
@@ -139,7 +155,7 @@ onMounted(async () => {
     dataCategorias.value = await getDataFromStore('categoria_productos');
     //recibe las marcas de producto que existen
     dataBrands.value = await getDataFromStore('marca_productos');
-    
+
 })
 
 const emit = defineEmits(['toast-msg'])
@@ -174,9 +190,11 @@ const checkAlert = () => {
 }
 
 const subirProducto = async () => {
+    disabled.value = true;
+    uploadMsg.value = [];
     //salta alerta de error de precio
     if (props.getData.action === 'add') {
-
+        loading.value = true;
         if (datos_articulo.value.precio_venta < 1) {
             alerta.value = true;
         } else {
@@ -192,28 +210,37 @@ const subirProducto = async () => {
             datos_articulo.value.imagenes_producto.id = idImages;
 
             if (imagenPortada) {
-                console.log("subiendo imagen principal...")
+                console.log("Subiendo imagen principal...")
+                uploadMsg.value.push("subiendo imagen principal...");
                 const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
                 datos_articulo.value.imagenes_producto.portada = imageResult
             }
             if (arrayImages) {
                 console.log("subiendo conjunto de imágenes...")
+                uploadMsg.value.push("Subiendo conjunto de imágenes...");
                 const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
                 datos_articulo.value.imagenes_producto.views = arrayResult;
             }
             store.slugTitle();
             console.log("datos para subir:", datos_articulo.value)
+            uploadMsg.value.push("Subiendo datos de producto...");
             uploadDatatoStore("productos", datos_articulo.value)
             const msg = `${datos_articulo.value.nombre_articulo} ha sido subido con éxito`;
-            emit('toast-msg', msg)
+            emit('toast-msg', msg);
+            disabled.value = false;
         }
     }
     else if (props.getData.action === 'edit') {
         store.slugTitle();
         console.log("editandoooo ", datos_articulo.value);
     }
+}
 
 
+const clearData = () => {
+    store.initProducto();
+    datos_articulo.value = store.producto;
+    loading.value = false;
 }
 
 
@@ -221,6 +248,35 @@ const subirProducto = async () => {
 
 
 <style scoped>
+.loading {
+    min-height: 80vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-updates {
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+    padding: 0;
+}
+
+.noti-msg {
+    font-size: .8rem;
+}
+
+.alert-success {
+    font-weight: 700;
+}
+
+.confirm-prod {
+    width: 120px;
+    margin: auto;
+    margin-bottom: 2rem;
+}
+
 form {
     max-width: 800px;
 }
@@ -232,6 +288,7 @@ form {
 #descripcionProducto {
     resize: none;
 }
+
 
 
 .notification-area {
