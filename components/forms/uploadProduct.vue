@@ -127,28 +127,27 @@ const store = manageProducts();
 store.initProducto(); //inicializado en 0 el producto
 
 const datos_articulo = ref(store.producto); //Objeto del producto
+
 const temp_images = store.temp_images; //imagenes temporales
 const alertas = store.item_state;
 
 const props = defineProps({
     getData: Object
 })
-
 onMounted(async () => {
     //Recibe las categorias de producto que existen
     dataCategorias.value = await getDataFromStore('categoria_productos');
     //recibe las marcas de producto que existen
-    dataBrands.value = await getDataFromStore('marca_productos')
+    dataBrands.value = await getDataFromStore('marca_productos');
+    
 })
 
-
-
 const emit = defineEmits(['toast-msg'])
-
 
 watch(() => props.getData.form_data, (newVal) => {
     if (props.getData.action === 'edit' && newVal) {
         store.setProducto(newVal);
+        console.log("datos a modificar: ", store.producto)
         datos_articulo.value = store.producto;
     } else {
         //Elimina los datos para que el formulario esté limpio

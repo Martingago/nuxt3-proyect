@@ -81,7 +81,7 @@ const deleteAllContentFromReference = async (identificador) => {
                 console.log("imagen eliminada")
                 // File deleted successfully
             }).catch((error) => {
-                console.log(error)
+                console.log("error:", error)
                 // Uh-oh, an error occurred!
             });
         });

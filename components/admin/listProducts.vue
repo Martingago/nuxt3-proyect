@@ -60,7 +60,7 @@ const selectedItem = ref({}); //datos del objeto seleccionado que se enviarán a
 
 const handleClick = (object, value) => {
     selectedItem.value = {
-        form_data: object,
+        form_data:{...object} , //se le pasa una referencia del objeto en lugar del objeto en sí
         action: value,
         text_referencia: "Producto",
         referencia_datos: "productos"
