@@ -10,10 +10,6 @@
 
 <script setup>
 
-useHead({
-    titleTemplate: "%s - Intro a Nuxt",
-}
-);
 //const login = await initUser();
 //const firebase = useFirebaseUser();
 

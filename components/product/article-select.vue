@@ -4,7 +4,7 @@
 
     @mouseenter="showBtn = true"  @mouseleave="showBtn = false" class="product-article d-flex flex-column p-2 rounded">
         <div class="img-container">
-            <img class="img-fluida img-fluid" loading="lazy" :src="datoProducto.imagenes_producto.portada" :alt="'Producto de la tienda audiophile: '+datoProducto.nombre_articulo">
+            <img class="img-fluida img-fluid" loading="lazy" :src="datoProducto.imagenes_producto.portada.url" :alt="'Producto de la tienda audiophile: '+datoProducto.nombre_articulo">
         </div>
         <hr class="my-0">
         <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>

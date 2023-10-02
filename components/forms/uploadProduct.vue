@@ -47,10 +47,10 @@
             <button @click.prevent="store.agregarCaracteristica" class="btn btn-primary  mt-2 mx-auto">Añadir
                 Característica</button>
         </fieldset>
-
+        <!-- Imágenes -->
         <fieldset class="d-flex flex-column p2- bg-light">
             <legend class="text-center">Imágenes del producto</legend>
-            <FormsUploadImage @portada-image-update="store.hanldePortadaImage"></FormsUploadImage>
+            <FormsUploadImage @portada-image-update="store.hanldePortadaImage" :main-image="datos_articulo.imagenes_producto.portada"></FormsUploadImage>
             <FormsUploadArrayImages @array-images-update="store.handleArrayImages"></FormsUploadArrayImages>
 
         </fieldset>
@@ -147,6 +147,7 @@ const alertas = store.item_state;
 const loading = ref(false);
 const uploadMsg = ref([]);
 const disabled = ref(false);
+
 const props = defineProps({
     getData: Object
 })
@@ -163,7 +164,8 @@ const emit = defineEmits(['toast-msg'])
 watch(() => props.getData.form_data, (newVal) => {
     if (props.getData.action === 'edit' && newVal) {
         store.setProducto(newVal);
-        console.log("datos a modificar: ", store.producto)
+        console.log("datos a modificar: ", store.producto);
+
         datos_articulo.value = store.producto;
     } else {
         //Elimina los datos para que el formulario esté limpio
@@ -232,7 +234,12 @@ const subirProducto = async () => {
     }
     else if (props.getData.action === 'edit') {
         store.slugTitle();
-        console.log("editandoooo ", datos_articulo.value);
+        const { nombre_marca, ...datos_update} = datos_articulo.value;
+        const idImages = datos_update.imagenes_producto.id;
+        
+        
+
+        console.log("editandoooo ", datos_update);
     }
 }
 

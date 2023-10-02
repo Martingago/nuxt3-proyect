@@ -1,5 +1,5 @@
 import { ref, uploadBytes, getDownloadURL, deleteObject, listAll } from "firebase/storage";
-export { uploadMainImage, uploadArrayImages, deleteAllContentFromReference }
+export { uploadMainImage, uploadArrayImages, deleteAllContentFromReference, deleteRefenceImage }
 
 
 /**
@@ -20,7 +20,10 @@ const uploadMainImage = async (coleccion, id, file) => {
             await uploadBytes(imageRef, file).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
-            urlImage = await getDownloadURL(imageRef);
+            urlImage = {
+                url: await getDownloadURL(imageRef),
+                path: path
+            }
         } else {
             console.log("no se ha añadido una imagen")
         }
@@ -49,7 +52,10 @@ const uploadArrayImages = async (coleccion, id, arrayFiles) => {
                     console.log(`Uploaded a blob or file!: [${i + 1} de: ${arrayFiles.length}]`);
                 });
                 const urlImage = await getDownloadURL(imagesRef);
-                arrayImages.push(urlImage)
+                arrayImages.push({
+                    url: urlImage,
+                    path: path
+                })
             }
         } else {
             console.log("No existen imagenes en el array")
@@ -85,6 +91,20 @@ const deleteAllContentFromReference = async (identificador) => {
                 // Uh-oh, an error occurred!
             });
         });
+    })
+
+}
+
+const deleteRefenceImage = async (reference) => {
+    const { $storage } = useNuxtApp();
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, reference);
+
+    // Delete the file
+    deleteObject(desertRef).then(() => {
+        // File deleted successfully
+    }).catch((error) => {
+        // Uh-oh, an error occurred!
     })
 
 }

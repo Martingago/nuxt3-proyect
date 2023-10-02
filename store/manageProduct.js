@@ -6,7 +6,10 @@ export const manageProducts = defineStore("manage_products", {
         producto: {},
         //Imagenes temporales 
         temp_images: {
-            temp_portada: {},
+            temp_portada: {
+                image: {},
+                path: ""
+            },
             temp_views: []
         },
         //loading
@@ -38,7 +41,7 @@ export const manageProducts = defineStore("manage_products", {
                 imagenes_producto: {
                     id: "",
                     portada: {},
-                    views: []
+                    views: [{}]
                 },
                 precio_venta: null,
                 descuento: false,
@@ -53,7 +56,10 @@ export const manageProducts = defineStore("manage_products", {
 
         //Establece una imagen temporal recibida como imagen de portada
         hanldePortadaImage(image) {
-            this.temp_images.temp_portada = image;
+            console.log("image",image)
+            this.temp_images.temp_portada.image = image.image;
+            this.temp_images.temp_portada.path = image.path;
+            console.log("this.image", this.temp_images.temp_portada);
         },
         //establece un array de imagenes recibidos temporalmente como el conjunto de imágenes
         handleArrayImages(images) {

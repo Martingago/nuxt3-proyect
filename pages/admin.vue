@@ -36,8 +36,13 @@
 
 definePageMeta({
   layout: "simple",
-  // or middleware: 'auth'
+  
 })
+useHead(
+    {
+        title: "Audiophile - Admin",
+    }    
+);
 
 
 const msgToast = ref("");
