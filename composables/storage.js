@@ -7,16 +7,15 @@ export { uploadMainImage, uploadArrayImages, deleteAllContentFromReference, dele
  * @param {*} coleccion 
  * @param {*} id 
  * @param {*} file 
- * @returns string de la direccion de la imagen
+ * @returns {Object} con la informacion de la URL de descarga de la imagen y la dirección Path de la imagen
  */
 const uploadMainImage = async (coleccion, id, file) => {
     const { $storage } = useNuxtApp();
-    let urlImage = "";
+    let urlImage = {};
     try {
         if (file) {
             const path = `${coleccion}/${id}/portada/${file.name}` //path conformado por el id del producto y la carpeta portada
             const imageRef = ref($storage, path);
-            // 'file' comes from the Blob or File API
             await uploadBytes(imageRef, file).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
@@ -98,12 +97,14 @@ const deleteAllContentFromReference = async (identificador) => {
 const deleteRefenceImage = async (reference) => {
     const { $storage } = useNuxtApp();
     // Create a reference to the file to delete
-    const desertRef = ref(storage, reference);
+    const desertRef = ref($storage, reference);
 
     // Delete the file
     deleteObject(desertRef).then(() => {
+        console.log("imagen principal eliminada")
         // File deleted successfully
     }).catch((error) => {
+        console.log("error al eliminar imagen principal:", error)
         // Uh-oh, an error occurred!
     })
 

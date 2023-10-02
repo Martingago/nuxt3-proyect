@@ -202,29 +202,25 @@ const subirProducto = async () => {
         } else {
             //se produce un update en el precio en caso de que no se haya producido antes
             store.calcularPVP();
-            if (alertaUpdt.value == true) {
-                console.log("el producto se subirá con la siguiente alerta: Actualización de precio");
-            }
             //se suben las imagenes
             const idImages = Date.now();
-            const arrayImages = temp_images.temp_views;
-            const imagenPortada = temp_images.temp_portada;
-            datos_articulo.value.imagenes_producto.id = idImages;
+            const imagenPortada = temp_images.temp_portada.image; //objeto imagen de la portada
+            const arrayImages = temp_images.temp_views; //Array de objeto images de las views
+            datos_articulo.value.imagenes_producto.id = idImages; //ID de las imágenes
 
+            //Sube imagen de portada
             if (imagenPortada) {
-                console.log("Subiendo imagen principal...")
                 uploadMsg.value.push("subiendo imagen principal...");
                 const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
-                datos_articulo.value.imagenes_producto.portada = imageResult
+                datos_articulo.value.imagenes_producto.portada.url = imageResult.url;
+                datos_articulo.value.imagenes_producto.portada.path = imageResult.path;
             }
             if (arrayImages) {
-                console.log("subiendo conjunto de imágenes...")
                 uploadMsg.value.push("Subiendo conjunto de imágenes...");
                 const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
                 datos_articulo.value.imagenes_producto.views = arrayResult;
             }
             store.slugTitle();
-            console.log("datos para subir:", datos_articulo.value)
             uploadMsg.value.push("Subiendo datos de producto...");
             uploadDatatoStore("productos", datos_articulo.value)
             const msg = `${datos_articulo.value.nombre_articulo} ha sido subido con éxito`;
@@ -234,12 +230,20 @@ const subirProducto = async () => {
     }
     else if (props.getData.action === 'edit') {
         store.slugTitle();
-        const { nombre_marca, ...datos_update} = datos_articulo.value;
+        const { nombre_marca, ...datos_update} = datos_articulo.value; //Objeto limpio que se va a actualizar a la BBDD
         const idImages = datos_update.imagenes_producto.id;
-        
+
+        //Actualiza la imagen y borra la anterior de la BBDD
+        if(temp_images.temp_portada.updated === true){
+            deleteRefenceImage(temp_images.temp_portada.path); //Elimina la imagen de la BBDD
+            const imageResult = await uploadMainImage("productos_images", idImages, temp_images.temp_portada.image); //Sube la nueva imagen a la BDD
+            datos_update.imagenes_producto.portada.url = imageResult.url; //Actualiza la URL de descarga de la imagen
+            datos_update.imagenes_producto.portada.path = imageResult.path; //Actualiza el Path de la imagen
+        }
+        //Actualiza los datos del producto
+        await updateDataToStore("productos", datos_update.id, datos_update);
         
 
-        console.log("editandoooo ", datos_update);
     }
 }
 

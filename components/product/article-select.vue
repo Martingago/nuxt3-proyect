@@ -1,4 +1,5 @@
 <template>
+    <!-- <pre>{{ datoProducto }}</pre> -->
     <article @click="visitProductPage(datoProducto.slug)"
     :class="{'shadow border': showBtn}"
 

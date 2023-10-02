@@ -32,7 +32,8 @@ watch(props, ()=> {
 watch(imagen , ()=> {
     emit('portada-image-update', {
         image: imagen.value,
-        path: imagePath.value
+        path: imagePath.value,
+        updated: true
     });
 })
 
