@@ -3,10 +3,11 @@
         <h1 class="text-center">Listado de productos</h1>
 
         <FiltersContainerFilter></FiltersContainerFilter>
-
+        <!-- <pre>{{ store.productos }}</pre> -->
             <div v-if="loading">
                 <p>Cargando...</p>
             </div>
+            
             <section v-else id="productos-container" class="p-2">
                 <ProductArticleSelect v-for="producto in store.productos" :key="producto.id" :datoProducto="producto">
                 </ProductArticleSelect>

@@ -69,6 +69,7 @@ const handleClick = (object, value) => {
 }
 
 
+
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-column gap-2">
-        
+
         <label for="uploadArrayImages">Vistas del producto</label>
         <input type="file" @change="seleccionarImagenes($event)" accept="image/*" name="uploadArrayImages"
             id="uploadArrayImages" multiple>
@@ -9,7 +9,10 @@
             <img @click="eliminarImagen(index)" class="preview-img border border-2" v-for="(src, index) in arrayImagesURL"
                 :key="index" :src="src">
         </div>
-        <pre>{{ props.arrayImages }}</pre>
+        <p>Elementos del arryaPushImage</p>
+        <pre>{{ arrayPushImage }}</pre>
+        <p>Elementos que debo eliminar:</p>
+        <pre>{{ arrayDeleteObjetosImage }}</pre>
     </div>
 </template>
 
@@ -18,56 +21,77 @@
 
 const emit = defineEmits(['array-images-update']);
 
+
+//Objetos que puede recibir el componente (Casos de edición de datos en los que se recibe un Array de antiguar imágenes)
 const props = defineProps({
     arrayImages: Array
 });
 
-const arrayObjetosImage = ref([]); //array de objetos image que se sube a la BBDD
+//CONSTANTES
+const arrayDeleteObjetosImage = ref([]); //Almacén de imagenes que se eliminarán si el usuario confirma los cambios
+const arrayPushImage = ref([]); //array de objetos imagen que se subirán a la BBDD si el usuario confirma los cambios
 const arrayImagesURL = ref([]); //url de las imagenes para mostrar en pantalla
 
 //Observa los props del articulo a modificar
 watch(props, () => {
-    console.log("lectura de props",props.arrayImages)
     props.arrayImages.forEach(data => {
         arrayImagesURL.value.push(data.url);
+        const d = {
+            ...data,
+            registered: true
+        }
+        arrayPushImage.value.push(d);
     });
-   
-//    console.log("lectura de props", arrayImagesURL.value)
-},{ immediate: true })
+}, { immediate: true })
 
+/**
+ * Cuándo se actualizan las imágenes por parte del usuario se envián al componente padre:
+ *  ==> Array de imágenes que se deberán subir a la BBDD 
+ *  ==> Array de imágenes que se deberán de eliminar de la BBDD
+ */
 
-watch(arrayObjetosImage.value, () => {
-    //cuando se actualiza se envia hacia arriba un array que contiene objetos con la informacion de cada image: path, file, y boolean si fue modificada
-    emit('array-images-update', arrayObjetosImage)
+watch(arrayPushImage.value, () => {
+    emit('array-images-update', {
+        arrayPushImage,
+        arrayDeleteObjetosImage
+    })
+    
 })
-
 
 const seleccionarImagenes = (event) => {
     let files = event.target.files;
     for (let i = 0; i < files.length; i++) {
-
+        //A las imágenes que el usuario selecciona de su ordenador, se le atribuye una propiedad registered: false; 
+        //Que indica que la imagén no ha sido subida previamente a la BBDD
         const dataImage = {
             file: files[i],
-            path: null,
-            updated: false,
+            registered: false,
         }
-
-        //arrayImagesFile.value.push(files[i]);
         let reader = new FileReader();
         reader.onloadend = function () {
             arrayImagesURL.value.push(reader.result);
         }
         reader.readAsDataURL(files[i]);
-        arrayObjetosImage.value.push(dataImage);
+        //En el array de imágenes para subir se añade la imagen que el usuario ha añadido
+        arrayPushImage.value.push(dataImage);
     }
 }
 
-
+/**
+ * Función que elimina una imagen de un producto.
+ * Pueden presentarse 2 situaciones:
+ *  ==> La imagen deberá eliminarse de la BBDD ya que se trata de una edición de producto
+ *  ==> La imagen ha sido borrada en el objeto local del administrador || Se elimina del array de Imágenes que iban a ser subidas/actualizadas en la BBDD
+ * @param {*} index ínidce de la imagen a eliminar
+ */
 const eliminarImagen = (index) => {
-    arrayImagesURL.value.splice(index, 1);
-    arrayObjetosImage.value.splice(index, 1)
+    //Se comprueba si el objeto tiene la propiedad registered true => Indica que el la imagen se encuentra en la BBDD y deberá ser eliminada
+    if (arrayPushImage.value[index].registered === true) {
+        arrayDeleteObjetosImage.value.push(arrayPushImage.value[index]);
+    }
+    arrayImagesURL.value.splice(index, 1); //Se actualizan las imagenes previsualizadas en pantalla hacia el usuario
+    arrayPushImage.value.splice(index, 1); //Se actualizan las imágenes que el usuario desechó subir
 }
-
 
 </script>
 

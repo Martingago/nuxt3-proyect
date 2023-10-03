@@ -21,19 +21,17 @@ const props = defineProps({
 //propiedades:
 const imagen = ref({}); //datos que se suben a la BBDD
 const imageURL = ref(null); //imagen que carga como HTML
-const imagePath = ref(null); //path de la imagen en la BBDD; (edicion)
 
 watch(props, ()=> {
     imageURL.value = props.mainImage.url;
-    imagePath.value = props.mainImage.path;
 }, { immediate: true })
 
 //Observa las actualizaciones en la imagen
+
 watch(imagen , ()=> {
     emit('portada-image-update', {
-        image: imagen.value,
-        path: imagePath.value,
-        updated: true
+        file: imagen.value,
+        registered: false
     });
 })
 
@@ -45,7 +43,6 @@ const clickImage = (e) => {
             imageURL.value = reader.result;
         }
         reader.readAsDataURL(imagen.value);
-    console.log("archivo: ", imagen.value)
 }
 
 const eliminarImagen = () => {

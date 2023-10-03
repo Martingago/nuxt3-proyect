@@ -6,29 +6,19 @@ export const manageProducts = defineStore("manage_products", {
         producto: {},
         //Imagenes temporales 
         temp_images: {
-            temp_portada: {
-                image: {},
-                path: "",
-                updated: false,
-            },
-            temp_views: [
-                {
-                image: {},
-                path: "",
-                updated: false
-            }
-        ]
+            temp_portada: {},
+            temp_views: []
         },
         //loading
         item_state: {
             loading: true,
-            alerta:{
+            alerta: {
                 valor: false,
                 mensaje: "",
                 type: "alert-warning"
             }
         }
-       
+
     }),
     actions: {
         //hace un slug del producto basandose en el titulo del producto
@@ -37,7 +27,7 @@ export const manageProducts = defineStore("manage_products", {
             const slug = cadena.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
             this.producto.slug = slug;
         },
-        initProducto(){
+        initProducto() {
             this.producto = {
                 nombre_articulo: "",
                 slug: "",
@@ -47,14 +37,8 @@ export const manageProducts = defineStore("manage_products", {
                 caracteristicas_articulo: [{ caracteristica: "" }],
                 imagenes_producto: {
                     id: "",
-                    portada: {
-                        url: "",
-                        path: "",
-                    },
-                    views: [{
-                        url: "",
-                        path: "",
-                    }]
+                    portada: {},
+                    views: []
                 },
                 precio_venta: null,
                 descuento: false,
@@ -63,19 +47,29 @@ export const manageProducts = defineStore("manage_products", {
                 stock_articulo: null
             }
         },
-        setProducto(dataProduct){
+        initTempImages() {
+            this.temp_images = {
+                temp_portada: {},
+                temp_views: [{}]
+            }
+        },
+        setProducto(dataProduct) {
             this.producto = dataProduct;
+        },
+        setTempImages(dataImages) {
+            this.temp_images = dataImages;
         },
 
         //Establece una imagen temporal recibida como imagen de portada
         hanldePortadaImage(image) {
-            this.temp_images.temp_portada.image = image.image;
-            this.temp_images.temp_portada.path = image.path;
-            this.temp_images.temp_portada.updated = image.updated;
+            this.temp_images.temp_portada = image;
+            console.log("handle portada", this.temp_images.temp_portada)
+     
         },
         //establece un array de imagenes recibidos temporalmente como el conjunto de imágenes
         handleArrayImages(images) {
-            this.temp_images.temp_views = images;
+            this.temp_images.temp_views = images.arrayPushImage;
+            console.log("handle views:", this.temp_images.temp_views)
         },
         //añade una caracteristica al producto
         agregarCaracteristica() {

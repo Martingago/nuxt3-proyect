@@ -1,5 +1,6 @@
 <template>
     <form v-if="!loading" @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
+        <pre>{{ temp_images }}</pre>
         <h3 class=" text-center">Añadir producto</h3>
         <fieldset class="d-flex flex-column gap-2 bg-light rounded p-2">
             <legend class="text-center">Datos principales</legend>
@@ -137,13 +138,13 @@
 import { manageProducts } from '~/store/manageProduct.js';
 
 const store = manageProducts();
+
 store.initProducto(); //inicializado en 0 el producto
-
+store.initTempImages();
 const datos_articulo = ref(store.producto); //Objeto del producto
+const temp_images = ref(store.temp_images); //imagenes temporales
 
-const temp_images = store.temp_images; //imagenes temporales
 const alertas = store.item_state;
-
 const loading = ref(false);
 const uploadMsg = ref([]);
 const disabled = ref(false);
@@ -168,9 +169,12 @@ watch(() => props.getData.form_data, (newVal) => {
 
         datos_articulo.value = store.producto;
     } else {
+        console.log("Tengo que limpiar el form")
         //Elimina los datos para que el formulario esté limpio
         store.initProducto();
-        datos_articulo.value = store.producto
+        store.initTempImages();
+        datos_articulo.value = store.producto;
+        temp_images.value = store.temp_images;
     }
 }, { immediate: true })
 
@@ -204,10 +208,12 @@ const subirProducto = async () => {
             store.calcularPVP();
             //se suben las imagenes
             const idImages = Date.now();
-            const imagenPortada = temp_images.temp_portada.image; //objeto imagen de la portada
-            const arrayImages = temp_images.temp_views; //Array de objeto images de las views
             datos_articulo.value.imagenes_producto.id = idImages; //ID de las imágenes
 
+            console.log("datos actualizados de las imagenes: ", temp_images.value);
+            const imagenPortada = temp_images.value.temp_portada.file;
+            const arrayImages = temp_images.value.temp_views;
+            
             //Sube imagen de portada
             if (imagenPortada) {
                 uploadMsg.value.push("subiendo imagen principal...");
@@ -215,7 +221,6 @@ const subirProducto = async () => {
                 datos_articulo.value.imagenes_producto.portada = imageResult;
             }
             //Sube conjunto de imágenes
-            
             if (arrayImages.length > 0) {
                 uploadMsg.value.push("Subiendo conjunto de imágenes...");
 
@@ -229,7 +234,7 @@ const subirProducto = async () => {
             }
             store.slugTitle();
             uploadMsg.value.push("Subiendo datos de producto...");
-            uploadDatatoStore("productos", datos_articulo.value)
+            await uploadDatatoStore("productos", datos_articulo.value)
             const msg = `${datos_articulo.value.nombre_articulo} ha sido subido con éxito`;
             emit('toast-msg', msg);
             disabled.value = false;
@@ -241,11 +246,10 @@ const subirProducto = async () => {
         const idImages = datos_update.imagenes_producto.id;
 
         //Actualiza la imagen y borra la anterior de la BBDD
-        if(temp_images.temp_portada.updated === true){
+        if(temp_images.temp_portada.registered === true){
             deleteRefenceImage(temp_images.temp_portada.path); //Elimina la imagen de la BBDD
             const imageResult = await uploadMainImage("productos_images", idImages, temp_images.temp_portada.image); //Sube la nueva imagen a la BDD
-            datos_update.imagenes_producto.portada.url = imageResult.url; //Actualiza la URL de descarga de la imagen
-            datos_update.imagenes_producto.portada.path = imageResult.path; //Actualiza el Path de la imagen
+            datos_update.imagenes_producto.portada = imageResult; //Actualiza la URL de descarga de la imagen
         }
         //Actualiza el conjunto de imagenes y borra las eliminadas de la BBDD
 
