@@ -41,6 +41,7 @@ const uploadMainImage = async (coleccion, id, file) => {
  */
 const uploadArrayImages = async (coleccion, id, arrayFiles) => {
     const arrayImages = [];
+    console.log(arrayFiles)
     const { $storage } = useNuxtApp();
     try {
         if (arrayFiles && arrayFiles.length > 0) {
@@ -93,6 +94,7 @@ const deleteAllContentFromReference = async (identificador) => {
     })
 
 }
+
 
 const deleteRefenceImage = async (reference) => {
     const { $storage } = useNuxtApp();

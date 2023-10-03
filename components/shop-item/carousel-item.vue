@@ -5,9 +5,10 @@
         <button v-for="(image, index) in arrayImagenes" :key="image" type="button" data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="index" class="active bg-dark"
             aria-current="true" aria-label="Slide 1"></button>
     </div>
+    
     <div class="carousel-inner">
         <div v-for="(image, index) in arrayImagenes" :key="index" class="carousel-item" :class="{active : index === 0}">
-            <img :src="image" class="d-block w-100"
+            <img :src="image.url" class="d-block w-100"
                 alt="imagen de ejemplo">
         </div>
     </div>

@@ -11,7 +11,13 @@ export const manageProducts = defineStore("manage_products", {
                 path: "",
                 updated: false,
             },
-            temp_views: []
+            temp_views: [
+                {
+                image: {},
+                path: "",
+                updated: false
+            }
+        ]
         },
         //loading
         item_state: {
@@ -45,7 +51,10 @@ export const manageProducts = defineStore("manage_products", {
                         url: "",
                         path: "",
                     },
-                    views: [{}]
+                    views: [{
+                        url: "",
+                        path: "",
+                    }]
                 },
                 precio_venta: null,
                 descuento: false,

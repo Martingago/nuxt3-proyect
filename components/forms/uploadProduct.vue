@@ -51,7 +51,7 @@
         <fieldset class="d-flex flex-column p2- bg-light">
             <legend class="text-center">Imágenes del producto</legend>
             <FormsUploadImage @portada-image-update="store.hanldePortadaImage" :main-image="datos_articulo.imagenes_producto.portada"></FormsUploadImage>
-            <FormsUploadArrayImages @array-images-update="store.handleArrayImages"></FormsUploadArrayImages>
+            <FormsUploadArrayImages @array-images-update="store.handleArrayImages" :array-images="datos_articulo.imagenes_producto.views"></FormsUploadArrayImages>
 
         </fieldset>
 
@@ -212,12 +212,19 @@ const subirProducto = async () => {
             if (imagenPortada) {
                 uploadMsg.value.push("subiendo imagen principal...");
                 const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
-                datos_articulo.value.imagenes_producto.portada.url = imageResult.url;
-                datos_articulo.value.imagenes_producto.portada.path = imageResult.path;
+                datos_articulo.value.imagenes_producto.portada = imageResult;
             }
-            if (arrayImages) {
+            //Sube conjunto de imágenes
+            
+            if (arrayImages.length > 0) {
                 uploadMsg.value.push("Subiendo conjunto de imágenes...");
-                const arrayResult = await uploadArrayImages("productos_images", idImages, arrayImages);
+
+                const fileArrayImage = [];
+                arrayImages.forEach(element => {
+                    fileArrayImage.push(element.file);
+                });
+                
+                const arrayResult = await uploadArrayImages("productos_images", idImages, fileArrayImage);
                 datos_articulo.value.imagenes_producto.views = arrayResult;
             }
             store.slugTitle();
@@ -240,6 +247,9 @@ const subirProducto = async () => {
             datos_update.imagenes_producto.portada.url = imageResult.url; //Actualiza la URL de descarga de la imagen
             datos_update.imagenes_producto.portada.path = imageResult.path; //Actualiza el Path de la imagen
         }
+        //Actualiza el conjunto de imagenes y borra las eliminadas de la BBDD
+
+
         //Actualiza los datos del producto
         await updateDataToStore("productos", datos_update.id, datos_update);
         
