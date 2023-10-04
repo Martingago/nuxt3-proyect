@@ -1,6 +1,6 @@
 <template>
+    <pre>{{ datos_articulo }}</pre>
     <form v-if="!loading" @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
-        <pre>{{ temp_images }}</pre>
         <h3 class=" text-center">Añadir producto</h3>
         <fieldset class="d-flex flex-column gap-2 bg-light rounded p-2">
             <legend class="text-center">Datos principales</legend>
@@ -51,8 +51,10 @@
         <!-- Imágenes -->
         <fieldset class="d-flex flex-column p2- bg-light">
             <legend class="text-center">Imágenes del producto</legend>
-            <FormsUploadImage @portada-image-update="store.hanldePortadaImage" :main-image="datos_articulo.imagenes_producto.portada"></FormsUploadImage>
-            <FormsUploadArrayImages @array-images-update="store.handleArrayImages" :array-images="datos_articulo.imagenes_producto.views"></FormsUploadArrayImages>
+            <FormsUploadImage @portada-image-update="hanldePortadaImage = $event"
+                :main-image="datos_articulo.imagenes_producto.portada"></FormsUploadImage>
+            <FormsUploadArrayImages @array-images-update="handleViewsImage = $event"
+                :array-images="datos_articulo.imagenes_producto.views"></FormsUploadArrayImages>
 
         </fieldset>
 
@@ -140,9 +142,16 @@ import { manageProducts } from '~/store/manageProduct.js';
 const store = manageProducts();
 
 store.initProducto(); //inicializado en 0 el producto
-store.initTempImages();
-const datos_articulo = ref(store.producto); //Objeto del producto
-const temp_images = ref(store.temp_images); //imagenes temporales
+store.initTempImages(); //inicializado a 0 las imagenes temporales
+const datos_articulo = ref(store.producto); //Objeto del producto (vacío)
+const temp_images = ref(store.temp_images); //imagenes temporales (vacío);
+
+//CONST
+const hanldePortadaImage = ref(null); //manejo de la views de imagen de portada
+const handleViewsImage = ref(null); //manejo de las views de imagenes
+
+
+
 
 const alertas = store.item_state;
 const loading = ref(false);
@@ -164,12 +173,9 @@ const emit = defineEmits(['toast-msg'])
 
 watch(() => props.getData.form_data, (newVal) => {
     if (props.getData.action === 'edit' && newVal) {
-        store.setProducto(newVal);
-        console.log("datos a modificar: ", store.producto);
-
+        store.setProducto(newVal); //Establece los datos de store.producto
         datos_articulo.value = store.producto;
     } else {
-        console.log("Tengo que limpiar el form")
         //Elimina los datos para que el formulario esté limpio
         store.initProducto();
         store.initTempImages();
@@ -178,10 +184,9 @@ watch(() => props.getData.form_data, (newVal) => {
     }
 }, { immediate: true })
 
-//obtener datos de las categorias:
-const dataCategorias = ref([]);
-//obtener datos de las marcas:
-const dataBrands = ref([]);
+
+const dataCategorias = ref([]); //Obtener los datos de las categorias
+const dataBrands = ref([]); //Obtener datos de las marcas:
 const alerta = ref(false);
 const alertaUpdt = ref(false);
 
@@ -213,7 +218,7 @@ const subirProducto = async () => {
             console.log("datos actualizados de las imagenes: ", temp_images.value);
             const imagenPortada = temp_images.value.temp_portada.file;
             const arrayImages = temp_images.value.temp_views;
-            
+
             //Sube imagen de portada
             if (imagenPortada) {
                 uploadMsg.value.push("subiendo imagen principal...");
@@ -228,7 +233,7 @@ const subirProducto = async () => {
                 arrayImages.forEach(element => {
                     fileArrayImage.push(element.file);
                 });
-                
+
                 const arrayResult = await uploadArrayImages("productos_images", idImages, fileArrayImage);
                 datos_articulo.value.imagenes_producto.views = arrayResult;
             }
@@ -242,25 +247,65 @@ const subirProducto = async () => {
     }
     else if (props.getData.action === 'edit') {
         store.slugTitle();
-        const { nombre_marca, ...datos_update} = datos_articulo.value; //Objeto limpio que se va a actualizar a la BBDD
-        const idImages = datos_update.imagenes_producto.id;
+        const { nombre_marca, ...datos_update } = datos_articulo.value; //Objeto limpio que se va a actualizar a la BBDD
+        const idImages = datos_update.imagenes_producto.id; //Referencia para subir la futura imagen
 
-        //Actualiza la imagen y borra la anterior de la BBDD
-        if(temp_images.temp_portada.registered === true){
-            deleteRefenceImage(temp_images.temp_portada.path); //Elimina la imagen de la BBDD
-            const imageResult = await uploadMainImage("productos_images", idImages, temp_images.temp_portada.image); //Sube la nueva imagen a la BDD
-            datos_update.imagenes_producto.portada = imageResult; //Actualiza la URL de descarga de la imagen
+        //Actualiza la informacion de las tempImages del Store:
+        console.log("vistas de views images: ", handleViewsImage.value);
+        console.log("handle imagen principal: ", hanldePortadaImage.value);
+        //Actualizar la imagen principal:
+        if (hanldePortadaImage.value) {
+            //Se debe eliminar la imagen anterior:
+            console.log("actualizando imagen de portada")
+            const fileAdd = hanldePortadaImage.value.filePushImage;
+            const fileDel = hanldePortadaImage.value.fileDeleteImage;
+            //Se comprueba que el archivo haya sido subido previamente a la BBDD
+            if (fileDel.registered = true) {
+                deleteRefenceImage(fileDel.path);
+            }
+            //Se sube la imagen principal:
+            const imageResult = await uploadMainImage("productos_images", idImages, fileAdd.file); //sube la imagen a la BBDD
+            datos_update.imagenes_producto.portada = imageResult;
         }
-        //Actualiza el conjunto de imagenes y borra las eliminadas de la BBDD
+        //actualizar conjunto de imágenes:
+        if(handleViewsImage.value){
+            console.log("actualizando imagenes de views!")
+            const arrFilesAdd = handleViewsImage.value.arrayPushImage;
+            const arrFilesDelete = handleViewsImage.value.arrayDeleteObjetosImage;
+            //elimina las imágenes
+            if(arrFilesDelete.length > 0){
+                const arrDelReferences = [];
+                console.log("Eliminando imágenes...")
+                arrFilesDelete.forEach(element => {
+                    if(element.registered === true){
+                        arrDelReferences.push(element.url); //referencia de la URL que permitia visualizar la imagen
+                        deleteRefenceImage(element.path);
+                    }
+                }
+                //TENGO QUE ACTUALIZAR LAS REFERENCIAS DE LAS IMAGENES EN EL OBJETO
+                
+                );
+            }
+            if(arrFilesAdd.length > 0){
+                console.log("subiendo nuevas imágenes...");
+                const arrToPush = []
+                arrFilesAdd.forEach(element => {
+                    if(element.registered === false){
+                        arrToPush.push(element.file);
+                    }
+                });
+                //Se sube las imagenes a la BBDD
+                const arrResult = await uploadArrayImages("productos_images", idImages, arrFilesAdd);
+                datos_update.imagenes_producto.views = datos_update.imagenes_producto.views.concat(arrResult); // se añaden las nuevas referencias
+            }
+            console.log("handle =>", arrFilesAdd);
+            console.log("handle del =>", arrFilesDelete);
 
-
+        }
         //Actualiza los datos del producto
         await updateDataToStore("productos", datos_update.id, datos_update);
-        
-
     }
 }
-
 
 const clearData = () => {
     store.initProducto();

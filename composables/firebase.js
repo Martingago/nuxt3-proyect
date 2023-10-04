@@ -100,7 +100,8 @@ const updateDataToStore = async (coleccion, identificador, data) => {
     try {
         const { $db } = useNuxtApp();
         const docRef = doc($db, coleccion, identificador)
-        await updateDoc(docRef, data)
+        await updateDoc(docRef, data);
+        console.log("datos actulizados con éxito")
 
     } catch (error) {
         console.log("aqui error:", error)

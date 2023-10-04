@@ -56,20 +56,18 @@ export const manageProducts = defineStore("manage_products", {
         setProducto(dataProduct) {
             this.producto = dataProduct;
         },
-        setTempImages(dataImages) {
-            this.temp_images = dataImages;
+        setTempImagenPortada(dataImagePortada) {
+            this.temp_images.temp_portada = dataImagePortada;
         },
 
         //Establece una imagen temporal recibida como imagen de portada
         hanldePortadaImage(image) {
             this.temp_images.temp_portada = image;
-            console.log("handle portada", this.temp_images.temp_portada)
-     
+            console.log("handle image portada: ", this.temp_images.temp_portada);
         },
         //establece un array de imagenes recibidos temporalmente como el conjunto de imágenes
         handleArrayImages(images) {
             this.temp_images.temp_views = images.arrayPushImage;
-            console.log("handle views:", this.temp_images.temp_views)
         },
         //añade una caracteristica al producto
         agregarCaracteristica() {

@@ -9,7 +9,7 @@
             <img @click="eliminarImagen(index)" class="preview-img border border-2" v-for="(src, index) in arrayImagesURL"
                 :key="index" :src="src">
         </div>
-        <p>Elementos del arryaPushImage</p>
+        <p>Elementos del arrayPushImage</p>
         <pre>{{ arrayPushImage }}</pre>
         <p>Elementos que debo eliminar:</p>
         <pre>{{ arrayDeleteObjetosImage }}</pre>
@@ -22,7 +22,7 @@
 const emit = defineEmits(['array-images-update']);
 
 
-//Objetos que puede recibir el componente (Casos de edición de datos en los que se recibe un Array de antiguar imágenes)
+//Objetos que puede recibir el componente (Casos de edición de datos en los que se recibe un Array de antiguas imágenes)
 const props = defineProps({
     arrayImages: Array
 });
@@ -34,6 +34,10 @@ const arrayImagesURL = ref([]); //url de las imagenes para mostrar en pantalla
 
 //Observa los props del articulo a modificar
 watch(props, () => {
+    console.log("props del array de imágenes: ", props)
+    arrayDeleteObjetosImage.value = []; //Cada vez que  se actualizan los props, se resetea el array de archivos a eliminar
+    arrayPushImage.value = []; //Cada vez que se actualicen los props, se resetea el Array de imágenes
+    arrayImagesURL.value = []; //Se reinicia el array de imágenes que el usuario ve
     props.arrayImages.forEach(data => {
         arrayImagesURL.value.push(data.url);
         const d = {
@@ -55,7 +59,6 @@ watch(arrayPushImage.value, () => {
         arrayPushImage,
         arrayDeleteObjetosImage
     })
-    
 })
 
 const seleccionarImagenes = (event) => {
