@@ -35,7 +35,6 @@ const initUser =  () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
-            console.log("auth changed:", user)
         }else{
             console.log("auth changed", user)
         }

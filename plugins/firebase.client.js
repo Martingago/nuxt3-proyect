@@ -22,9 +22,9 @@ export default defineNuxtPlugin(nuxtApp => {
     //Initialize store
     const storage = getStorage(app);
 
-    console.log("app:", app)
-    console.log("db:", db)
-    console.log("storage:", storage)
+    // console.log("app:", app)
+    // console.log("db:", db)
+    // console.log("storage:", storage)
     const auth = getAuth();
     const init = initUser();
     

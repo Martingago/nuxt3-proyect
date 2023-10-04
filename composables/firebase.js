@@ -96,12 +96,10 @@ const deleteFromStore = async (coleccion, identificador) => {
  * @param {*} data información actualizada que se sobreescribirá a los datos del fichero
  */
 const updateDataToStore = async (coleccion, identificador, data) => {
-    console.log("id", identificador)
     try {
         const { $db } = useNuxtApp();
         const docRef = doc($db, coleccion, identificador)
-        await updateDoc(docRef, data);
-        console.log("datos actulizados con éxito")
+        await updateDoc(docRef, data); 
 
     } catch (error) {
         console.log("aqui error:", error)

@@ -1,6 +1,7 @@
 <template>
-    <pre>{{ datos_articulo }}</pre>
     <form v-if="!loading" @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
+
+        <pre>{{ datos_articulo.imagenes_producto }}</pre>
         <h3 class=" text-center">Añadir producto</h3>
         <fieldset class="d-flex flex-column gap-2 bg-light rounded p-2">
             <legend class="text-center">Datos principales</legend>
@@ -144,14 +145,10 @@ const store = manageProducts();
 store.initProducto(); //inicializado en 0 el producto
 store.initTempImages(); //inicializado a 0 las imagenes temporales
 const datos_articulo = ref(store.producto); //Objeto del producto (vacío)
-const temp_images = ref(store.temp_images); //imagenes temporales (vacío);
 
 //CONST
 const hanldePortadaImage = ref(null); //manejo de la views de imagen de portada
 const handleViewsImage = ref(null); //manejo de las views de imagenes
-
-
-
 
 const alertas = store.item_state;
 const loading = ref(false);
@@ -176,11 +173,10 @@ watch(() => props.getData.form_data, (newVal) => {
         store.setProducto(newVal); //Establece los datos de store.producto
         datos_articulo.value = store.producto;
     } else {
+        console.log("limpio")
         //Elimina los datos para que el formulario esté limpio
         store.initProducto();
-        store.initTempImages();
         datos_articulo.value = store.producto;
-        temp_images.value = store.temp_images;
     }
 }, { immediate: true })
 
@@ -215,27 +211,25 @@ const subirProducto = async () => {
             const idImages = Date.now();
             datos_articulo.value.imagenes_producto.id = idImages; //ID de las imágenes
 
-            console.log("datos actualizados de las imagenes: ", temp_images.value);
-            const imagenPortada = temp_images.value.temp_portada.file;
-            const arrayImages = temp_images.value.temp_views;
 
             //Sube imagen de portada
-            if (imagenPortada) {
+            if (hanldePortadaImage.value) {
+                const imagenPortada = hanldePortadaImage.value.filePushImage.file;
                 uploadMsg.value.push("subiendo imagen principal...");
                 const imageResult = await uploadMainImage("productos_images", idImages, imagenPortada);
                 datos_articulo.value.imagenes_producto.portada = imageResult;
             }
             //Sube conjunto de imágenes
-            if (arrayImages.length > 0) {
-                uploadMsg.value.push("Subiendo conjunto de imágenes...");
-
+            if (handleViewsImage.value) {
+                const arrayImages = handleViewsImage.value.arrayPushImage;
+                uploadMsg.value.push("Subiendo conjunto de imágenes...")
                 const fileArrayImage = [];
                 arrayImages.forEach(element => {
-                    fileArrayImage.push(element.file);
+                    fileArrayImage.push(element.file); //Se carga en un array los File de cada imagen
                 });
 
                 const arrayResult = await uploadArrayImages("productos_images", idImages, fileArrayImage);
-                datos_articulo.value.imagenes_producto.views = arrayResult;
+                datos_articulo.value.imagenes_producto.views = arrayResult; //En el objeto del producto se escriben los datos de las imagenes: url y path
             }
             store.slugTitle();
             uploadMsg.value.push("Subiendo datos de producto...");
@@ -250,56 +244,61 @@ const subirProducto = async () => {
         const { nombre_marca, ...datos_update } = datos_articulo.value; //Objeto limpio que se va a actualizar a la BBDD
         const idImages = datos_update.imagenes_producto.id; //Referencia para subir la futura imagen
 
-        //Actualiza la informacion de las tempImages del Store:
-        console.log("vistas de views images: ", handleViewsImage.value);
-        console.log("handle imagen principal: ", hanldePortadaImage.value);
         //Actualizar la imagen principal:
+        console.log("valor de handle:", hanldePortadaImage.value)
         if (hanldePortadaImage.value) {
+            console.log("ejecutando una edicion de imagen")
+
             //Se debe eliminar la imagen anterior:
-            console.log("actualizando imagen de portada")
-            const fileAdd = hanldePortadaImage.value.filePushImage;
-            const fileDel = hanldePortadaImage.value.fileDeleteImage;
+            const fileAdd = hanldePortadaImage.value.filePushImage; //arhivo que se añade
+            const fileDel = hanldePortadaImage.value.fileDeleteImage; //archivo que se elimina
+            console.log("archivos para eliminar", fileDel)
             //Se comprueba que el archivo haya sido subido previamente a la BBDD
-            if (fileDel.registered = true) {
+            if (fileDel && fileDel.registered === true) {
                 deleteRefenceImage(fileDel.path);
             }
             //Se sube la imagen principal:
-            const imageResult = await uploadMainImage("productos_images", idImages, fileAdd.file); //sube la imagen a la BBDD
-            datos_update.imagenes_producto.portada = imageResult;
+            if (fileAdd) {
+                const imageResult = await uploadMainImage("productos_images", idImages, fileAdd.file); //sube la imagen a la BBDD
+                datos_update.imagenes_producto.portada = imageResult;
+            }
         }
         //actualizar conjunto de imágenes:
-        if(handleViewsImage.value){
-            console.log("actualizando imagenes de views!")
+        console.log("valor de handle images:", handleViewsImage.value)
+        if (handleViewsImage.value) {
             const arrFilesAdd = handleViewsImage.value.arrayPushImage;
             const arrFilesDelete = handleViewsImage.value.arrayDeleteObjetosImage;
             //elimina las imágenes
-            if(arrFilesDelete.length > 0){
+            if (arrFilesDelete.length > 0) {
                 const arrDelReferences = [];
-                console.log("Eliminando imágenes...")
+                console.log("Eliminando imágenes...");
+                const prod_BBDD_img = datos_update.imagenes_producto.views;
                 arrFilesDelete.forEach(element => {
-                    if(element.registered === true){
+                    if (element.registered === true) {
                         arrDelReferences.push(element.url); //referencia de la URL que permitia visualizar la imagen
-                        deleteRefenceImage(element.path);
-                    }
-                }
-                //TENGO QUE ACTUALIZAR LAS REFERENCIAS DE LAS IMAGENES EN EL OBJETO
-                
-                );
-            }
-            if(arrFilesAdd.length > 0){
-                console.log("subiendo nuevas imágenes...");
-                const arrToPush = []
-                arrFilesAdd.forEach(element => {
-                    if(element.registered === false){
-                        arrToPush.push(element.file);
+                        deleteRefenceImage(element.path); //Se eliminan las imágenes
                     }
                 });
-                //Se sube las imagenes a la BBDD
-                const arrResult = await uploadArrayImages("productos_images", idImages, arrFilesAdd);
-                datos_update.imagenes_producto.views = datos_update.imagenes_producto.views.concat(arrResult); // se añaden las nuevas referencias
+                //TENGO QUE ACTUALIZAR LAS REFERENCIAS DE LAS IMAGENES EN EL OBJETO
+                datos_update.imagenes_producto.views = eliminarDuplicados(prod_BBDD_img, arrDelReferences);
+
+
             }
-            console.log("handle =>", arrFilesAdd);
-            console.log("handle del =>", arrFilesDelete);
+            if (arrFilesAdd.length > 0) {
+                console.log("subiendo nuevas imágenes...");
+                const arrToPush = [] //Array de imágenes que se van a subir a la BBDD
+                arrFilesAdd.forEach(element => {
+                    if (element.registered === false) {
+                        arrToPush.push(element.file);
+                        console.log(element.file)
+                    }
+                });
+                if (arrToPush.length > 0) {
+                    //Se sube las imagenes a la BBDD
+                    const arrResult = await uploadArrayImages("productos_images", idImages, arrToPush);
+                    datos_update.imagenes_producto.views = datos_update.imagenes_producto.views.concat(arrResult); // se añaden las nuevas referencias
+                }
+            }
 
         }
         //Actualiza los datos del producto
@@ -311,6 +310,14 @@ const clearData = () => {
     store.initProducto();
     datos_articulo.value = store.producto;
     loading.value = false;
+}
+
+function eliminarDuplicados(primerArray, segundoArray) {
+    // Crea un conjunto (set) de URLs del segundo array para una búsqueda eficiente
+    const urlsSegundoArray = new Set(segundoArray);
+    // Filtra el primer array y devuelve solo los elementos que no están en el segundo array
+    const resultado = primerArray.filter(item => !urlsSegundoArray.has(item.url));
+    return resultado;
 }
 
 

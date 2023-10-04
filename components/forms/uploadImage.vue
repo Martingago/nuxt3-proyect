@@ -10,12 +10,6 @@
 
 
     </div>
-    <div>
-        <p>Elemento del filePushImage</p>
-        {{ filePushImage }}
-        <p>Elemento a eliminar:</p>
-        {{ fileDeleteImage }}
-    </div>
 </template>
 
 <script setup>
