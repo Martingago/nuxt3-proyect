@@ -27,7 +27,6 @@ export default defineNuxtPlugin(nuxtApp => {
     //Exportamos valores:
     nuxtApp.vueApp.provide('auth', auth);
     nuxtApp.provide('auth', auth);
-    
     nuxtApp.vueApp.provide('db', db);
     nuxtApp.provide('db', db);
 

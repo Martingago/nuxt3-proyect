@@ -23,8 +23,8 @@
             <NuxtLink to="/productos">Productos</NuxtLink>
           </li>
           <li>
-            <ButtonsLogOutButon></ButtonsLogOutButon>
-            <ButtonsLoginButon></ButtonsLoginButon>
+            <ButtonsLogOutButon v-if="isAuth"></ButtonsLogOutButon>
+            <ButtonsLoginButon v-else></ButtonsLoginButon>
           </li>
           <li>
             <button class="btn-carrito" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
@@ -63,6 +63,7 @@
 </template>
 
 <script setup>
+import { isAuth } from '~~/store/authUser';
 
 const props = defineProps({
   userData: Object

@@ -1,13 +1,15 @@
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { isAuth } from "~~/store/authUser";
 export default defineNuxtRouteMiddleware(async () => {
-  const { $auth } = useNuxtApp();
-
-
-
-  const user = $auth;
-
-  if (!user) {
-    console.log("Usuario no registrado:", user);
-  } else {
-    console.log("Estás logueado: ", user);
+  if (process.client) {
+    const { $auth } = useNuxtApp();
+    console.log("auth:", $auth);
+    onAuthStateChanged($auth, (user) => {
+      if(user){
+        isAuth.value = true;
+      }else{
+        isAuth.value = false;
+      }
+    });
   }
 });
