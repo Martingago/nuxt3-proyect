@@ -2,9 +2,9 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 export { createUser, signInUser, initUser, signOutUser }
 
 const createUser = async (email, password) => {
-    const auth = getAuth();
+    const {$auth }= useNuxtApp();
     //Crear usuario
-    const credentials = await createUserWithEmailAndPassword(auth, email, password)
+    const credentials = await createUserWithEmailAndPassword($auth, email, password)
     
         .catch((error) => {
             const errorCode = error.code;
@@ -16,8 +16,8 @@ const createUser = async (email, password) => {
 }
 
 const signInUser = async (email, password) => {
-    const auth = getAuth();
-    const credentials = await signInWithEmailAndPassword(auth, email, password)
+    const {$auth }= useNuxtApp();
+    const credentials = await signInWithEmailAndPassword($auth, email, password)
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -28,11 +28,11 @@ const signInUser = async (email, password) => {
 
 
 const initUser =  () => {
-    const auth = getAuth();
+    const {$auth }= useNuxtApp();
     //Se añade la informacion del usuario en el store:
     const firebaseUser = useFirebaseUser();
-    firebaseUser.value = auth.currentUser;
-    onAuthStateChanged(auth, (user) => {
+    firebaseUser.value = $auth.currentUser;
+    onAuthStateChanged($auth, (user) => {
         if (user) {
             const uid = user.uid;
         }else{

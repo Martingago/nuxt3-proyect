@@ -1,17 +1,13 @@
 <template>
     <div class="main-container">
         <main>
-
-            <slot />
+            <NuxtPage/>
         </main>
         <FooterWeb></FooterWeb>
     </div>
 </template>
 
 <script setup>
-
-//const login = await initUser();
-//const firebase = useFirebaseUser();
 
 </script>
 

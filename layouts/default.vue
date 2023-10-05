@@ -1,19 +1,14 @@
 <template>
     <div class="main-container">
-        <HeaderWeb :userData = firebase></HeaderWeb>
+        <HeaderWeb></HeaderWeb>
         <main>
-            <slot />
+            <NuxtPage />
         </main>
         <FooterWeb></FooterWeb>
     </div>
 </template>
 
 <script setup>
-
-const firebase = useFirebaseUser();
-
-
-
 </script>
 
 <style scoped>

@@ -13,15 +13,25 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <ul class="navbar-nav bg-dark  mb-2 mb-lg-0 gap-3">
-          <NuxtLink to="/">Inicio</NuxtLink>
-          <NuxtLink to="/admin">admin</NuxtLink>
-          <NuxtLink to="/productos">Productos</NuxtLink>
-          <ButtonsLogOutButon v-if="props.userData"></ButtonsLogOutButon>
-          <ButtonsLoginButon v-else></ButtonsLoginButon>
-          <button class="btn-carrito" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample">
-            <font-awesome-icon :icon="['fas', 'cart-shopping']" />Cesta
-          </button>
+          <li>
+            <NuxtLink to="/">Inicio</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/admin">Admin</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/productos">Productos</NuxtLink>
+          </li>
+          <li>
+            <ButtonsLogOutButon></ButtonsLogOutButon>
+            <ButtonsLoginButon></ButtonsLoginButon>
+          </li>
+          <li>
+            <button class="btn-carrito" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+              aria-controls="offcanvasExample">
+              <font-awesome-icon :icon="['fas', 'cart-shopping']" />Cesta
+            </button>
+          </li>
         </ul>
       </div>
 
