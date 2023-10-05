@@ -1,7 +1,5 @@
 <template>
     <form v-if="!loading" @submit.prevent="subirProducto" class="d-flex flex-column container shadow rounded gap-3 p-3">
-
-        <pre>{{ datos_articulo.imagenes_producto }}</pre>
         <h3 class=" text-center">Añadir producto</h3>
         <fieldset class="d-flex flex-column gap-2 bg-light rounded p-2">
             <legend class="text-center">Datos principales</legend>
