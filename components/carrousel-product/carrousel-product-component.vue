@@ -14,7 +14,7 @@
 
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink  class="d-flex" to="/">
-                <img class="my-img img-fluid w-75 m-auto" loading="lazy" alt="Imagen de unos altavoces de marca AUDIOPHILE mejor calidad precio/sonido" src="@/img-products/main-web/audiophile-altavoces-producto-marca.webp">
+                <img class="my-img img-fluid w-75 m-auto" loading="lazy" alt="Imagen de unos altavoces de marca AUDIOPHILE mejor calidad precio/sonido" src="/img-products/main-web/audiophile-altavoces-producto-marca.webp">
             </NuxtLink>
             <h2>Speakers</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop
@@ -24,7 +24,7 @@
         
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink class="d-flex" to="/">
-                <img class="my-img img-fluid w-75 m-auto" loading="lazy" alt="Auriculares in-ear marca AUDIOHPILE gran calidad auditiva" src="@/img-products/main-web/audiophile-auriculares-inalambricos-producto-marca.webp">
+                <img class="my-img img-fluid w-75 m-auto" loading="lazy" alt="Auriculares in-ear marca AUDIOHPILE gran calidad auditiva" src="/img-products/main-web/audiophile-auriculares-inalambricos-producto-marca.webp">
             </NuxtLink>
             <h2>Hearphones</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop
