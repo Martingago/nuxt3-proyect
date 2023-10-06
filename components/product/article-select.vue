@@ -3,7 +3,12 @@
     :class="{'shadow border': showBtn}"
     @mouseenter="showBtn = true"  @mouseleave="showBtn = false" class="product-article d-flex flex-column p-2 rounded">
         <div class="img-container">
-            <img class="img-fluida img-fluid" loading="lazy" :src="datoProducto.imagenes_producto.portada?.url" :alt="'Producto de la tienda audiophile: '+datoProducto.nombre_articulo">
+            <nuxtImg class="img-fluida img-fluid" 
+             :src="datoProducto.imagenes_producto.portada?.url" loading="lazy"
+              :alt="'Producto de la tienda audiophile: '+datoProducto.nombre_articulo" 
+              width="222" heigth="222" quality="10" 
+              :placeholder="img(`/img/loading.svg`, {q: 90, w: '60px', h: '60px' })"
+              />
         </div>
         <hr class="my-0">
         <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>
@@ -27,7 +32,7 @@
 </template>
 
 <script setup>
-
+const img = useImage();
 const showBtn = ref(false);
 const props = defineProps({
     datoProducto : {

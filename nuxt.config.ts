@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   },
   modules:[
     '@pinia/nuxt',
+    '@nuxt/image'
   ],
   pinia: {
     autoImports: [

@@ -19,7 +19,11 @@
 import { storeProducts } from '@/store/productStore.js';
 
 useHead({
-    title: "Audiophile | Productos de Alta Fidelidad para Amantes del Sonido"
+    title: "Audiophile | Productos de Alta Fidelidad para Amantes del Sonido",
+    meta: [{
+        name: 'description',
+        content: 'Descubre la excelencia en nuestra tienda online. Productos de alta calidad a precios competitivos. ¡Compra ahora, vive la diferencia y disfruta de nuestras ofertas exclusivas!'
+    }]
 })
 
 
