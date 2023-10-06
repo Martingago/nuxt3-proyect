@@ -1,9 +1,9 @@
 <template>
     <aside class="p-2 shadow rounded">
-        <h6 class="text-center">Filtros de búsqueda</h6>
+        <p class="text-center">Filtros de búsqueda</p>
         <div class="position-relative">
             <input type="text" class="pr-2" name="buscarProducto" id="buscarProducto" placeholder="Buscar">
-            <button class="btn position-absolute right-0"> <font-awesome-icon
+            <button class="btn position-absolute right-0" aria-label="Buscar"> <font-awesome-icon
                     :icon="['fas', 'magnifying-glass']" /></button>
         </div>
         <div class="mt-2">

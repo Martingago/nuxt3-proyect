@@ -1,4 +1,6 @@
 :root{
     --color-terciario: rgb(216, 124, 73);
     --color-dark: rgba(41, 43, 43, 1);
+    --color-light: rgb(84, 92, 100);
+    --color-lightPink: rgb(230, 33, 33);
 }

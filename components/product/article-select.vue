@@ -6,9 +6,7 @@
             <nuxtImg class="img-fluida img-fluid" 
              :src="datoProducto.imagenes_producto.portada?.url" loading="lazy"
               :alt="'Producto de la tienda audiophile: '+datoProducto.nombre_articulo" 
-              width="222" heigth="222" quality="10" 
-              :placeholder="img(`/img/loading.svg`, {q: 90, w: '60px', h: '60px' })"
-              />
+              width="222" heigth="222" quality="10" />
         </div>
         <hr class="my-0">
         <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>
@@ -26,7 +24,7 @@
             <p v-if="datoProducto.stock_articulo <= 10" class="text-center mb-0 last-units">Últimas unidades</p>
         </div>
         <div class="container-btn mt-2">
-            <button  v-if="showBtn" @click="addToChart" class="btn btn-dark w-100">Añadir al carrito</button>
+            <button  v-if="showBtn" @click="addToChart" class="btn btn-dark w-100" aria-label="">Añadir al carrito</button>
         </div>
     </article>
 </template>
@@ -65,7 +63,7 @@ const addToChart = (event) => {
     height: 48px;
     font-size: .9rem;
     line-height: 1rem;
-    color: lightslategray;
+    color: var(--color-light);
 }
 
 .brand-product{
@@ -96,12 +94,12 @@ const addToChart = (event) => {
 
 .previus-prize{
     position: relative;
-    color: lightslategray;
+    color: var(--color-light);
     padding: .2rem;
     font-weight: 600;
 }
 .high-text{
-    color: rgb(172, 53, 53);
+    color: var(--color-lightPink);
 }
 
 .previus-prize::after{
@@ -109,7 +107,7 @@ const addToChart = (event) => {
     content: "";
     width: 100%;
     height: 2px;
-    background-color: lightslategray;
+    background-color: var(--color-light);
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%) rotateZ(-20deg);
@@ -118,9 +116,9 @@ const addToChart = (event) => {
 
 .nametag-discount{
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.9rem;
-    background-color: rgb(252, 112, 112);
+    background-color: var(--color-lightPink);
     padding: .2rem;
     text-align: center;
     width:50px;
@@ -136,7 +134,7 @@ const addToChart = (event) => {
 .last-units{
     font-size: .8rem;
     font-weight: 600;
-    color: brown
+    color: var(--color-lightPink)
 }
 
 </style>
