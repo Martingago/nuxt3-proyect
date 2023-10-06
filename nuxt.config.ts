@@ -2,6 +2,15 @@
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'es', 
+      },
+      charset: 'utf-8'
+    }
+  },
+
   runtimeConfig: {
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY, // can be overridden by NUXT_API_SECRET environment variable
     FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
@@ -42,6 +51,7 @@ export default defineNuxtConfig({
     '~/assets/css/global.css',
     'bootstrap/dist/css/bootstrap.min.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
+    '@/assets/css/config.css'
   ],
 
 })

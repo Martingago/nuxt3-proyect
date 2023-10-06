@@ -4,7 +4,7 @@
 
         <article class="d-flex flex-fill flex-grow-1 flex-column flex-fill justify-content-center align-items-center my-3 shadow rounded p-3 col-md-3">
             <NuxtLink class=" d-flex" to="/">
-                <img class="my-img m-auto img-fluid w-75" src="@/assets/img/product/audiophile-cascos-inalambricos-producto-marca.png">
+                <img class="my-img m-auto img-fluid w-75" loading="lazy" src="@/public/img-products/main-web/audiophile-cascos-inalambricos-producto-marca.webp" alt="Imagen de unos auriculares de marca AUDIOPHILE">
             </NuxtLink>
             <h2>Headphones</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop
@@ -14,7 +14,7 @@
 
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink  class="d-flex" to="/">
-                <img class="my-img img-fluid w-75 m-auto" src="@/assets/img/product/audiophile-altavoces-producto-marca.png">
+                <img class="my-img img-fluid w-75 m-auto" loading="lazy" alt="Imagen de unos altavoces de marca AUDIOPHILE mejor calidad precio/sonido" src="@/public/img-products/main-web/audiophile-altavoces-producto-marca.webp">
             </NuxtLink>
             <h2>Speakers</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop
@@ -24,7 +24,7 @@
         
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink class="d-flex" to="/">
-                <img class="my-img img-fluid w-75 m-auto" src="@/assets/img/product/audiophile-auriculares-inalambricos-producto-marca.jpg">
+                <img class="my-img img-fluid w-75 m-auto" loading="lazy" alt="Auriculares in-ear marca AUDIOHPILE gran calidad auditiva" src="@/public/img-products/main-web/audiophile-auriculares-inalambricos-producto-marca.webp">
             </NuxtLink>
             <h2>Hearphones</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop
@@ -37,7 +37,6 @@
 
 <style scoped>
 .my-img {
-    aspect-ratio: 1 / 1;
     transition: transform 0.3s ease-out;
 }
 

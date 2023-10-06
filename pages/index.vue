@@ -21,6 +21,13 @@
 useHead(
     {
         title: "Audiophile - Los mejores equipos de sonido del mercado",
+        meta: [
+            {
+                name: 'description',
+                content: 'AUDIOPHILE: Descubre el verdadero sonido de alta calidad. Ofrecemos equipos de sonido excepcionales a precios inmejorables. Experimenta la perfección auditiva con nuestros productos. ¡Entra y siente la diferencia!'
+            }
+
+        ]
     }    
 );
 

@@ -3,13 +3,13 @@
         <div class="container d-flex justify-content-center align-items-center gap-4 position-relative">
 
             <article class="item-article text-lg-start text-center col-lg-4 text-light">
-                <h3 class="">New product</h3>
+                <h3>New product</h3>
                 <h2 class="text-uppercase  fw-bold fs-1"> XX99 Mark II <br> Headphones</h2>
                 <p class="mt-3 fs-5">Experiencia natural, sonido envolvente y una calidad de acabados excepcional hecho para los entusiastas pasionados de la música </p>
-                <button class="btn-go-to-headset fs-5 mt-3 text-light">Ver producto</button>
+                <button class="btn-go-to-headset mt-3 fw-700">Ver producto</button>
             </article>
 
-            <img class="img-article col-lg-4 img-fluid" src="@/assets/img/call-to-action/banner-audiophile-auriculares-inalambricos.png">
+            <img class="img-article col-lg-4 img-fluid" loading="lazy" alt="Imagen principal de los auriculares de maarca AUDIOPHILE" src="@/public/img-products/main-web/banner-audiophile-auriculares-inalambricos.webp">
         </div>
 
     </section>
@@ -30,10 +30,14 @@
 }
 
 .btn-go-to-headset{
-    background-color: rgb(230, 150, 75);
+    background-color: var(--color-terciario);
     outline: none;
     border: none;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-dark);
 }
+
 
 @media screen and (max-width: 992px) {
     .img-article{

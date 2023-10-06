@@ -2,7 +2,8 @@
     
     <section class="item-section-product d-flex flex-column flex-md-row gap-3">
         <div class="img-container col-md-6 rounded shadow d-flex align-items-center justif-content-center">
-            <img class="hearphones-img-product m-auto p-4 w-50 img-fluid" src="@/assets/img/call-to-action/auriculares-inalambricos-call-to-action-audiphile.jpg">
+            <img class="hearphones-img-product m-auto p-4 w-50 img-fluid" laoding="lazy" alt="imagen del estuche de unos auriculares in-ear YX1 hearhpones negros" 
+            src="@/public/img-products/main-web/auriculares-inalambricos-call-to-action-audiphile.webp">
         </div>
         <article class="hearphones-product d-flex flex-column justify-content-center align-items-center col-md-6 gap-3 rounded ">
             <h2 class="text-uppercase fw-bold fs-1">YX1 hearphones</h2>
