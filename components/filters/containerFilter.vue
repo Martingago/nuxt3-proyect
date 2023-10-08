@@ -1,9 +1,12 @@
 <template>
-    <aside class="p-2 shadow rounded">
-        <p class="text-center">Filtros de búsqueda</p>
+    <div class="btn-open-filter" v-if="isSmallScreen">
+        <button class="btn btn-primary">Filtros</button>
+    </div>
+    <aside v-else class="p-2 shadow rounded border border-1">
+        <h3 class="text-center txt-h3 mb-1">Explora nuestras categorías: Auriculares, Cascos, Altavoces y más</h3>
         <div class="position-relative">
-            <input type="text" class="pr-2" name="buscarProducto" id="buscarProducto" placeholder="Buscar">
-            <button class="btn position-absolute right-0" aria-label="Buscar"> <font-awesome-icon
+            <input type="text" class="pr-2 w-100" name="buscarProducto" id="buscarProducto" placeholder="Buscar">
+            <button class="btn-search btn  position-absolute right-0" aria-label="Buscar"> <font-awesome-icon
                     :icon="['fas', 'magnifying-glass']" /></button>
         </div>
         <div class="mt-2">
@@ -26,6 +29,13 @@
                 <label :for="categoria.id" class="px-1">{{  categoria.nombre}}</label>
             </div>
         </div>
+        <div class="mt-2">
+            <p class="fw-600 mb-1">Marcas:</p>
+            <div v-for="brand in brands" :key="brand.id">
+                <input type="checkbox" :name="brand.id" :id="brand.id">
+                <label :for="brand.id" class="px-1">{{ brand.nombre }}</label>
+            </div>
+        </div>
     </aside>
 </template>
 
@@ -34,11 +44,24 @@
 const minValue = ref(0);
 const maxValue= ref(999);
 const categorias = ref([]);
+const brands = ref([]);
+
+
+const isSmallScreen = ref(false);
+const updateWidth = () => {
+    isSmallScreen.value = window.innerWidth < 1109;
+}
+
 
 onMounted(async ()=> {
     categorias.value = await listarCategoriaProducto();
+    brands.value = await getDataFromStore("marca_productos");
+    window.addEventListener('resize', updateWidth)
 })
 
+onUnmounted( ()=> {
+    window.removeEventListener('resize', updateWidth);
+})
 
 
 </script>
@@ -46,9 +69,14 @@ onMounted(async ()=> {
 <style scoped>
 aside {
     position: sticky;
-    top: 180px;
+    top: calc(var(--height-headerweb-lg) + 20px);
     height: fit-content;
-    width: 240px
+    width: 240px;
+    z-index: 2;
+    background-color: white;
+}
+.btn-open-filter{
+    z-index: 2;
 }
 
 #buscarProducto {
@@ -59,7 +87,11 @@ aside {
     font-weight: 600;
 }
 
-.btn {
+.txt-h3 {
+    font-size: .8rem;
+}
+
+.btn-search {
     width: 30px;
     height: 30px;
     padding: .25rem;
@@ -67,4 +99,12 @@ aside {
     outline: none;
     border: none
 }
+
+.btn-open-filter{
+    grid-column: 1 / -1;
+    position: sticky;
+    top: calc(var(--height-headerweb-lg) + 10px);
+}
+
+
 </style>

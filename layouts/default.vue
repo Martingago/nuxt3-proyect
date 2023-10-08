@@ -1,11 +1,9 @@
-<template>
-    <div class="main-container">
+<template> 
         <HeaderWeb></HeaderWeb>
-        <main>
+        <main class="main-container d-flex flex-column gap-3">
             <NuxtPage />
         </main>
         <FooterWeb></FooterWeb>
-    </div>
 </template>
 
 <script setup>
@@ -13,10 +11,22 @@
 
 <style scoped>
 .main-container {
-    display: grid;
-    grid-template-rows:1fr auto;
-    margin-top: 150px;
-    min-height: calc(100vh - 150px);
-
+    min-height: calc(100vh - var(--height-headerweb-lg));
+    display: flex;
+    flex-direction: column;
 }
+/* main{
+    display: grid;
+    width: 100%;
+    justify-items: center;
+} */
+
+
+@media screen and (max-width: 992px) {
+    .main-container{
+        min-height: calc(100vh - var(--height-headerweb-md));
+    }
+    
+}
+
 </style>

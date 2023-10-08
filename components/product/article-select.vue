@@ -1,7 +1,7 @@
 <template>
     <article @click="visitProductPage(datoProducto.slug)"
-    :class="{'shadow border': showBtn}"
-    @mouseenter="showBtn = true"  @mouseleave="showBtn = false" class="product-article d-flex flex-column p-2 rounded">
+    :class="{'shadow border': showBtn || isSmallScreen}"
+    @mouseenter="showBtn = true"  @mouseleave="showBtn = false" class="product-article d-flex flex-column p-2 rounded position-relative">
         <div class="img-container">
             <nuxtImg class="img-fluida img-fluid" 
              :src="datoProducto.imagenes_producto.portada?.url" loading="lazy"
@@ -10,10 +10,10 @@
         </div>
         <hr class="my-0">
         <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>
-        <h6 class="brand-product mb-0">{{ datoProducto.nombre_marca }}</h6>
+        <h6 class="brand-product mb-0 text-sm-center">{{ datoProducto.nombre_marca }}</h6>
 
-        <div class="d-flex gap-2">
-            <p class="actual-prize mb-0" :class="{'high-text': datoProducto.descuento}" > {{ datoProducto.precio_venta }}€</p>
+        <div class="d-flex gap-sm-0 gap-md-2 flex-column flex-md-row justify-content-center">
+            <p class="actual-prize mb-0 text-center" :class="{'high-text': datoProducto.descuento}" > {{ datoProducto.precio_venta }}€</p>
             <div class="d-flex gap-2 justify-content-center align-items-center" v-if="datoProducto.descuento">
                 <p class="previus-prize mb-0" v-if="datoProducto.precio_anterior">{{ datoProducto.precio_anterior }}€</p>
                 <p class="nametag-discount mb-0">-{{ datoProducto.porcentaje_descuento }}%</p>
@@ -23,7 +23,7 @@
         <div class="last-units-container" >
             <p v-if="datoProducto.stock_articulo <= 10" class="text-center mb-0 last-units">Últimas unidades</p>
         </div>
-        <div class="container-btn mt-2">
+        <div class="container-btn mt-2" v-if="!isSmallScreen">
             <button  v-if="showBtn" @click="addToChart" class="btn btn-dark w-100" aria-label="">Añadir al carrito</button>
         </div>
     </article>
@@ -46,6 +46,24 @@ const addToChart = (event) => {
     event.stopPropagation();
     console.log("añadiendo al carrito!")
 }
+
+
+const isSmallScreen = ref(false);
+const updateWidth = () => {
+    isSmallScreen.value = window.innerWidth < 900;
+}
+
+
+onMounted(async ()=> {
+    window.addEventListener('resize', updateWidth)
+})
+
+onUnmounted( ()=> {
+    window.removeEventListener('resize', updateWidth);
+})
+
+
+
 
 </script>
 
@@ -84,7 +102,6 @@ const addToChart = (event) => {
     aspect-ratio: 1 / 1;
     object-fit: contain;
 }
-
 
 .actual-prize{
     padding: .2rem;
@@ -129,6 +146,7 @@ const addToChart = (event) => {
 }
 
 .last-units-container{
+    position: relative;
     height: 19.19px;
 }
 .last-units{
@@ -137,4 +155,47 @@ const addToChart = (event) => {
     color: var(--color-lightPink)
 }
 
+@media screen and (max-width: 900px) {
+    .title-product{
+        font-size: .8rem;
+    }  
+    .last-units-container{
+        position: absolute;
+        width: 100%;
+        right: 50%;
+        transform: translateX(50%);
+    }
+    .last-units{
+        background-color: rgba(197, 196, 196, 0.466);
+        backdrop-filter: blur(2px);
+    }
+
+    .actual-prize{
+    padding: 0;
+}
+.previus-prize{
+    font-size: .8rem;
+    padding: 0;
+}
+
+.nametag-discount{
+    font-size: .7rem;
+    padding: .1rem;
+}
+
+}
+@media screen and (max-width: 420px){
+    
+.title-product{
+    font-size: .7rem;
+}
+
+
+
+
+.last-units{
+    font-size: .7rem;
+}
+
+}
 </style>

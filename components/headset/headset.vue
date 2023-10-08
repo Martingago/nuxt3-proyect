@@ -1,5 +1,5 @@
 <template>
-    <section class="item-product-section p-0 bg-black d-flex justify-content-center">
+    <section class="item-product-section p-0 bg-black d-flex justify-content-center w-100">
         <div class="container d-flex justify-content-center align-items-center gap-4 position-relative">
 
             <article class="item-article text-lg-start text-center col-lg-4 text-light">
@@ -11,7 +11,6 @@
 
             <img class="img-article col-lg-4 img-fluid" loading="lazy" alt="Imagen principal de los auriculares de maarca AUDIOPHILE" src="/img-products/main-web/banner-audiophile-auriculares-inalambricos.webp">
         </div>
-
     </section>
 
 </template>
@@ -24,7 +23,7 @@
 }
 .item-product-section{
     overflow: hidden;
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - var(--height-headerweb-lg));
     background: rgb(10, 10, 11);
     background: linear-gradient(126deg, rgba(10, 10, 11, 1) 0%, rgba(41, 43, 43, 1) 96%);
 }
@@ -40,6 +39,9 @@
 
 
 @media screen and (max-width: 992px) {
+    .item-product-section{
+        min-height: calc(100vh - var(--height-headerweb-md));
+    }
     .img-article{
         position: absolute;
     }

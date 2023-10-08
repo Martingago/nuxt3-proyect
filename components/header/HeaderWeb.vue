@@ -1,8 +1,8 @@
 <template>
   <!-- Navegador -->
-  <nav class="navbar bg-dark fixed-top navbar-expand-lg p-5" data-bs-theme="dark">
-    <div class="container-fluid">
-      <NuxtLink class="navbar-brand fs-2 order-first " to="/">Audiophile</NuxtLink>
+  <nav class="navbar bg-dark sticky-top navbar-expand-lg" data-bs-theme="dark">
+    <div class="container-fluid w-100 p-0">
+      <NuxtLink class="navbar-brand fs-2 order-first px-3" to="/">Audiophile</NuxtLink>
 
       <button class="btn border-0 navbar-toggler ms-auto order-first" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -74,11 +74,12 @@ const props = defineProps({
 <style scoped>
 
 .offcanvas{
-  width: 300px;
+  width: 100%;
 }
 
 .navbar {
   z-index: 999;
+  height: var(--height-headerweb-lg);
 }
 
 .navbar-toggler:not(:disabled):not(.disabled):focus {
@@ -97,6 +98,12 @@ const props = defineProps({
     font-size: 1.3rem;
     margin-right: .3rem;
   }
+
+@media screen and (max-width: 992px) {
+  .navbar{
+    height: var(--height-headerweb-md);
+  }
+}
 
 
 </style>
