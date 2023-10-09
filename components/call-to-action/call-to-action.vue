@@ -1,6 +1,10 @@
 <template>
   <section class="call-to-action d-flex flex-column flex-lg-row justify-content-between my-5 gap-3">
-    <img class="col-lg-6 img-fluid rounded shadow" loading="lazy" alt="joven chico sonriente con unos auriculares negros marca AUDIOPHILE" src="/img-products/main-web/persona-auriculares-audiophile-colocados-large-image.webp">
+    <NuxtImg class="col-lg-6 img-fluid rounded shadow" loading="lazy" 
+    placeholder quality="80" width="648"
+    alt="joven chico sonriente con unos auriculares negros marca AUDIOPHILE" 
+    title="Imagen llamada a la acción tienda online Audiophile"
+    src="/img-products/main-web/persona-auriculares-audiophile-colocados-large-image.webp"/>
 
   <div class="d-flex col-lg-6 justify-content-start align-items-center order-lg-first">
     <article class="our-mission col-lg-10 align-items-center justify-content-center d-flex flex-column gap-2">

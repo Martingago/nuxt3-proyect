@@ -2,7 +2,11 @@
     <section class="speaker-section-product p-5 d-flex flex-column flex-lg-row rounded align-items-center justify-content-center gap-3">
 
         <div class="col-lg-6 d-flex justify-content-center align-items-center" >
-            <img class="img-prod  col-10 col-lg-11 img-fluid" loading="lazy" src="/img-products/main-web/audiophile-altavoces-producto-marca.webp" alt="Altavos AUDIOPHILE gran calidad de materiales y sonido">
+            <NuxtImg class="img-prod  col-10 col-lg-11 img-fluid" 
+            title="Imagen de producto promocional: ZX9 speaker | Tienda online Audiphile"
+            placeholder quality="50"
+            loading="lazy" src="/img-products/main-web/audiophile-altavoces-producto-marca.webp" 
+            alt="Altavoz AUDIOPHILE gran calidad de materiales y sonido"/>
         </div>
 
         <article class="item-article col-lg-4 col-md-8 d-flex flex-column justify-content-center align-items-md-center align-items-lg-start p-2 rounded">
