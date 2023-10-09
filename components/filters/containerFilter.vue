@@ -1,8 +1,15 @@
 <template>
-    <div class="btn-open-filter" v-if="isSmallScreen">
-        <button class="btn btn-primary">Filtros</button>
+    <!-- Barra navegacion altas resoluciones -->
+    <div class="btn-open-filter w-100 shadow rounded p-1 gap-2"> 
+        <div class="position-relative flex-grow-1">
+            <input type="text" class="input-search pr-2 w-100 rounded" name="buscarProducto" id="buscarProducto" placeholder="Buscar producto">
+            <button class="btn-search btn h-100 position-absolute right-0" aria-label="Buscar"> <font-awesome-icon
+                    :icon="['fas', 'magnifying-glass']" /></button>
+        </div>
+        <button class="btn-filters btn btn-dark">Filtros <font-awesome-icon :icon="['fas', 'filter']" /> </button>
     </div>
-    <aside v-else class="p-2 shadow rounded border border-1">
+
+    <aside  class="container-filters p-3 shadow rounded border border-1">
         <h3 class="text-center txt-h3 mb-1">Explora nuestras categorías: Auriculares, Cascos, Altavoces y más</h3>
         <div class="position-relative">
             <input type="text" class="pr-2 w-100" name="buscarProducto" id="buscarProducto" placeholder="Buscar">
@@ -14,11 +21,13 @@
             <div class="d-flex gap-2">
                 <span class="w-100">
                     <label for="rangePrecioMinimo">De:</label>
-                    <input class="w-100" type="number" name="rangePrecioMinimo" id="rangePrecioMinimo"  step="1" v-model="minValue" min="0" :max="maxValue">
+                    <input class="w-100" type="number" name="rangePrecioMinimo" id="rangePrecioMinimo" step="1"
+                        v-model="minValue" min="0" :max="maxValue">
                 </span>
                 <span class="w-100">
                     <label for="rangePrecioMaximo">Hasta:</label>
-                    <input class="w-100" type="number" name="rangePrecioMaximo" id="rangePrecioMaximo" step="1" v-model="maxValue" max="999" :min="minValue">
+                    <input class="w-100" type="number" name="rangePrecioMaximo" id="rangePrecioMaximo" step="1"
+                        v-model="maxValue" max="999" :min="minValue">
                 </span>
             </div>
         </div>
@@ -26,7 +35,7 @@
             <p class="fw-600 mb-1">Categorias:</p>
             <div v-for="categoria in categorias" :key="categoria.id">
                 <input type="checkbox" :name="categoria.id" :id="categoria.id">
-                <label :for="categoria.id" class="px-1">{{  categoria.nombre}}</label>
+                <label :for="categoria.id" class="px-1">{{ categoria.nombre }}</label>
             </div>
         </div>
         <div class="mt-2">
@@ -42,27 +51,16 @@
 <script setup>
 
 const minValue = ref(0);
-const maxValue= ref(999);
+const maxValue = ref(999);
 const categorias = ref([]);
 const brands = ref([]);
 
+onMounted(async () => {
 
-const isSmallScreen = ref(false);
-const updateWidth = () => {
-    isSmallScreen.value = window.innerWidth < 1109;
-}
-
-
-onMounted(async ()=> {
     categorias.value = await listarCategoriaProducto();
     brands.value = await getDataFromStore("marca_productos");
-    window.addEventListener('resize', updateWidth)
+    
 })
-
-onUnmounted( ()=> {
-    window.removeEventListener('resize', updateWidth);
-})
-
 
 </script>
 
@@ -71,25 +69,26 @@ aside {
     position: sticky;
     top: calc(var(--height-headerweb-lg) + 20px);
     height: fit-content;
-    width: 240px;
+    width: 260px;
     z-index: 2;
     background-color: white;
-}
-.btn-open-filter{
-    z-index: 2;
 }
 
 #buscarProducto {
     padding-right: 2rem;
 }
 
-.fw-600{
+.fw-600 {
     font-weight: 600;
 }
 
 .txt-h3 {
     font-size: .8rem;
 }
+
+.btn-open-filter .input-search{
+        height: 37.6px;
+    }
 
 .btn-search {
     width: 30px;
@@ -100,11 +99,39 @@ aside {
     border: none
 }
 
-.btn-open-filter{
+.btn-open-filter {
+    display: flex;
     grid-column: 1 / -1;
     position: sticky;
     top: calc(var(--height-headerweb-lg) + 10px);
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    background-color: rgba(174, 174, 174, 0.6);
+}
+.container-filters{
+    display: none;
 }
 
+@media screen and (min-width: 1109px) {
+    .btn-open-filter{
+        display: none;
+    }
+    .container-filters{
+        display: block;
+    }
+}
+
+
+@media screen and (max-width: 992px) {
+    .btn-open-filter{
+        top: calc(var(--height-headerweb-md) + 5px)
+    }
+}
+
+@media screen and (max-width: 355px) {
+    .btn-open-filter{
+        flex-direction: column;
+    }
+}
 
 </style>

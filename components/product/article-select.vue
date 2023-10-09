@@ -1,30 +1,31 @@
 <template>
-    <article @click="visitProductPage(datoProducto.slug)"
-    :class="{'shadow border': showBtn || isSmallScreen}"
-    @mouseenter="showBtn = true"  @mouseleave="showBtn = false" class="product-article d-flex flex-column p-2 rounded position-relative">
+    <article @click="visitProductPage(datoProducto.slug)" :class="{ 'shadow border': showBtn || isSmallScreen }"
+        @mouseenter="showBtn = true" @mouseleave="showBtn = false"
+        class="product-article d-flex flex-column p-2 rounded position-relative">
         <div class="img-container">
-            <nuxtImg class="img-fluida img-fluid" 
-             :src="datoProducto.imagenes_producto.portada?.url" loading="lazy"
-              :alt="'Producto de la tienda audiophile: '+datoProducto.nombre_articulo" 
-              width="222" heigth="222" quality="10" />
+            <nuxtImg class="img-fluida img-fluid" :src="datoProducto.imagenes_producto.portada?.url" loading="lazy"
+                :alt="'Producto de la tienda audiophile: ' + datoProducto.nombre_articulo" width="222" heigth="222"
+                quality="10" />
         </div>
         <hr class="my-0">
-        <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{datoProducto.nombre_articulo }}</h5>
+        <h5 class="title-product d-flex justify-content-center align-items-center mb-1">{{ datoProducto.nombre_articulo }}
+        </h5>
         <h6 class="brand-product mb-0 text-sm-center">{{ datoProducto.nombre_marca }}</h6>
 
         <div class="d-flex gap-sm-0 gap-md-2 flex-column flex-md-row justify-content-center">
-            <p class="actual-prize mb-0 text-center" :class="{'high-text': datoProducto.descuento}" > {{ datoProducto.precio_venta }}€</p>
+            <p class="actual-prize mb-0 text-center" :class="{ 'high-text': datoProducto.descuento }"> {{
+                datoProducto.precio_venta }}€</p>
             <div class="d-flex gap-2 justify-content-center align-items-center" v-if="datoProducto.descuento">
-                <p class="previus-prize mb-0" v-if="datoProducto.precio_anterior">{{ datoProducto.precio_anterior }}€</p>
-                <p class="nametag-discount mb-0">-{{ datoProducto.porcentaje_descuento }}%</p>
-                
+                <p class="previus-prize" v-if="datoProducto.precio_anterior">{{ datoProducto.precio_anterior }}€</p>
+                <p class="nametag-discount">-{{ datoProducto.porcentaje_descuento }}%</p>
+
             </div>
         </div>
-        <div class="last-units-container" >
+        <div class="last-units-container">
             <p v-if="datoProducto.stock_articulo <= 10" class="text-center mb-0 last-units">Últimas unidades</p>
         </div>
         <div class="container-btn mt-2" v-if="!isSmallScreen">
-            <button  v-if="showBtn" @click="addToChart" class="btn btn-dark w-100" aria-label="">Añadir al carrito</button>
+            <button v-if="showBtn" @click="addToChart" class="btn btn-dark w-100" aria-label="">Añadir al carrito</button>
         </div>
     </article>
 </template>
@@ -33,7 +34,7 @@
 const img = useImage();
 const showBtn = ref(false);
 const props = defineProps({
-    datoProducto : {
+    datoProducto: {
         type: Object
     }
 })
@@ -50,15 +51,15 @@ const addToChart = (event) => {
 
 const isSmallScreen = ref(false);
 const updateWidth = () => {
-    isSmallScreen.value = window.innerWidth < 900;
+    isSmallScreen.value = window.innerWidth < 1110;
 }
 
 
-onMounted(async ()=> {
+onMounted(async () => {
     window.addEventListener('resize', updateWidth)
 })
 
-onUnmounted( ()=> {
+onUnmounted(() => {
     window.removeEventListener('resize', updateWidth);
 })
 
@@ -67,59 +68,57 @@ onUnmounted( ()=> {
 
 </script>
 
-
 <style scoped>
-.product-article{
-    min-width: 160px;
+.product-article {
     width: 100%;
-    max-width: 240px;
     cursor: pointer;
     border: 1px solid transparent;
 }
 
-.title-product{
+.title-product {
     height: 48px;
     font-size: .9rem;
     line-height: 1rem;
     color: var(--color-light);
 }
 
-.brand-product{
+.brand-product {
     font-size: .8rem;
     text-transform: uppercase;
     font-weight: 600;
 }
 
-
-.img-container{
+.img-container {
     width: 100%;
     aspect-ratio: 1 / 1;
 }
 
-.img-fluida{
+.img-fluida {
     display: flex;
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
 }
 
-.actual-prize{
+.actual-prize {
     padding: .2rem;
     font-weight: 600;
     font-size: 1.2rem;
 }
 
-.previus-prize{
+.previus-prize {
     position: relative;
     color: var(--color-light);
     padding: .2rem;
     font-weight: 600;
+    margin-bottom: 0;
 }
-.high-text{
+
+.high-text {
     color: var(--color-lightPink);
 }
 
-.previus-prize::after{
+.previus-prize::after {
     position: absolute;
     content: "";
     width: 100%;
@@ -131,71 +130,80 @@ onUnmounted( ()=> {
     z-index: 1;
 }
 
-.nametag-discount{
+.nametag-discount {
     color: white;
     font-weight: 700;
     font-size: 0.9rem;
     background-color: var(--color-lightPink);
     padding: .2rem;
     text-align: center;
-    width:50px;
+    width: 50px;
+    margin-bottom: 0;
 }
 
-.container-btn{
+.container-btn {
     height: 38px
 }
 
-.last-units-container{
+.last-units-container {
     position: relative;
     height: 19.19px;
 }
-.last-units{
+
+.last-units {
     font-size: .8rem;
     font-weight: 600;
     color: var(--color-lightPink)
 }
 
 @media screen and (max-width: 900px) {
-    .title-product{
+    .title-product {
         font-size: .8rem;
-    }  
-    .last-units-container{
+    }
+
+    .last-units-container {
         position: absolute;
         width: 100%;
         right: 50%;
         transform: translateX(50%);
     }
-    .last-units{
+
+    .last-units {
         background-color: rgba(197, 196, 196, 0.466);
         backdrop-filter: blur(2px);
     }
 
-    .actual-prize{
-    padding: 0;
-}
-.previus-prize{
-    font-size: .8rem;
-    padding: 0;
-}
+    .actual-prize {
+        padding: 0;
+    }
 
-.nametag-discount{
-    font-size: .7rem;
-    padding: .1rem;
-}
+    .previus-prize {
+        font-size: .8rem;
+        padding: 0;
+    }
 
-}
-@media screen and (max-width: 420px){
-    
-.title-product{
-    font-size: .7rem;
-}
-
-
-
-
-.last-units{
-    font-size: .7rem;
-}
+    .nametag-discount {
+        font-size: .7rem;
+        padding: .1rem;
+    }
 
 }
+
+@media screen and (max-width: 420px) {
+
+    .title-product {
+        font-size: .7rem;
+    }
+    .last-units {
+        font-size: .7rem;
+    }
+
+}
+
+@media screen and (max-width: 369px) {
+    .brand-product{
+        text-align: center;
+    }
+}
+
 </style>

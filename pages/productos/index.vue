@@ -1,6 +1,6 @@
 <template>
     <HeaderContainer></HeaderContainer>
-    <div class="container-index  gap-2">
+    <div class="container-index  gap-3">
 
         <FiltersContainerFilter></FiltersContainerFilter>
 
@@ -8,7 +8,7 @@
             <p>Cargando...</p>
         </div>
 
-        <section v-else id="productos-container">
+        <section v-else id="productos-container" class="mb-4">
             <ProductArticleSelect v-for="producto in store.productos" :key="producto.id" :datoProducto="producto">
             </ProductArticleSelect>
         </section>
@@ -49,38 +49,41 @@ getData();
     display: grid;
     grid-template-columns: auto 1fr;
     width: 95%;
-    margin: auto;
+    margin: 0 auto;
     max-width: 1600px;
 }
 
 #productos-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 240px);
-    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: .5rem;
+    width: 100%;
     align-self: center;
-    gap: 1rem;
+    margin: auto;
 }
 
-
+/* Cambio en los filtros */
 @media screen and (max-width: 1109px) {
     .container-index{
         grid-template-columns: 1fr;
     }
     #productos-container{
-        grid-template-columns: repeat(auto-fill, 210px);
-    }
-}
-
-@media screen and (max-width: 712px) {
-    #productos-container{
-        grid-template-columns: repeat(auto-fill, 180px);
-    }
-}
-
-@media screen and (max-width: 420px) {
-    #productos-container{
-        grid-template-columns: repeat(auto-fill, 160px);
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
     
 }
+
+@media screen and (max-width: 680px) {
+    #productos-container{ 
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+}
+
+/* @media screen and (max-width: 420px) {
+
+    #productos-container{
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    
+} */
 </style>
