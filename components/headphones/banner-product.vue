@@ -10,7 +10,7 @@
 <style scoped>
 .banner-speaker-product{
     height: 350px;
-    background-image: url(/img-products/main-web/large-audiophile-altavoces-producto-diseño-moderno.webp);
+    background-image: url('/assets/img/main-web/large-audiophile-altavoces-producto-diseño-moderno.webp');
     background-position: right;
     background-size: cover;
     filter: grayscale(100%);

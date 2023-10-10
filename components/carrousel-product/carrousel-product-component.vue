@@ -4,9 +4,10 @@
 
         <article class="d-flex flex-fill flex-grow-1 flex-column flex-fill justify-content-center align-items-center my-3 shadow rounded p-3 col-md-3">
             <NuxtLink class=" d-flex" to="/">
-                <NuxtImg class="my-img m-auto img-fluid w-75" 
+                <img class="my-img m-auto img-fluid w-75" 
                 title="Imagen de sección headphones | Tienda online Audiphile"
-                src="/img-products/main-web/audiophile-cascos-inalambricos-producto-marca.webp" 
+                src="@/assets/img/main-web/audiophile-cascos-inalambricos-producto-marca.webp" 
+                loading="lazy"
                 alt="Imagen de unos auriculares de marca AUDIOPHILE"/>
             </NuxtLink>
             <h2>Headphones</h2>
@@ -17,10 +18,11 @@
 
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink  class="d-flex" to="/">
-                <NuxtImg class="my-img img-fluid w-75 m-auto"
+                <img class="my-img img-fluid w-75 m-auto"
                 title="Imagen de sección altavoces | Tienda online Audiphile"
                  alt="Imagen de unos altavoces de marca AUDIOPHILE mejor calidad precio/sonido"
-                 src="/img-products/main-web/audiophile-altavoces-producto-marca.webp"/>
+                 loading="lazy"
+                 src="@/assets/img/main-web/audiophile-altavoces-producto-marca.webp"/>
             </NuxtLink>
             <h2>Speakers</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop
@@ -30,10 +32,11 @@
         
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
             <NuxtLink class="d-flex" to="/">
-                <NuxtImg class="my-img img-fluid w-75 m-auto"
+                <img class="my-img img-fluid w-75 m-auto"
                  title="Imagen de sección in-ear | Tienda online Audiphile"
                  alt="Auriculares in-ear marca AUDIOHPILE gran calidad auditiva"
-                  src="/img-products/main-web/audiophile-auriculares-inalambricos-producto-marca.webp"/>
+                 loading="lazy"
+                  src="@/assets/img/main-web/audiophile-auriculares-inalambricos-producto-marca.webp"/>
             </NuxtLink>
             <h2>Hearphones</h2>
             <button class="my-btn mt-3" @mouseenter="activado($event)" @mouseleave="activado($event)">Shop

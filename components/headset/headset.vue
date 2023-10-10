@@ -9,7 +9,7 @@
                 <button class="btn-go-to-headset mt-3 fw-700">Ver producto</button>
             </article>
 
-            <NuxtImg class="img-article col-lg-4 img-fluid"
+            <img class="img-article col-lg-4 img-fluid"
              alt="Imagen principal de los auriculares de maarca AUDIOPHILE" 
             src="@/assets/img/main-web/banner-audiophile-auriculares-inalambricos.webp"
             title="Imagen de portada de nuestra tienda en línea: Audiophile"/> 
