@@ -52,6 +52,7 @@ const isSmallScreen = ref(false);
 const updateWidth = () => {
     isSmallScreen.value = window.innerWidth < 1109;
 }
+//Formulario
 
 onBeforeMount(() => {
     updateWidth(); // Llama a updateWidth() para obtener el tamaño inicial de la ventana
