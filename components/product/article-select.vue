@@ -3,8 +3,10 @@
         @mouseenter="showBtn = true" @mouseleave="showBtn = false"
         class="product-article d-flex flex-column p-2 rounded position-relative">
         <div class="img-container">
-            <nuxtImg class="img-fluida img-fluid" :src="datoProducto.imagenes_producto.portada?.url" loading="lazy"
-                :alt="'Producto de la tienda audiophile: ' + datoProducto.nombre_articulo" width="222" heigth="222"
+            <nuxtImg class="img-fluida " :src="datoProducto.imagenes_producto.portada?.url" 
+            loading="lazy"
+                :alt="'Producto de la tienda audiophile: ' + datoProducto.nombre_articulo"
+                 width="222" heigth="222"
                 quality="10" />
         </div>
         <hr class="my-0">
