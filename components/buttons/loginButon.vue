@@ -1,7 +1,7 @@
 <template>
     <div class="btn-container position-relative">
         <!-- Boton de iniciar sesion -->
-        <button id="btn-login-user" type="button" class="btn btn-primary" @click="navigateTo('/login')" @mouseover="showPopOver = true"
+        <button id="btn-login-user" type="button" class="btn  btn-form" @click="navigateTo('/login')" @mouseover="showPopOver = true"
             @mouseleave="showPopOver = false">Iniciar
             sesion
         </button>
@@ -25,6 +25,10 @@ const showPopOver = ref(false);
 </script>
 
 <style scoped>
+
+.btn-form{
+    width: 120px;
+}
 .submenu-iniciar-sesion {
     width: 220px;
     background-color: rgb(32, 32, 32);
@@ -48,4 +52,16 @@ const showPopOver = ref(false);
 .new-client-link:hover {
     color: rgb(255, 166, 0);
 }
+.btn-form:hover{
+    color: white;
+}
+
+@media screen and (max-width: 992px) {
+  .btn-form{
+    width: 220px
+  }
+}
+
+
+
 </style>

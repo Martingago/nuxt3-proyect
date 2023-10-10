@@ -25,7 +25,6 @@
     max-width: 500px;
 }
 .item-product-section{
-    overflow: hidden;
     min-height: calc(100vh - var(--height-headerweb-lg));
     background: rgb(10, 10, 11);
     background: linear-gradient(126deg, rgba(10, 10, 11, 1) 0%, rgba(41, 43, 43, 1) 96%);
@@ -47,6 +46,8 @@
     }
     .img-article{
         position: absolute;
+        width: 80%;
+        max-width: 550px;
     }
 }
 
