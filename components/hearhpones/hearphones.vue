@@ -3,7 +3,6 @@
     <section class="item-section-product d-flex flex-column flex-md-row gap-3">
         <div class="img-container col-md-6 rounded shadow d-flex align-items-center justif-content-center">
             <NuxtImg class="hearphones-img-product m-auto p-lg-4 w-50 img-fluid" 
-            loading="lazy" placeholder quality="60"
             title="Imagen de producto promocional: YX1 hearphones | Tienda online Audiphile"
             alt="imagen del estuche de unos auriculares in-ear YX1 hearhpones negros" 
             src="/img-products/main-web/auriculares-inalambricos-call-to-action-audiphile.webp"/>

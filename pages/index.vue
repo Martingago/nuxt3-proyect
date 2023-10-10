@@ -12,12 +12,6 @@
 
 <script setup>
 
-// definePageMeta({
-//   middleware: ["auth"]
-//   // or middleware: 'auth'
-// })
-
-
 useHead(
     {
         title: "Audiophile - Los mejores equipos de sonido del mercado",
