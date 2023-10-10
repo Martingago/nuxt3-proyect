@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
@@ -11,11 +12,12 @@ export default defineNuxtPlugin(nuxtApp => {
         projectId: config.FIREBASE_PROJECT_ID,
         storageBucket: config.FIREBASE_STORAGE_BUCKET,
         // messagingSenderId: "638214144572",
-        // appId: "1:638214144572:web:ac0b693543ddca1b65b939",
+         appId: "1:638214144572:web:ac0b693543ddca1b65b939",
         // measurementId: "G-8TYYJRX1X7"
     };
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
     //Initialize auth:
     const auth = getAuth(app);
 
