@@ -3,7 +3,7 @@
     <NuxtImg class="col-lg-6 img-fluid rounded shadow" 
     alt="joven chico sonriente con unos auriculares negros marca AUDIOPHILE" 
     title="Imagen llamada a la acción tienda online Audiophile"
-    src="/img-products/main-web/persona-auriculares-audiophile-colocados-large-image.webp"/>
+    src="@/assets/img/main-web/persona-auriculares-audiophile-colocados-large-image.webp"/>
 
   <div class="d-flex col-lg-6 justify-content-start align-items-center order-lg-first">
     <article class="our-mission col-lg-10 align-items-center justify-content-center d-flex flex-column gap-2">
