@@ -11,7 +11,7 @@
 
             <NuxtImg class="img-article col-lg-4 img-fluid"
              alt="Imagen principal de los auriculares de maarca AUDIOPHILE" 
-            src="/img-products/main-web/banner-audiophile-auriculares-inalambricos.webp"
+            src="@/assets/img/main-web/banner-audiophile-auriculares-inalambricos.webp"
             title="Imagen de portada de nuestra tienda en línea: Audiophile"/> 
         </div>
     </section>
