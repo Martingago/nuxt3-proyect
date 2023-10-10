@@ -58,7 +58,7 @@ const props = defineProps({
   userData: Object
 })
 
-onMounted(()=>{
+onBeforeMount(()=>{
       const navLinks = document.querySelectorAll('.navbar-nav .btn');
       const navbarToggler = document.querySelector('.navbar-toggler');
       navLinks.forEach((navLink) => {
@@ -69,6 +69,8 @@ onMounted(()=>{
         });
       });
 })
+
+
 
 </script>
 
