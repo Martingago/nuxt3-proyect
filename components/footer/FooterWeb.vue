@@ -4,7 +4,7 @@
 
         <ul class="col-auto d-flex justify-content-center align-items-center">
           <li >
-            <NuxtLink class="text-light fs-2" to="/">Audiophile</NuxtLink>
+            <NuxtLink class="text-light fs-2" to="/"><img class="brand img-fluid" src="/img/BRAVUS-white.svg" alt="logo de la empresa BRAVUS"></NuxtLink>
           </li>
         </ul>
       
@@ -26,3 +26,8 @@
 </footer>
 
 </template>
+<style scoped>
+  .brand{
+    width: 200px
+  }
+</style>

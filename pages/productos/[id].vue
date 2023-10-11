@@ -24,7 +24,7 @@ const data = ref({});
 const loading = ref(true);
 const existe = ref(true);
 
-const head = ref('Audiophile')
+const head = ref('BRAVUS')
 useHead(
     {
         title: head,

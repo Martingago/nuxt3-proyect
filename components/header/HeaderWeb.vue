@@ -3,7 +3,7 @@
   <nav class="navbar bg-dark sticky-top navbar-expand-lg w-100 p-0" data-bs-theme="dark">
     <div class="container-fluid p-0">
       <div class="container-main-el mx-3 d-flex justify-content-between align-items-center">
-        <NuxtLink class="navbar-brand fs-2 order-first px-3" to="/">Audiophile</NuxtLink>
+        <NuxtLink class="navbar-brand fs-2 order-first px-3" to="/"><img src="/img/BRAVUS-white.svg" class="img-fluid" alt="logo BRAVUS"></NuxtLink>
 
         <span class="d-flex">
          <div id="shortBtnChart">
@@ -88,6 +88,13 @@ onBeforeMount(()=>{
 .navbar {
   width: auto;
   height: var(--height-headerweb-lg);
+}
+.navbar-brand{
+  width: 200px;
+}
+
+.navbar-brand img{
+  color: white;
 }
 
 .container-fluid{

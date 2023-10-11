@@ -40,7 +40,7 @@ definePageMeta({
 })
 useHead(
     {
-        title: "Audiophile - Admin",
+        title: "BRAVUS - Admin",
     }    
 );
 
