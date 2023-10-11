@@ -7,8 +7,10 @@ export default defineNuxtRouteMiddleware(async () => {
     onAuthStateChanged($auth, (user) => {
       if(user){
         isAuth.value = true;
+        console.log("user conectado ", isAuth.value)
       }else{
         isAuth.value = false;
+        console.log("user no contecado ", isAuth.value)
       }
     });
   }

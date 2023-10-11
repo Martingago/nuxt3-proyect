@@ -8,7 +8,7 @@
             alt="Altavoz AUDIOPHILE gran calidad de materiales y sonido"/>
         </div>
 
-        <article class="item-article col-lg-4 col-md-8 d-flex flex-column justify-content-center align-items-md-center align-items-lg-start p-2 rounded">
+        <article class="item-article col-lg-4 col-md-8 d-flex flex-column justify-content-center align-items-center align-items-lg-start p-2 rounded">
             <h2 class="fw-bold fs-1 text-uppercase text-center text-lg-start">ZX9 <br>speaker </h2>
             <p class=" text-center text-lg-start fs-5">Mejora a los altavoces premium que son fenomenalmente construidos para entregar un sonido realmente
                 remarcable</p>

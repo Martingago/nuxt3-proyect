@@ -7,7 +7,7 @@
 
         <span class="d-flex">
          <div id="shortBtnChart">
-
+          <ButtonsAddToChartBtn></ButtonsAddToChartBtn>
          </div>
           <button class="btn border-0 navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -33,9 +33,12 @@
             <NuxtLink to="/productos" class="btn btn-form">Productos</NuxtLink>
           </li>
           <hr>
-          <li>
-            <ButtonsLogOutButon v-if="isAuth"></ButtonsLogOutButon>
-            <ButtonsLoginButon v-else></ButtonsLoginButon>
+          <li v-if="!isAuth">
+            <ButtonsLoginButon colorProp="white"></ButtonsLoginButon>
+          </li>
+          <li v-else>
+            <ButtonsLogOutButon></ButtonsLogOutButon>
+            
           </li>
           <hr>
           <li id="longBtnChart">
@@ -45,7 +48,7 @@
       </div>
     </div>
   </nav>
-  <ButtonsAddToChartBtn></ButtonsAddToChartBtn>
+  
   <OffCanvasChart></OffCanvasChart>
 </template>
 
@@ -57,6 +60,11 @@ const isAdmin = false;
 const props = defineProps({
   userData: Object
 })
+
+onMounted(()=> {
+  isAuth;
+})
+
 
 onBeforeMount(()=>{
       const navLinks = document.querySelectorAll('.navbar-nav .btn');
