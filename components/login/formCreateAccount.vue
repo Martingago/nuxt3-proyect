@@ -4,24 +4,36 @@
         <form @submit.prevent="createAccount" class="d-flex flex-column gap-2 p-3 m-auto container shadow rounded">
             <h2 class="text-center">Crear cuenta</h2>
             <span>
-                <label for="formEmail" class="form-label m-0">Dirección de email:</label>
-                <input type="email" autocomplete="username" v-model="email" class="form-control" id="formEmail"
-                    placeholder="Email">
+                <label for="formName" class="form-label m-0">Nombre de usuario:</label>
+                <input type="text" autocomplete="username" class="form-control" aria-describedby="usernameHelpBlock"
+                    name="formName" id="formName" placeholder="Nombre" v-model="userData.user_name" required="true">
             </span>
             <span>
+                <label for="formEmail" class="form-label m-0">Dirección de email:</label>
+                <input type="email" autocomplete="username" v-model="userData.user_email" class="form-control"
+                    id="formEmail" placeholder="Email" required="true">
+            </span>
+
+            <span>
+                <label for="formEmailConfirm" class="form-label m-0">Confirmar dirección de email:</label>
+                <input type="email" autocomplete="username" v-model="userData.user_confirm_email" class="form-control"
+                    id="formEmailConfirm" placeholder="Confirmar Email" required="true">
+            </span>
+
+            <span>
                 <label for="formPassword" class="form-label m-0">Contraseña:</label>
-                <input type="password" v-model="password" autocomplete="current-password" id="formPassword"
-                    class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock">
+                <input type="password" v-model="userData.user_password" autocomplete="current-password" id="formPassword"
+                    class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock" required="true">
             </span>
 
             <span>
                 <label for="formPassword2" class="form-label m-0">Confirmar contraseña:</label>
-                <input type="password" v-model="password2" autocomplete="current-password" id="formPassword2"
-                    class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock">
+                <input type="password" v-model="userData.user_confirm_password" autocomplete="current-password"
+                    id="formPassword2" class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock" required="true">
             </span>
             <div class="error-section">
-                <p v-if="err" class="alert alert-danger m-0 p-0 text-center" role="alert">
-                    {{ alerta }}
+                <p v-if="userAlert.status" class="alert alert-danger m-0 p-0 text-center" role="alert">
+                    {{ userAlert.message }}
                 </p>
             </div>
 
@@ -29,11 +41,11 @@
                 <p class="terms-txt mb-0">Al continuar acepto los <NuxtLink class="link-terms">terminos y condiciones
                     </NuxtLink>
                 </p>
-                <input type="checkbox" v-model="acceptTerms" name="accept-terms" id="check-terms">
-                
+                <input type="checkbox" v-model="userData.accept_terms" name="accept-terms" id="check-terms">
+
             </div>
-            <button class="btn btn-warning" :disabled="!acceptTerms"> Crear cuenta</button>
-            
+            <button class="btn btn-warning" :disabled="!userData.accept_terms"> Crear cuenta</button>
+
         </form>
         <div class="d-flex gap-2 justify-content-center mt-2">
             <p>¿Ya tienes una cuenta?</p>
@@ -45,46 +57,33 @@
 
 <script setup>
 
-const err = ref(false);
-const alerta = ref("");
-const email = ref("");
-const password = ref("");
-const password2 = ref("");
-const acceptTerms = ref(true)
+import { manageCreateUsers } from '~~/store/createUser';
 
-const checkPassword = () => {
-    if (password.value === password2.value) { return true; }
-}
-
+const store = manageCreateUsers();
+store.initUser();
+const userData = ref(store.user);
+const userAlert = ref(store.alert);
 
 const createAccount = async () => {
-    if (checkPassword()) {
-
-        if (password.value.length >= 7) {
-            const credentials = await createUser(email.value, password.value);
-    console.log(credentials)
+    if(store.checkLenghtPassword()){
+        if(store.checkEmail()){
+            if(store.checkPassword()){
+                const credentials = await createUser(userData.value.user_email, userData.value.user_password);
+            }
         }
-        else {
-            err.value = true;
-            alerta.value = "Mínimo 7 caraceteres obligatorios"
-        }
-
-    } else {
-        err.value = true;
-        alerta.value = "Las contraseñas no coinciden."
     }
-    
+
 }
+
 
 </script>
 
 <style scoped>
-
-.error-section{
+.error-section {
     height: 20.8px;
 }
 
-.alert-danger{
+.alert-danger {
     font-size: .8rem;
 }
 

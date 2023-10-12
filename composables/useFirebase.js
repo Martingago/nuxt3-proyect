@@ -5,6 +5,7 @@ const createUser = async (email, password) => {
     const { $auth } = useNuxtApp();
     //Crear usuario
     const credentials = await createUserWithEmailAndPassword($auth, email, password)
+    
 
         .catch((error) => {
             const errorCode = error.code;
