@@ -4,16 +4,33 @@ export { createUser, signInUser, initUser, signOutUser }
 const createUser = async (user_data) => {
     const { $auth } = useNuxtApp();
     //Crear usuario
-    console.log(user_data);
-    // const credentials = await createUserWithEmailAndPassword($auth, email, password)
-    //     .catch((error) => {
-    //         const errorCode = error.code;
-    //         const errorMessage = error.message;
-    //         console.log(errorCode, errorMessage)
-    //         // ..
-    //     });
-    //return credentials;
+    return await createUserWithEmailAndPassword($auth, user_data.user_email, user_data.user_password)
+        .then((userCredential) => {
+            // El usuario se ha creado correctamente.
+            const { user_name, user_chart, user_orders, user_returns, accept_promotions } = user_data;
+            const newUserData = { user_name, user_chart, user_orders, user_returns, accept_promotions };
+            const userID = userCredential.user.uid;
+
+            uploadDataWithIDtoStore("datos_usuarios", userID, newUserData);
+            return true;
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            let userFriendlyMessage = '';
+            switch (errorCode) {
+                case 'auth/invalid-email':
+                    userFriendlyMessage = 'La dirección de correo electrónico no es válida.';
+                    break;
+                case 'auth/email-already-in-use':
+                    userFriendlyMessage = 'Ya existe una cuenta con esa dirección de correo electrónico.';
+                    break;
+                default:
+                    userFriendlyMessage = 'Ha ocurrido un error desconocido.';
+            }
+            return userFriendlyMessage;
+        });
 }
+
 
 const signInUser = async (email, password) => {
     const { $auth } = useNuxtApp();

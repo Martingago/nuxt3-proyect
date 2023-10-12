@@ -1,7 +1,8 @@
 <template>
     <div class="contenedor-form">
 
-        <form @submit.prevent="createAccount" class="d-flex flex-column gap-2 p-3 m-auto container shadow rounded">
+        <form @submit.prevent="createAccount"
+            class="d-flex flex-column gap-2 p-3 m-auto container shadow rounded position-relative">
             <h2 class="text-center">Crear cuenta</h2>
             <span>
                 <label for="formName" class="form-label m-0">Nombre de usuario:</label>
@@ -29,10 +30,11 @@
             <span>
                 <label for="formPassword2" class="form-label m-0">Confirmar contraseña:</label>
                 <input type="password" v-model="userData.user_confirm_password" autocomplete="current-password"
-                    id="formPassword2" class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock" required="true">
+                    id="formPassword2" class="form-control" placeholder="Contraseña" aria-describedby="passwordHelpBlock"
+                    required="true">
             </span>
             <div class="error-section">
-                <p v-if="userAlert.status" class="alert alert-danger m-0 p-0 text-center" role="alert">
+                <p v-if="userAlert.status" class="alert alert-danger h-100 d-flex justify-content-center align-items-center m-0 p-0 text-center" role="alert">
                     {{ userAlert.message }}
                 </p>
             </div>
@@ -47,11 +49,19 @@
                 </p>
                 <input type="checkbox" v-model="userData.accept_terms" name="accept-terms" id="check-terms">
             </div>
-           
+
 
             <button class="btn btn-warning" :disabled="!userData.accept_terms"> Crear cuenta</button>
-
+            <!-- Spinner -->
+            <div v-if="loading"
+                class="loading  position-absolute d-flex flex-column w-100 h-100 justify-content-center align-items-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Creando cuenta</p>
+            </div>
         </form>
+
         <div class="d-flex gap-2 justify-content-center mt-2">
             <p>¿Ya tienes una cuenta?</p>
             <NuxtLink class="link-terms" to="/login">Inicia sesión</NuxtLink>
@@ -69,24 +79,35 @@ store.initUser();
 const userData = ref(store.user);
 const userAlert = ref(store.alert);
 
+const loading = ref(false);
 const createAccount = async () => {
-    if(store.checkLenghtPassword()){
-        if(store.checkEmail()){
-            if(store.checkPassword()){
+    userAlert.value.status = false;
+    if (store.checkLenghtPassword()) {
+        if (store.checkEmail()) {
+            if (store.checkPassword()) {
+                loading.value = true;
                 //crear cuenta
-                const credentials = await createUser(userData.value);
-                // const credentials = await createUser(userData.value.user_email, userData.value.user_password);
+                const result = await createUser(userData.value);
+                
+                if (result === true) {
+                    
+                    store.initUser(); //se resetea el form
+                    userData.value = store.user;
+                } else {
+                    userAlert.value.status = true;
+                    userAlert.value.message = result;
+                }
+                loading.value = false;
             }
         }
     }
 }
 
-
 </script>
 
 <style scoped>
 .error-section {
-    height: 20.8px;
+    height: 40.38px;
 }
 
 .alert-danger {
@@ -104,7 +125,8 @@ const createAccount = async () => {
 .terms-txt {
     font-size: .9rem;
 }
-.promos-txt{
+
+.promos-txt {
     font-size: .8rem;
 }
 
@@ -112,6 +134,13 @@ const createAccount = async () => {
     text-decoration: underline !important;
     cursor: pointer;
     color: rgb(255, 166, 0);
+}
+
+.loading {
+    background-color: white;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
 }
 </style>
 

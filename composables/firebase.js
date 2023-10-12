@@ -1,6 +1,6 @@
-import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, where, setDoc } from "firebase/firestore";
 
-export { uploadDatatoStore, getSingleDocumentData, getDataFromStore, deleteFromStore, updateDataToStore, getProductByAtribute }
+export { uploadDatatoStore, getSingleDocumentData, getDataFromStore, deleteFromStore, updateDataToStore, getProductByAtribute, uploadDataWithIDtoStore }
 
 const getSingleDocumentData = async (coleccion, id) => {
     const { $db } = useNuxtApp();
@@ -74,6 +74,17 @@ const uploadDatatoStore = async (coleccion, docData) => {
         console.log("Error al subir el fichero: ", error)
     }
 }
+
+const uploadDataWithIDtoStore = async (coleccion, uid, docData) => {
+    const {$db} = useNuxtApp();
+    try {
+        await setDoc(doc($db, coleccion, uid), docData);
+        console.log("documento escrito con UID:", uid)
+    } catch (error) {
+        console.log("error al subir datos:", error)
+    }
+}
+
 
 /**
  * Eliimina un dato procedente de una colección
