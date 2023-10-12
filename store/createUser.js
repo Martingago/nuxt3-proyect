@@ -11,12 +11,15 @@ export const manageCreateUsers = defineStore("manage_users", {
     actions: {
         initUser() {
             this.user = {
-                user_name: "",
-                user_email: "",
-                user_confirm_email: "",
-                user_password: "",
-                user_confirm_password: "",
+                user_name: "test",
+                user_email: "test@email.com",
+                user_confirm_email: "test@email.com",
+                user_password: "12345678",
+                user_confirm_password: "12345678",
                 user_chart: [],
+                user_orders: [],
+                user_returns: [],
+                accept_promotions: true,
                 accept_terms: false,
             }
         },

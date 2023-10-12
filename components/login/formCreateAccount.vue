@@ -37,13 +37,18 @@
                 </p>
             </div>
 
+            <div class="d-flex flex-row-reverse gap-2 justify-content-end align-items-center">
+                <label for="receibe-emails" class="promos-txt">Deseo recibir e-mails de ofertas y promociones</label>
+                <input type="checkbox" v-model="userData.accept_promotions" name="receibe-emails" id="receibe-emails">
+            </div>
             <div class="d-flex flex-row-reverse gap-2 justify-content-center align-items-center">
                 <p class="terms-txt mb-0">Al continuar acepto los <NuxtLink class="link-terms">terminos y condiciones
                     </NuxtLink>
                 </p>
                 <input type="checkbox" v-model="userData.accept_terms" name="accept-terms" id="check-terms">
-
             </div>
+           
+
             <button class="btn btn-warning" :disabled="!userData.accept_terms"> Crear cuenta</button>
 
         </form>
@@ -68,11 +73,12 @@ const createAccount = async () => {
     if(store.checkLenghtPassword()){
         if(store.checkEmail()){
             if(store.checkPassword()){
-                const credentials = await createUser(userData.value.user_email, userData.value.user_password);
+                //crear cuenta
+                const credentials = await createUser(userData.value);
+                // const credentials = await createUser(userData.value.user_email, userData.value.user_password);
             }
         }
     }
-
 }
 
 
@@ -97,6 +103,9 @@ const createAccount = async () => {
 
 .terms-txt {
     font-size: .9rem;
+}
+.promos-txt{
+    font-size: .8rem;
 }
 
 .link-terms {

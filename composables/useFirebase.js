@@ -1,19 +1,18 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 export { createUser, signInUser, initUser, signOutUser }
 
-const createUser = async (email, password) => {
+const createUser = async (user_data) => {
     const { $auth } = useNuxtApp();
     //Crear usuario
-    const credentials = await createUserWithEmailAndPassword($auth, email, password)
-    
-
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
-            // ..
-        });
-    return credentials;
+    console.log(user_data);
+    // const credentials = await createUserWithEmailAndPassword($auth, email, password)
+    //     .catch((error) => {
+    //         const errorCode = error.code;
+    //         const errorMessage = error.message;
+    //         console.log(errorCode, errorMessage)
+    //         // ..
+    //     });
+    //return credentials;
 }
 
 const signInUser = async (email, password) => {
