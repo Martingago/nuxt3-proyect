@@ -1,8 +1,10 @@
-import { getDatabase, onValue } from "firebase/database";
-import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, where, setDoc } from "firebase/firestore";
 
-export { uploadDatatoStore, getSingleDocumentData, getDataFromStore, 
-    deleteFromStore, updateDataToStore, getProductByAtribute, uploadDataWithIDtoStore, getUpdatedChanges }
+import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, where, setDoc, } from "firebase/firestore";
+
+export {
+    uploadDatatoStore, getSingleDocumentData, getDataFromStore,
+    deleteFromStore, updateDataToStore, getProductByAtribute, uploadDataWithIDtoStore, updateDataAtribute
+}
 
 const getSingleDocumentData = async (coleccion, id) => {
     const { $db } = useNuxtApp();
@@ -16,18 +18,6 @@ const getSingleDocumentData = async (coleccion, id) => {
         //console.log("No such document!");
         return null;
     }
-}
-
-const getUpdatedChanges = async(coleccion, id) => {
-    const {$db} = useNuxtApp();
-    const db = getDatabase();
-    const docRef = ref(db, coleccion, id);
-    onValue(docRef, (snapshot)=> {
-        const data = snapshot.val();
-        console.log(data);
-        return data;
-    })
-    
 }
 
 
@@ -91,7 +81,7 @@ const uploadDatatoStore = async (coleccion, docData) => {
 }
 
 const uploadDataWithIDtoStore = async (coleccion, uid, docData) => {
-    const {$db} = useNuxtApp();
+    const { $db } = useNuxtApp();
     try {
         await setDoc(doc($db, coleccion, uid), docData);
         console.log("documento escrito con UID:", uid)
@@ -125,11 +115,20 @@ const updateDataToStore = async (coleccion, identificador, data) => {
     try {
         const { $db } = useNuxtApp();
         const docRef = doc($db, coleccion, identificador)
-        await updateDoc(docRef, data); 
+        await updateDoc(docRef, data);
 
     } catch (error) {
         console.log("aqui error:", error)
     }
+}
+
+const updateDataAtribute = async (id, carrito) => {
+  const {$db} = useNuxtApp();
+    const docRef = doc($db, "datos_usuarios", id);
+    await updateDoc(docRef,{
+        user_chart : carrito
+    })
+
 }
 
 

@@ -22,7 +22,6 @@ export default defineNuxtRouteMiddleware(async () => {
             if (docSnap.exists()) {
               // Guarda los datos del usuario en el store
               userStore.setUserInfo(docSnap.data(), userId);
-              console.log(userStore.info)
             }else{
               console.log("no existe")
             }
