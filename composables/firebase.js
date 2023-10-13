@@ -1,6 +1,8 @@
+import { getDatabase, onValue } from "firebase/database";
 import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, where, setDoc } from "firebase/firestore";
 
-export { uploadDatatoStore, getSingleDocumentData, getDataFromStore, deleteFromStore, updateDataToStore, getProductByAtribute, uploadDataWithIDtoStore }
+export { uploadDatatoStore, getSingleDocumentData, getDataFromStore, 
+    deleteFromStore, updateDataToStore, getProductByAtribute, uploadDataWithIDtoStore, getUpdatedChanges }
 
 const getSingleDocumentData = async (coleccion, id) => {
     const { $db } = useNuxtApp();
@@ -15,6 +17,19 @@ const getSingleDocumentData = async (coleccion, id) => {
         return null;
     }
 }
+
+const getUpdatedChanges = async(coleccion, id) => {
+    const {$db} = useNuxtApp();
+    const db = getDatabase();
+    const docRef = ref(db, coleccion, id);
+    onValue(docRef, (snapshot)=> {
+        const data = snapshot.val();
+        console.log(data);
+        return data;
+    })
+    
+}
+
 
 const getProductByAtribute = async (coleccion, atributo, valor) => {
     const { $db } = useNuxtApp();
@@ -115,7 +130,6 @@ const updateDataToStore = async (coleccion, identificador, data) => {
     } catch (error) {
         console.log("aqui error:", error)
     }
-
 }
 
 

@@ -21,7 +21,6 @@ const props = defineProps({
 const showPopOver = ref(false);
 const mobile = ref(false);
 const updateWidth = () => {
-    console.log(mobile.value)
     return window.innerWidth < 992 ? mobile.value =true : mobile.value = false
 }
 

@@ -52,6 +52,7 @@ const initUser = () => {
     onAuthStateChanged($auth, (user) => {
         if (user) {
             const uid = user.uid;
+            console.log("usuario loagueado con uid:", uid)
         } else {
             console.log("auth changed", user)
         }

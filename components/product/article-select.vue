@@ -27,12 +27,14 @@
             <p v-if="datoProducto.stock_articulo <= 10" class="text-center mb-0 last-units">Últimas unidades</p>
         </div>
         <div class="container-btn mt-2" v-if="!isSmallScreen">
-            <button v-if="showBtn" @click="addToChart" class="btn btn-dark w-100" aria-label="">Añadir al carrito</button>
+            <button v-if="showBtn" @click="addToChart($event, datoProducto)" class="btn btn-dark w-100" aria-label="Añadir producto al carrt">Añadir al carrito</button>
         </div>
     </article>
 </template>
 
 <script setup>
+import { useUserStore } from '~~/store/authUser';
+const storeUser = useUserStore();
 const img = useImage();
 const showBtn = ref(false);
 const props = defineProps({
@@ -45,9 +47,12 @@ const visitProductPage = (producto) => {
     navigateTo(`/productos/${producto}`)
 }
 
-const addToChart = (event) => {
+const addToChart = (event, producto) => {
     event.stopPropagation();
-    console.log("añadiendo al carrito!")
+    console.log("añadiendo al carrito!");
+    console.log(producto.id);
+    console.log(storeUser.info.userID);
+
 }
 
 
