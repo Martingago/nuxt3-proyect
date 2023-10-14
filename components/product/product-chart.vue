@@ -1,6 +1,9 @@
 <template>
-    <div v-if="loading" class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+    <div v-if="loading" class="spinner-container d-flex flex-column justify-content-center align-items-center">
+        <div  class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Cargando...</p>
     </div>
     <figure v-else class="d-flex flex-column justify-content-center w-100  mb-0">
         <div class="product-container d-flex flex-column justify-content-center mb-1 p-1"
@@ -10,7 +13,9 @@
         >
             <img class="img-fluid w-75 m-auto" :src="productData.imagenes_producto.portada.url"
                 :alt='`imagen del producto ${productData.nombre_articulo}`'
-                :title="`Producto añadido en el carrito: ${productData.nombre_articulo}`">
+                :title="`Producto añadido en el carrito: ${productData.nombre_articulo}`"
+                loading="lazy">
+
             <p class="text-center w-100 h-100 mb-0">
                 <strong>{{ productData.precio_venta }}€</strong>
             </p>
@@ -24,7 +29,6 @@
                 Eliminar
             </button>
         </figcaption>
-
     </figure>
 </template>
 
@@ -71,5 +75,8 @@ const handleDeleteChart = async (producto) => {
     cursor: pointer;
 }
 
+.spinner-container{
+    height: 205.75px;
+}
 
 </style>

@@ -11,19 +11,20 @@
     </header>
     <!-- Articulos -->
     <article class="offcanvas-body py-0 px-1">
-      <div v-if="isAuth" class="container-user-chart h-100">
-        <aside class="total-chart p-2 d-flex flex-column justify-content-center align-items-center">
-          <p class="mb-1"><strong>Subtotal: 999€</strong></p>
-          <button class="btn btn-warning">Tramitar pedido</button>
-        </aside>
+      <div v-if="isAuth" class="container-user-chart">
+   
 
         <!-- Listado ordenador de productos -->
-        <ol class="m-0 p-0">
+        <ol class="container-item-chart mt-2 mx-0 my-0 p-0 rounded">
           <li class="article-chart d-flex flex-column border border-1 rounded mb-2" v-for="item in carrito"
             :key="item.productID">
             <product-chart :item="item"></product-chart>
           </li>
         </ol>
+        <aside class="total-chart  p-2 d-flex flex-column justify-content-center align-items-center">
+          <p class="mb-1"><strong>Subtotal: 999€</strong></p>
+          <button class="btn btn-warning">Tramitar pedido</button>
+        </aside>
       </div>
       <!-- Apartado notificacion -->
       <section v-else class="d-flex flex-column justify-content-center">
@@ -53,31 +54,21 @@ watch(
 </script>
 <style scoped>
 
-
-.offcanvas-body {
-  overflow: auto;
+/* Estructura de la lista */
+.container-item-chart{
+  max-height: calc(100vh - 130px);
+  overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.offcanvas-body::-webkit-scrollbar {
+
+.container-item-chart::-webkit-scrollbar {
   display: none;
-}
-
-.offcanvas-header{
-  background-color: lightgrey;
-}
-
-.total-chart {
-  width: 100%;
-  background-color: white;
-  position: sticky;
-  top: 0px;
-}
-
+} 
 
 @media screen and (min-width: 992px) {
   .offcanvas {
-  width: 200px;
+  width: 180px;
 }
   
 }

@@ -12,15 +12,7 @@
 <style scoped>
 .main-container {
     min-height: calc(100vh - var(--height-headerweb-lg));
-    display: flex;
-    flex-direction: column;
 }
-/* main{
-    display: grid;
-    width: 100%;
-    justify-items: center;
-} */
-
 
 @media screen and (max-width: 992px) {
     .main-container{
