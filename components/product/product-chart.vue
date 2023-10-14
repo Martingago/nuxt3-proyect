@@ -1,46 +1,75 @@
 <template>
-    <div v-if="loading">cargando..</div>
-    <div v-else class="container-product d-flex flex-column justify-content-center w-100 p-3 shadow rounded">
-        <img class="img-fluid w-50 m-auto" :src="productData.imagenes_producto.portada.url" :alt='`imagen del producto ${productData.nombre_articulo}` '>
-        
-        <div class="chart-info d-flex justify-content-between gap-2 mb-2">
-            <p class="d-flex mb-0 w-100 h-100">
-                <strong class="d-flex justify-content-center align-items-center gap-2">Cant: 
-                    <span class="count border border-1 rounded py-1 px-2">{{ count }}</span>
-                </strong>
-            </p>
-            <p class="d-flex justify-content-end w-100 h-100 mb-0"><strong class="d-flex justify-content-end align-items-center">{{ productData.precio_venta }}€</strong></p>
-        </div>
+    <div v-if="loading" class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
+    <figure v-else class="d-flex flex-column justify-content-center w-100  mb-0">
+        <div class="product-container d-flex flex-column justify-content-center mb-1 p-1"
+        title="Ver producto" 
+        @mouseenter="hover = true" @mouseleave="hover = false"
+        :class="{ 'shadow rounded':hover }"
+        >
+            <img class="img-fluid w-75 m-auto" :src="productData.imagenes_producto.portada.url"
+                :alt='`imagen del producto ${productData.nombre_articulo}`'
+                :title="`Producto añadido en el carrito: ${productData.nombre_articulo}`">
+            <p class="text-center w-100 h-100 mb-0">
+                <strong>{{ productData.precio_venta }}€</strong>
+            </p>
+        </div>
+        <figcaption class="d-flex gap-1 justify-content-between mx-2 my-1">
+            <p class="d-flex gap-2 align-items-center mb-0">
+                Cant:
+                <em class="count border border-1 rounded text-center shadow">{{ item.count }}</em>
+            </p>
+            <button class="btn p-0 px-2 border border-1 rounded" @click="handleDeleteChart(item)">
+                Eliminar
+            </button>
+        </figcaption>
 
-
+    </figure>
 </template>
 
 <script setup>
+import { useUserStore } from '~~/store/authUser';
+const userStore = useUserStore();
 
 const props = defineProps({
-    id: String,
-    count: Number
+    item: Object,
 });
 
 const totalProducto = ref(Number);
 const loading = ref(true);
-const productData = ref({});
-onMounted(async ()=> {
-    productData.value = await getSingleDocumentData("productos", props.id);
+const hover = ref(false);
+
+const productData = ref({}); //datos del producto
+onMounted(async () => {
+    productData.value = await getSingleDocumentData("productos", props.item.productID);
     loading.value = false;
-    totalProducto.value = Number(productData.value.precio_venta) * props.count;
+    totalProducto.value = Number(productData.value.precio_venta) * props.item.count;
 })
 
+const handleDeleteChart = async (producto) => {
+    let carrito = userStore.info.user_chart;
+    if(producto.count >0){
+        producto.count -= 1;
+    }
+  if (producto.count === 0) {
+    const idRemove = producto.productID;
+    carrito = carrito.filter((producto) => producto.productID !== idRemove); //Se elimina del array el producto con count  de 0
+  }
+  userStore.info.user_chart = carrito;
+  //Actualizar los datos de firebase con el nuevo array:
+  await updateDataAtribute(userStore.info.userID, userStore.info.user_chart);
+};
 
 </script>
 <style scoped>
-.container-product{
-    height: 207px;
+.count {
+    width: 36px;
 }
 
-.chart-info{
-    height: 40px;
+.product-container{
+    cursor: pointer;
 }
+
 
 </style>

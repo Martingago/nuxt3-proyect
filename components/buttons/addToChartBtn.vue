@@ -24,7 +24,7 @@ const updateWidth = () => {
     
 }
 
-onMounted( () => {
+onBeforeMount( () => {
     updateWidth(); // Llama a updateWidth() para obtener el tamaño inicial de la ventana
     window.addEventListener('resize', updateWidth)
 })

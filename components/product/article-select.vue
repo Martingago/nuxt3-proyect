@@ -33,7 +33,6 @@
 </template>
 
 <script setup>
-import { computeStyles } from '@popperjs/core';
 import { useUserStore } from '~~/store/authUser';
 const storeUser = useUserStore();
 const img = useImage();
@@ -50,19 +49,20 @@ const visitProductPage = (producto) => {
 
 const addToChart = async (event, producto) => {
     event.stopPropagation();
-    const carrito = storeUser.info.user_chart;
+    const carrito = storeUser.info.user_chart; //Se obtiene informacion del store global
     const dataProduct = {
         count: 1,
         productID: producto.id
     }
-    const searchID = dataProduct.productID; //id a buscar
-    let item = carrito.find(item => item.productID === searchID);
+    const searchID = dataProduct.productID; //id del producto a buscar
+    let item = carrito.find(item => item.productID === searchID); //Se busca el producto seleccionado en el carrito
     if(item){
+        //Si el producto ya existe en el array se le añade 1 unidad
         item.count +=1;
     }else{
+        //si el producto no existe en el carrito se añade en el array 
         storeUser.info.user_chart.push(dataProduct);
     }
-    console.log(storeUser.info)
     //Actualizar los datos de firebase con el nuevo array:
     await updateDataAtribute(storeUser.info.userID, storeUser.info.user_chart);
 
