@@ -9,7 +9,7 @@
         </div>
         <article class="hearphones-product d-flex flex-column justify-content-center align-items-center col-md-6 gap-3 rounded ">
             <h2 class="text-uppercase fw-bold fs-1">YX1 hearphones</h2>
-            <button class="btn px-5 py-2 fs-5 border-4 btn-outline-dark"><font-awesome-icon icon="fa-solid fa-chevron-right" /> Ver producto</button>
+            <button class="btn px-5 py-2 fs-5 border-4 btn-outline-dark" @click="pushToPath('/productos/yx1-hearphones')"><font-awesome-icon icon="fa-solid fa-chevron-right" /> Ver producto</button>
         </article>
         
     </section>

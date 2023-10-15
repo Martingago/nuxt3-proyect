@@ -2,7 +2,7 @@
 <section class="banner-speaker-product d-flex justify-content-center justify-content-md-start p-3 p-md-5 rounded" id="speaker">
     <article class="speaker-product d-flex align-items-center justify-content-center flex-column rounded  gap-3">
         <h2 class=" fs-1 fw-bold text-uppercase">ZX7 speaker</h2>
-        <button class="btn btn-outline-dark border-3 py-2 px-3 fs-5 fw-bold"> <font-awesome-icon icon="fa-solid fa-chevron-right" /> Ver producto</button>
+        <button class="btn btn-outline-dark border-3 py-2 px-3 fs-5 fw-bold" @click="pushToPath('/productos/altavoz-muse-m692btc-bluetooth')"> <font-awesome-icon icon="fa-solid fa-chevron-right" /> Ver producto</button>
     </article>
 </section>
 </template>

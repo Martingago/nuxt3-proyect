@@ -56,7 +56,7 @@ watch(
 
 /* Estructura de la lista */
 .container-item-chart{
-  max-height: calc(100vh - 130px);
+  height: calc(100vh - 130px);
   overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;

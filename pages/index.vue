@@ -12,6 +12,7 @@
 
 <script setup>
 
+
 useHead(
     {
         title: "BRAVUS - Los mejores equipos de sonido del mercado",

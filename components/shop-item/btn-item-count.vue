@@ -2,7 +2,7 @@
     <form>
         <div class="input-number">
             <button class="input-number__btn input-number__btn--down" type="button" @click="decrement">-</button>
-            <input class="input-number__input" type="number" :value="valueCount" :min="minCount" :max="maxCount">
+            <input class="input-number__input" type="number" :value="valueCount" :min="minCount" :max="stock">
             <button class="input-number__btn input-number__btn--up" type="button" @click="increment">+</button>
             
         </div>
@@ -18,7 +18,7 @@ const props = defineProps({
     type: Number,
     default: 1
   },
-  maxCount: {
+  stock: {
     type: Number,
     default: 10
   }
@@ -27,9 +27,8 @@ const props = defineProps({
 const emits = defineEmits(['update:count']);
 
 const valueCount = ref(1);
-
 const increment = () => {
-  if (valueCount.value < props.maxCount) {
+  if (valueCount.value < props.stock) {
     valueCount.value++;
     emits('update:count', valueCount.value)
   }

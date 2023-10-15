@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 text-center m-4 shadow rounded">
+    <div class="text-center m-lg-4 m-sm-2 shadow rounded">
         <div v-if="loading">
             <p>Cargando...</p>
         </div>
@@ -43,3 +43,10 @@ onMounted(async()=> {
 })
 
 </script>
+
+<style scoped>
+.p-2{
+    background-color: red;
+    /* height: calc(100vh - (var(--height-headerweb-lg) + 400px)); */
+}
+</style>

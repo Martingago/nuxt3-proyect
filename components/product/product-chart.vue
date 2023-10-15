@@ -5,13 +5,13 @@
         </div>
         <p>Cargando...</p>
     </div>
-    <figure v-else class="d-flex flex-column justify-content-center w-100  mb-0">
+    <figure v-else class="item-chart d-flex flex-column justify-content-center w-100  mb-0">
         <div class="product-container d-flex flex-column justify-content-center mb-1 p-1"
         title="Ver producto" 
         @mouseenter="hover = true" @mouseleave="hover = false"
         :class="{ 'shadow rounded':hover }"
         >
-            <img class="img-fluid w-75 m-auto" :src="productData.imagenes_producto.portada.url"
+            <img class="img-product-chart img-fluid w-75 m-auto" :src="productData.imagenes_producto.portada.url"
                 :alt='`imagen del producto ${productData.nombre_articulo}`'
                 :title="`Producto añadido en el carrito: ${productData.nombre_articulo}`"
                 loading="lazy">
@@ -67,8 +67,15 @@ const handleDeleteChart = async (producto) => {
 
 </script>
 <style scoped>
+
+.item-chart{
+    user-select: none;
+}
 .count {
     width: 36px;
+}
+.img-product-chart{
+    aspect-ratio: 1 /1;
 }
 
 .product-container{

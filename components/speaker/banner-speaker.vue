@@ -12,7 +12,7 @@
             <h2 class="fw-bold fs-1 text-uppercase text-center text-lg-start">ZX9 <br>speaker </h2>
             <p class=" text-center text-lg-start fs-5">Mejora a los altavoces premium que son fenomenalmente construidos para entregar un sonido realmente
                 remarcable</p>
-            <button class="btn-product btn btn-dark fs-5 px-5 py-2 border-4">Ver producto</button>
+            <button class="btn-product btn btn-dark fs-5 px-5 py-2 border-4" @click="pushToPath('/productos/altavoz-inteligente-sonos-one-negro-multiroom-wi-fi-y-control-de-voz')">Ver producto</button>
         </article>
     </section>
 </template>
