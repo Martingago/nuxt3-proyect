@@ -25,7 +25,6 @@
 
 <script setup>
 
-
 const router = useRouter();
 const email = ref("");
 const password = ref("");
@@ -34,7 +33,7 @@ const invalidData = ref(false);
 const signIn = async () => {
     const credentials = await signInUser(email.value, password.value)
     if (credentials) {
-        console.log("sesion iniciada:", credentials);
+        
         router.back();
         return credentials;
     } else {

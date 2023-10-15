@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-form" @click="disconnect">Cerrar sesión</button>
+    <button class="btn-element" @click="disconnect">Cerrar sesión</button>
 </template>
 
 <script setup>
@@ -12,14 +12,21 @@ const disconnect = async () => {
 
 <style scoped>
 
-.btn-form{
+.btn-element{
     width: 120px;
     background-color: transparent;
+    padding: 0;
+    border: none;
+    color: white;
+}
+
+.btn-element:hover{
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 992px) {
-    .btn-form{
-        width: 220px;
+    .btn-element{
+        width: 100%;
     }
 }
 

@@ -11,7 +11,7 @@
     </header>
     <!-- Articulos -->
     <article class="offcanvas-body py-0 px-1">
-      <div v-if="isAuth" class="container-user-chart">
+      <div v-if="userStore.auth" class="container-user-chart">
    
 
         <!-- Listado ordenador de productos -->
@@ -36,7 +36,6 @@
 </template>
 
 <script setup>
-import { isAuth } from "~~/store/authUser";
 import { useUserStore } from "~~/store/authUser";
 const userStore = useUserStore();
 const carrito = ref([]);

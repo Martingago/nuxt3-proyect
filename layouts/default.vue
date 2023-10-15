@@ -5,10 +5,6 @@
         </main>
         <FooterWeb></FooterWeb>
 </template>
-
-<script setup>
-</script>
-
 <style scoped>
 .main-container {
     min-height: calc(100vh - var(--height-headerweb-lg));

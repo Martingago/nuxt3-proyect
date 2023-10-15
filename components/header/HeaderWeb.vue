@@ -33,12 +33,13 @@
             <NuxtLink to="/productos" class="btn btn-form">Productos</NuxtLink>
           </li>
           <hr>
-          <li v-if="!isAuth">
+          <li v-if="!userStore.auth">
+            
             <ButtonsLoginButon colorProp="white"></ButtonsLoginButon>
           </li>
-          <li v-else>
-            <ButtonsLogOutButon></ButtonsLogOutButon>
-            
+          <li v-else class="position-relative"> 
+            <!-- boton cerrar sesion -->
+            <ButtonsMiAccount></ButtonsMiAccount> 
           </li>
           <hr>
           <li id="longBtnChart">
@@ -53,18 +54,12 @@
 </template>
 
 <script setup>
-import { isAuth } from '~~/store/authUser';
+
+import { useUserStore } from '~~/store/authUser';
 import OffCanvasChart from './offCanvasChart.vue';
 
-const isAdmin = false;
-const props = defineProps({
-  userData: Object
-})
-
-onMounted(()=> {
-  isAuth;
-})
-
+const userStore = useUserStore();
+const isAdmin = ref(false);
 
 onBeforeMount(()=>{
       const navLinks = document.querySelectorAll('.navbar-nav .btn');
