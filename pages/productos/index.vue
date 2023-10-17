@@ -1,9 +1,6 @@
 <template>
     <HeaderContainer></HeaderContainer>
-    <div class="container-index  gap-3">
-
-        <FiltersContainerFilter></FiltersContainerFilter>
-
+    <div class="container-index container gap-3">
         <div v-if="loading">
             <p>Cargando...</p>
         </div>
@@ -45,21 +42,15 @@ getData();
 </script>
 
 <style scoped>
-.container-index {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    width: 95%;
-    margin: 0 auto;
-    max-width: 1600px;
-}
 
 #productos-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: .5rem;
     width: 100%;
     align-self: center;
     margin: auto;
+    max-width: 1400px;
 }
 
 /* Cambio en los filtros */
@@ -79,11 +70,4 @@ getData();
     }
 }
 
-/* @media screen and (max-width: 420px) {
-
-    #productos-container{
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    }
-    
-} */
 </style>

@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 992px) {
     .main-container{
-        min-height: calc(100vh - var(--height-headerweb-md));
+        min-height: calc(100vh - var(--height-headerweb-md)); 
     }
     
 }

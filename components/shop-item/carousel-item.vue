@@ -1,6 +1,6 @@
 <template>
     
-<div id="carouselExampleIndicators" class="carousel slide p-3" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel d-flex justify-content-center m-auto align-items-center slide p-3" data-bs-ride="carousel">
     <div class="carousel-indicators my-0">
         <button v-for="(image, index) in arrayImagenes" :key="image" type="button" data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="index" class="active bg-dark"
             aria-current="true" aria-label="Slide 1"></button>
@@ -36,6 +36,7 @@ button:hover{
     background-color: transparent;
     
 }
+
 </style>
 
 <script setup>

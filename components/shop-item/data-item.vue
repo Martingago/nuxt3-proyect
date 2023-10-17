@@ -8,11 +8,12 @@
             <shop-item-btn-item-count class="btn-cant" @update:count="calculo"
                 :stock="dataProduct.stock_articulo"></shop-item-btn-item-count>
             <button class="text-light" :disabled="blockBtn" @click="manageItemChart(dataProduct)">Añadir al carrito</button>
-            <div class="alert-container mt-2">
-                <p v-if="blockBtn" class="alert alert-danger w-100 m-0 p-0">Has alcanzado el límite de Stock</p>
-            </div>
+            
 
         </div>
+        <div class="alert-container mt-2">
+                <p v-if="blockBtn" class="alert alert-danger w-100 m-0 p-0">Has alcanzado el límite de Stock</p>
+            </div>
     </div>
 </template>
 
@@ -65,14 +66,13 @@ const manageItemChart = async (producto) => {
         text-align: right;
     }
 
-    .price-data-product .btn-cant {
-
+    .price-data-product .btn-cant{
+       
         grid-row: 1 / 2
     }
-
-    .price-data-product button {
+    .price-data-product button  {
         margin-top: 1rem;
-        grid-column: 1 / 3;
+        grid-column: 1 / -1;
     }
 }
 

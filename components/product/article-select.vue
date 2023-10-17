@@ -73,6 +73,7 @@ onUnmounted(() => {
 <style scoped>
 .product-article {
     width: 100%;
+    max-width: 240px;
     cursor: pointer;
     border: 1px solid transparent;
 }
@@ -178,10 +179,11 @@ onUnmounted(() => {
         width: 100%;
         right: 50%;
         transform: translateX(50%);
+        top: 0;
     }
 
     .last-units {
-        background-color: rgba(197, 196, 196, 0.466);
+        background-color: rgba(255, 255, 255, 0.466);
         backdrop-filter: blur(2px);
     }
 
@@ -213,8 +215,24 @@ onUnmounted(() => {
 }
 
 @media screen and (max-width: 369px) {
-    .brand-product{
+    .product-article{
+        margin: auto;
+        max-width: 80%
+    }
+    .title-product{
+        font-size: 1rem;
         text-align: center;
+    }
+    .brand-product{
+        font-size: 1rem;
+        text-align: center;
+        
+    }
+    .last-units{
+        font-size: .9rem;
+    }
+    .actual-prize, .previus-prize{
+        font-size: 1rem;
     }
 }
 

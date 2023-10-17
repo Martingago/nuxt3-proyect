@@ -1,8 +1,8 @@
 <template>
-    <div class="d-flex flex-column gap-2">
+    <div class="d-flex flex-column gap-2 mt-lg-3">
 
         <h3 class="text-uppercase fw-bold mb-2">Caracteristicas</h3>
-        <ul class="caracteristicas-producto">
+        <ul class="caracteristicas-producto p-0 mb-0">
             <li v-for="caracteristica in dataProduct" :key="caracteristica" class="d-flex">
                 <p class="d-flex justify-content-start align-items-start mb-2"><font-awesome-icon class="dot" :icon="['fas', 'circle']" /> </p>
                 <p class="caracteristica mb-2 ">

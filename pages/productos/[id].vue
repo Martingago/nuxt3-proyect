@@ -1,19 +1,21 @@
 <template>
-    <div class="text-center m-lg-4 m-sm-2 shadow rounded">
-        <div v-if="loading">
+        <div class="m-auto d-flex flex-column justify-content-center align-items-center" v-if="loading">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
             <p>Cargando...</p>
         </div>
 
-        <div v-else>
-            <div v-if="existe">
-                <product-info :product="data"></product-info>
-            </div>
-            <div v-else>
+        <div v-else class="m-auto">
+            
+                <product-info v-if="existe"  :product="data"></product-info>
+
+            <div class="m-auto d-flex flex-column justify-content-center align-items-center" v-else>
                 <p>Error 404, el producto no existe! :(</p>
+                <nuxt-link class="btn btn-dark" to="/">Volver al inicio</nuxt-link>
             </div>
         </div>
 
-    </div>
 </template>
 
 <script setup>
@@ -28,25 +30,17 @@ const head = ref('BRAVUS')
 useHead(
     {
         title: head,
-    } );
+    });
 
-onMounted(async()=> {
-    data.value = await getProductByAtribute("productos","slug", id);
-    if(data.value){
+onMounted(async () => {
+    data.value = await getProductByAtribute("productos", "slug", id);
+    if (data.value) {
         head.value = data.value.nombre_articulo
         loading.value = false
-    }else{
+    } else {
         loading.value = false;
         existe.value = false
     }
-    //console.log(data.value)
 })
 
 </script>
-
-<style scoped>
-.p-2{
-    background-color: red;
-    /* height: calc(100vh - (var(--height-headerweb-lg) + 400px)); */
-}
-</style>
