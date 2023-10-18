@@ -8,7 +8,7 @@
 
         <span class="d-flex">
           <div id="shortBtnChart">
-            <ButtonsAddToChartBtn></ButtonsAddToChartBtn>
+            <headerButtonsAddToChart></headerButtonsAddToChart>
           </div>
           <button class="btn border-0 navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,9 +34,8 @@
           <li class="position-relative">
             <HeaderButtonsCategoryButton @mouseenter="submenuCategorias = true" @mouseleave="submenuCategorias = false">
             </HeaderButtonsCategoryButton>
-
-            <SubmenuCategorias v-if="submenuCategorias" @mouseenter="submenuCategorias = true"
-              @mouseleave="submenuCategorias = false"></SubmenuCategorias>
+            <HeaderSubmenusCategoriasSubmenu v-if="submenuCategorias" @mouseenter="submenuCategorias = true"
+              @mouseleave="submenuCategorias = false"></HeaderSubmenusCategoriasSubmenu>
           </li>
           <hr>
           <li v-if="!userStore.auth" class="position-relative">
@@ -45,7 +44,8 @@
           </li>
           <li v-else class="position-relative">
             <!-- boton cerrar sesion -->
-            <ButtonsMiAccount></ButtonsMiAccount>
+            <HeaderButtonsMyAccount @mouseenter="submenuMyAccount= true" @mouseleave="submenuMyAccount = false"></HeaderButtonsMyAccount>
+            <HeaderSubmenusMyAccountSubmenu v-if="submenuMyAccount" @mouseenter="submenuMyAccount = true" @mouseleave="submenuMyAccount = false"></HeaderSubmenusMyAccountSubmenu>
           </li>
           <hr>
           <li id="longBtnChart">
@@ -63,7 +63,6 @@
 
 import { useUserStore } from '~~/store/authUser';
 import OffCanvasChart from './offCanvasChart.vue';
-import SubmenuCategorias from './submenuCategorias.vue';
 
 const userStore = useUserStore();
 const isAdmin = ref(false);
@@ -81,7 +80,7 @@ onBeforeMount(() => {
 
 
 const submenuCategorias = ref(false); // muestra el submenu de las categorias
-
+const submenuMyAccount = ref(false) // muestra el submenu de mi cuenta
 
 </script>
 

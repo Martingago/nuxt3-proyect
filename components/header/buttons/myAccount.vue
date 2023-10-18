@@ -5,7 +5,6 @@
                 Cuenta y datos
             </span>
         </button>
-        <ButtonsMyAccountSubmenu v-if="showPopOver || isSmallScreen" @mouseenter="showPopOver = true" @mouseleave="showPopOver = false"></ButtonsMyAccountSubmenu>
 </template>
 <script setup>
 import { useUserStore } from '~~/store/authUser';
