@@ -1,7 +1,7 @@
 <template>
     <ClientOnly>
         <teleport :to="isSmallScreen ? '#shortBtnChart' : '#longBtnChart'" >
-            <button class="btn-carrito rounded w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+            <button class="btn-navbar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                 aria-controls="offcanvasExample">
                 <div class="d-inline-flex position-relative">
                     <font-awesome-icon class="chart-icon " :icon="['fas', 'cart-shopping']" />
@@ -15,9 +15,11 @@
 </template>
 
 <script setup>
+//Inicializamos el store de los datos de usuario
 import { useUserStore } from "~~/store/authUser";
 const userStore = useUserStore();
-const tam = ref(0);
+const tam = ref(0); //Valor por defecto del store
+//Cada vez que se produzca un cambio en el tamaño del array del usuario se actualizará el valor de tam
 watchEffect(() => {
   tam.value = userStore.info?.user_chart.length;
 });
@@ -51,24 +53,13 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.btn-carrito {
-  background-color: transparent;
-  border: 1px solid transparent;
-  outline: none;
-  color: white;
-  font-size: 1rem;
-}
-.btn-carrito:hover{
-    background-color: var(--color-dark);
-    border: 1px solid white;
-}
 
-.btn-carrito svg {
+.btn-navbar svg {
   font-size: 1.3rem;
   margin-right: .3rem;
 }
 
-button .chart-icon{
+.btn-navbar .chart-icon{
     font-size: 1.75rem;
 }
 .chart-count{

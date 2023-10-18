@@ -1,14 +1,12 @@
-<template>
-        <div class="position-relative d-flex">
+<template>   
             <!-- Boton de iniciar sesion -->
-            <button type="button" v-if="!mobile" class="btn  btn-form m-auto" @click="navigateTo('/login')" @mouseover="showPopOver = true"
+            <NuxtLink to="/login" v-if="!mobile" class="btn-navbar" @mouseover="showPopOver = true"
                 @mouseleave="showPopOver = false">Iniciar
                 sesion
-            </button>
+            </NuxtLink>
             <!-- Submenu iniciar sesion/crear cuenta -->
             <ButtonsSubLogin v-if="showPopOver || mobile" @mouseenter="showPopOver = true" @mouseleave="showPopOver = false"
                 v-bind:class="{'mobile' : mobile, 'desktop shadow' : !mobile}" color-font="white"></ButtonsSubLogin>
-        </div>
 </template>
 
 
@@ -54,7 +52,8 @@ onMounted(()=> {
     background-color: rgb(32, 32, 32);
     position: absolute;
     right: 50%;
-    transform: translate(50%, 30%);
+    top:100%;
+    transform: translateX(50%);
     z-index:1;
 }
 

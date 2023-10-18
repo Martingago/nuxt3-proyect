@@ -3,11 +3,11 @@
     <h1 class="text-center">Página de administración</h1>
     <h3>Categoria de productos</h3>
     <!-- Categorias -->
-    <!-- <FormsButtonAddData text_referencia="categoria" action="add" referencia_datos="categoria_productos"
+    <FormsButtonAddData text_referencia="categoria" action="add" referencia_datos="categoria_productos"
       @emit-value="handleAdd"></FormsButtonAddData>
 
     <admin-listElements referencia_datos="categoria_productos" text_referencia="categoria"
-      @emit-data="handleData"></admin-listElements> -->
+      @emit-data="handleData"></admin-listElements>
     <!-- Marcas -->
     <FormsButtonAddData text_referencia="marca" action="add" referencia_datos="marca_productos" @emit-value="handleAdd">
     </FormsButtonAddData>

@@ -21,7 +21,7 @@
 .list-items {
     width: 200px;
     padding: .25rem;
-    background-color: rgb(29, 29, 29);
+    background-color: var(--color-black);
     position: absolute;
     right: 50%;
     top: 100%;

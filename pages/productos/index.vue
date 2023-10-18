@@ -1,16 +1,11 @@
 <template>
     <HeaderContainer></HeaderContainer>
-    <div class="container-index container gap-3">
-        <div v-if="loading">
-            <p>Cargando...</p>
-        </div>
-
-        <section v-else id="productos-container" class="mb-4">
+       
+        <GeneralLoading v-if="loading"></GeneralLoading>
+        <section v-else id="productos-container" class="mb-4 container">
             <ProductArticleSelect v-for="producto in store.productos" :key="producto.id" :datoProducto="producto">
             </ProductArticleSelect>
         </section>
-
-    </div>
 </template>
 
 <script setup>
@@ -32,10 +27,6 @@ const getData = async () => {
     await store.getProductData("productos");
     loading.value = false;
 }
-onMounted(() => {
-    loading.value = store.loading
-
-})
 
 getData();
 
@@ -50,8 +41,12 @@ getData();
     width: 100%;
     align-self: center;
     margin: auto;
-    max-width: 1400px;
 }
+
+.loading-section{
+    flex-grow: 1;
+}
+
 
 /* Cambio en los filtros */
 @media screen and (max-width: 1109px) {

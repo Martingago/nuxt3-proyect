@@ -3,7 +3,7 @@ import { addDoc, collection, getDocs, getDoc, doc, deleteDoc, updateDoc, query, 
 
 export {
     uploadDatatoStore, getSingleDocumentData, getDataFromStore,
-    deleteFromStore, updateDataToStore, getProductByAtribute, uploadDataWithIDtoStore, updateDataAtribute
+    deleteFromStore, updateDataToStore, getProductByAtribute, uploadDataWithIDtoStore, updateDataAtribute, getProductsByEtiqueta
 }
 
 const getSingleDocumentData = async (coleccion, id) => {
@@ -39,6 +39,24 @@ const getProductByAtribute = async (coleccion, atributo, valor) => {
     })
     return producto;
 }
+
+const getProductsByEtiqueta = async (coleccion, valor) => {
+    const { $db } = useNuxtApp();
+    const productosRef = collection($db, coleccion);
+    const querySnapshot = await getDocs(productosRef);
+    let productos = [];
+    querySnapshot.forEach((doc) => {
+        const item = {
+            id: doc.id,
+            ...doc.data()
+        }
+        if (item.etiquetas_articulo && item.etiquetas_articulo.includes(valor)) {
+            productos.push(item);
+        }
+    })
+    return productos;
+}
+
 
 
 /**

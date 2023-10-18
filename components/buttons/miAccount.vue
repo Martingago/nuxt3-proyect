@@ -9,6 +9,7 @@
 </template>
 <script setup>
 import { useUserStore } from '~~/store/authUser';
+
 const userStore = useUserStore();
 const showPopOver = ref(false);
 const isSmallScreen = ref(false);

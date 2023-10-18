@@ -23,19 +23,24 @@
 
         <ul class="navbar-nav align-items-center align-items-lg-stretch gap-1">
           <li>
-            <NuxtLink to="/" class="btn btn-form">Inicio</NuxtLink>
-            
+            <NuxtLink to="/" class="btn-navbar">Inicio</NuxtLink>
+
           </li>
           <hr>
           <li v-if="isAdmin">
-            <NuxtLink to="/admin" class="btn btn-form">Admin</NuxtLink>
+            <NuxtLink to="/admin" class="btn-navbar">Admin</NuxtLink>
           </li>
           <hr v-if="isAdmin">
-          <li>
-            <NuxtLink to="/productos" class="btn btn-form">Productos</NuxtLink>
+          <li class="position-relative">
+            <HeaderButtonsCategoryButton @mouseenter="submenuCategorias = true" @mouseleave="submenuCategorias = false">
+            </HeaderButtonsCategoryButton>
+
+            <SubmenuCategorias v-if="submenuCategorias" @mouseenter="submenuCategorias = true"
+              @mouseleave="submenuCategorias = false"></SubmenuCategorias>
           </li>
           <hr>
-          <li v-if="!userStore.auth">
+          <li v-if="!userStore.auth" class="position-relative">
+            <!-- Boton de login -->
             <ButtonsLoginButon colorProp="white"></ButtonsLoginButon>
           </li>
           <li v-else class="position-relative">
@@ -58,6 +63,7 @@
 
 import { useUserStore } from '~~/store/authUser';
 import OffCanvasChart from './offCanvasChart.vue';
+import SubmenuCategorias from './submenuCategorias.vue';
 
 const userStore = useUserStore();
 const isAdmin = ref(false);
@@ -72,6 +78,9 @@ onBeforeMount(() => {
     });
   });
 })
+
+
+const submenuCategorias = ref(false); // muestra el submenu de las categorias
 
 
 </script>
@@ -111,29 +120,12 @@ hr {
   display: none;
 }
 
-.btn-form {
-    display: flex;
-    background-color: transparent;
-    padding: .75rem .25rem;
-    width: 100%;
-    margin: 0;
-    border: 1px solid transparent;
-    color: white;
-    justify-content:center;
-    transition: all .2s linear;
-}
-
-.btn-form:hover {
-    background-color: var(--color-dark);
-    border: 1px solid white;
-}
-
-@media screen and (min-width: 992px){
-  .navbar-nav li{
+@media screen and (min-width: 992px) {
+  .navbar-nav li {
     width: 130px;
   }
-} 
-  
+}
+
 
 
 @media screen and (max-width: 991px) {
