@@ -3,12 +3,13 @@
   <nav class="navbar bg-dark sticky-top navbar-expand-lg w-100 p-0" data-bs-theme="dark">
     <div class="container-fluid p-0">
       <div class="container-main-el mx-3 d-flex justify-content-between align-items-center">
-        <NuxtLink class="navbar-brand fs-2 order-first px-3" to="/"><img src="/img/BRAVUS-white.svg" class="img-fluid" alt="logo BRAVUS"></NuxtLink>
+        <NuxtLink class="navbar-brand fs-2 order-first px-3" to="/"><img src="/img/BRAVUS-white.svg" class="img-fluid"
+            alt="logo BRAVUS"></NuxtLink>
 
         <span class="d-flex">
-         <div id="shortBtnChart">
-          <ButtonsAddToChartBtn></ButtonsAddToChartBtn>
-         </div>
+          <div id="shortBtnChart">
+            <ButtonsAddToChartBtn></ButtonsAddToChartBtn>
+          </div>
           <button class="btn border-0 navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -20,9 +21,10 @@
       <!-- Botones de navegacion -->
       <div class="collapse navbar-collapse w-100 m-auto mx-lg-3 justify-content-lg-end" id="navbarSupportedContent">
 
-        <ul class="navbar-nav align-items-center  gap-1">
+        <ul class="navbar-nav align-items-center align-items-lg-stretch gap-1">
           <li>
             <NuxtLink to="/" class="btn btn-form">Inicio</NuxtLink>
+            
           </li>
           <hr>
           <li v-if="isAdmin">
@@ -34,12 +36,11 @@
           </li>
           <hr>
           <li v-if="!userStore.auth">
-            
             <ButtonsLoginButon colorProp="white"></ButtonsLoginButon>
           </li>
-          <li v-else class="position-relative"> 
+          <li v-else class="position-relative">
             <!-- boton cerrar sesion -->
-            <ButtonsMiAccount></ButtonsMiAccount> 
+            <ButtonsMiAccount></ButtonsMiAccount>
           </li>
           <hr>
           <li id="longBtnChart">
@@ -49,7 +50,7 @@
       </div>
     </div>
   </nav>
-  
+
   <OffCanvasChart></OffCanvasChart>
 </template>
 
@@ -60,19 +61,17 @@ import OffCanvasChart from './offCanvasChart.vue';
 
 const userStore = useUserStore();
 const isAdmin = ref(false);
-
-onBeforeMount(()=>{
-      const navLinks = document.querySelectorAll('.navbar-nav .btn');
-      const navbarToggler = document.querySelector('.navbar-toggler');
-      navLinks.forEach((navLink) => {
-        navLink.addEventListener('click', () => {
-          if (navbarToggler.getAttribute('aria-expanded') === 'true') {
-            navbarToggler.click();
-          }
-        });
-      });
+onBeforeMount(() => {
+  const navLinks = document.querySelectorAll('.navbar-nav .btn');
+  const navbarToggler = document.querySelector('.navbar-toggler');
+  navLinks.forEach((navLink) => {
+    navLink.addEventListener('click', () => {
+      if (navbarToggler.getAttribute('aria-expanded') === 'true') {
+        navbarToggler.click();
+      }
+    });
+  });
 })
-
 
 
 </script>
@@ -84,15 +83,22 @@ onBeforeMount(()=>{
   width: auto;
   height: var(--height-headerweb-lg);
 }
-.navbar-brand{
+
+.navbar-brand {
   width: 200px;
 }
 
-.navbar-brand img{
+.navbar-brand img {
   color: white;
 }
 
-.container-fluid{
+.navbar-nav li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-fluid {
   max-width: 1400px;
 }
 
@@ -106,13 +112,28 @@ hr {
 }
 
 .btn-form {
-  width: 120px;
-  background-color: transparent;
+    display: flex;
+    background-color: transparent;
+    padding: .75rem .25rem;
+    width: 100%;
+    margin: 0;
+    border: 1px solid transparent;
+    color: white;
+    justify-content:center;
+    transition: all .2s linear;
 }
 
 .btn-form:hover {
-  color: white;
+    background-color: var(--color-dark);
+    border: 1px solid white;
 }
+
+@media screen and (min-width: 992px){
+  .navbar-nav li{
+    width: 130px;
+  }
+} 
+  
 
 
 @media screen and (max-width: 991px) {

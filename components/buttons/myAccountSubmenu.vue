@@ -24,6 +24,7 @@
     background-color: rgb(29, 29, 29);
     position: absolute;
     right: 50%;
+    top: 100%;
     transform: translateX(50%);
 }
 

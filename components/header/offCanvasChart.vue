@@ -38,6 +38,9 @@
 <script setup>
 import { useUserStore } from "~~/store/authUser";
 const userStore = useUserStore();
+
+const emit = defineEmits(['emit:chartLength'])
+
 const carrito = ref([]);
 watch(
   () => userStore.info ,
