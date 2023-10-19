@@ -1,10 +1,10 @@
 <template>
     <ul class="submenu-navbar">
         <li v-if="!storeCategorias.categorias.length">
-            <GeneralLoading></GeneralLoading>
+            <Loading></Loading>
         </li>
         <li class="text-center" v-else v-for="categoria in storeCategorias.categorias" :key="categoria.id">
-            <NuxtLink  :to="`/${categoria.nombre}`">{{ categoria.nombre }}</NuxtLink>
+            <NuxtLink  :to="`/categoria/${categoria.nombre}`">{{ categoria.nombre }}</NuxtLink>
         </li>
     </ul>
 </template>

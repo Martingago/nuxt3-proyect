@@ -50,10 +50,10 @@
         <!-- Imágenes -->
         <fieldset class="d-flex flex-column p2- bg-light">
             <legend class="text-center">Imágenes del producto</legend>
-            <FormsUploadImage @portada-image-update="hanldePortadaImage = $event"
-                :main-image="datos_articulo.imagenes_producto.portada"></FormsUploadImage>
-            <FormsUploadArrayImages @array-images-update="handleViewsImage = $event"
-                :array-images="datos_articulo.imagenes_producto.views"></FormsUploadArrayImages>
+            <uploadImage @portada-image-update="hanldePortadaImage = $event"
+                :main-image="datos_articulo.imagenes_producto.portada"></uploadImage>
+            <uploadArrayImages @array-images-update="handleViewsImage = $event"
+                :array-images="datos_articulo.imagenes_producto.views"></uploadArrayImages>
 
         </fieldset>
 
@@ -171,7 +171,6 @@ watch(() => props.getData.form_data, (newVal) => {
         store.setProducto(newVal); //Establece los datos de store.producto
         datos_articulo.value = store.producto;
     } else {
-        console.log("limpio")
         //Elimina los datos para que el formulario esté limpio
         store.initProducto();
         datos_articulo.value = store.producto;

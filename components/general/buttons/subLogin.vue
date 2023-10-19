@@ -3,7 +3,7 @@
         <NuxtLink to="/login" class="btn btn-warning p-1">Identificarse</NuxtLink>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <p v-bind:style="{ color: colorFont }" class="new-client-txt mb-0">¿Eres cliente nuevo?</p>
-            <NuxtLink class="new-client-link" to="/users/createAccount">Crear cuenta </NuxtLink>
+            <NuxtLink class="new-client-link" to="/createAccount">Crear cuenta </NuxtLink>
         </div>
     </div>
 </template>

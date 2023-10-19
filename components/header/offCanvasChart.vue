@@ -18,7 +18,7 @@
         <ol class="container-item-chart mt-2 mx-0 my-0 p-0 rounded">
           <li class="article-chart d-flex flex-column border border-1 rounded mb-2" v-for="item in carrito"
             :key="item.productID">
-            <product-chart :item="item"></product-chart>
+            <ProductChart :item="item"></ProductChart>
           </li>
         </ol>
         <aside class="total-chart  p-2 d-flex flex-column justify-content-center align-items-center">
@@ -29,7 +29,7 @@
       <!-- Apartado notificacion -->
       <section v-else class="d-flex flex-column justify-content-center">
         <p>No has iniciado sesión</p>
-        <ButtonsSubLogin></ButtonsSubLogin>
+        <SubLogin></SubLogin>
       </section>
     </article>
   </section>

@@ -1,16 +1,16 @@
 <template>
     <HeaderContainer></HeaderContainer>
        
-        <GeneralLoading v-if="loading"></GeneralLoading>
+        <Loading v-if="loading"></Loading>
         <section v-else id="productos-container" class="mb-4 container">
-            <ProductArticleSelect v-for="producto in store.productos" :key="producto.id" :datoProducto="producto">
-            </ProductArticleSelect>
+            <ProductView v-for="producto in store.productos" :key="producto.id" :datoProducto="producto">
+            </ProductView>
         </section>
 </template>
 
 <script setup>
 import { storeProducts } from '@/store/productStore.js';
-import HeaderContainer from '~~/components/call-to-action/header-container.vue';
+import HeaderContainer from '~~/components/inicio/header-container.vue';
 
 useHead({
     title: "BRAVUS | Productos de Alta Fidelidad para Amantes del Sonido",

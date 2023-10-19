@@ -1,14 +1,14 @@
 <template>
     <!-- Seccion de productos -->
     <section v-if="data.length" class="productos-container  container mb-4">
-        <ProductArticleSelect v-for="producto in data" :key="producto.id" :datoProducto="producto">
-        </ProductArticleSelect>
+        <ProductView v-for="producto in data" :key="producto.id" :datoProducto="producto">
+        </ProductView>
     </section>
     <!-- loading -->
-    <GeneralLoading v-else></GeneralLoading>
+    <Loading v-else></Loading>
 </template>
 <script setup>
-const { categoria } = useRoute().params;
+const {categoria } = useRoute().params;
 
 const data = ref([]);
 onMounted(async () => {

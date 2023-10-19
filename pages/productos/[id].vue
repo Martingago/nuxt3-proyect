@@ -8,7 +8,7 @@
 
         <div v-else class="m-auto">
             
-                <product-info v-if="existe"  :product="data"></product-info>
+                <productInformation v-if="existe"  :product="data"></productInformation>
 
             <div class="m-auto d-flex flex-column justify-content-center align-items-center" v-else>
                 <p>Error 404, el producto no existe! :(</p>
@@ -21,7 +21,7 @@
 <script setup>
 const { id } = useRoute().params;
 const data = ref({});
-
+console.log(id);
 
 const loading = ref(true);
 const existe = ref(true);

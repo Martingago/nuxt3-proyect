@@ -3,33 +3,33 @@
     <h1 class="text-center">Página de administración</h1>
     <h3>Categoria de productos</h3>
     <!-- Categorias -->
-    <FormsButtonAddData text_referencia="categoria" action="add" referencia_datos="categoria_productos"
-      @emit-value="handleAdd"></FormsButtonAddData>
+    <buttonAddData text_referencia="categoria" action="add" referencia_datos="categoria_productos"
+      @emit-value="handleAdd"></buttonAddData>
 
-    <admin-listElements referencia_datos="categoria_productos" text_referencia="categoria"
-      @emit-data="handleData"></admin-listElements>
+    <listElements referencia_datos="categoria_productos" text_referencia="categoria"
+      @emit-data="handleData"></listElements>
     <!-- Marcas -->
-    <FormsButtonAddData text_referencia="marca" action="add" referencia_datos="marca_productos" @emit-value="handleAdd">
-    </FormsButtonAddData>
+    <buttonAddData text_referencia="marca" action="add" referencia_datos="marca_productos" @emit-value="handleAdd">
+    </buttonAddData>
 
-    <admin-listElements referencia_datos="marca_productos" text_referencia="marca"
-      @emit-data="handleData"></admin-listElements>
+    <listElements referencia_datos="marca_productos" text_referencia="marca"
+      @emit-data="handleData"></listElements>
 
     <!-- Productos -->
-    <FormsButtonAddData text_referencia="producto" action="add" referencia_datos="productos" @emit-value="handleAdd">
-    </FormsButtonAddData>
+    <buttonAddData text_referencia="producto" action="add" referencia_datos="productos" @emit-value="handleAdd">
+    </buttonAddData>
 
-    <admin-listProducts @emit-data="handleData"></admin-listProducts>
+    <listProducts @emit-data="handleData"></listProducts>
     <div class="container d-flex flex-column justify-content-center align-items-center gap-4">
     </div>
   </div>
 
 
   <!-- Toast de notificaciones -->
-  <modal-toast :message="msgToast"></modal-toast>
+  <toast :message="msgToast"></toast>
   <!-- Ventana modal de confirmacion de eliminacion de datos -->
-  <ModalManageElements @toast-msg="mostrarToast" :dataObject="dataModal"></ModalManageElements>
-  <ModalDeleteElement @toast-msg="mostrarToast" :selectedItem="dataModal"></ModalDeleteElement>
+  <manageElements @toast-msg="mostrarToast" :dataObject="dataModal"></manageElements>
+  <deleteElement @toast-msg="mostrarToast" :selectedItem="dataModal"></deleteElement>
 </template>
 
 <script setup>

@@ -8,8 +8,8 @@
                 </div>
                 <div class="modal-body">  
                     
-                    <forms-addFormData v-if="dataObject.referencia_datos != 'productos'" :getData="dataObject" @toast-msg="actualizarDatos"></forms-addFormData>
-                    <forms-uploadProduct v-if="dataObject.referencia_datos === 'productos' " :getData="dataObject" @toast-msg="actualizarDatos"></forms-uploadProduct>
+                    <addFormData v-if="dataObject.referencia_datos != 'productos'" :getData="dataObject" @toast-msg="actualizarDatos"></addFormData>
+                    <uploadProduct v-if="dataObject.referencia_datos === 'productos' " :getData="dataObject" @toast-msg="actualizarDatos"></uploadProduct>
                 </div>
             </div>
         </div>

@@ -5,8 +5,8 @@
                 sesion
             </NuxtLink>
             <!-- Submenu iniciar sesion/crear cuenta -->
-            <ButtonsSubLogin v-if="showPopOver || mobile" @mouseenter="showPopOver = true" @mouseleave="showPopOver = false"
-                v-bind:class="{'mobile' : mobile, 'desktop shadow' : !mobile}" color-font="white"></ButtonsSubLogin>
+            <SubLogin v-if="showPopOver || mobile" @mouseenter="showPopOver = true" @mouseleave="showPopOver = false"
+                v-bind:class="{'mobile' : mobile, 'desktop shadow' : !mobile}" color-font="white"></SubLogin>
 </template>
 
 

@@ -8,7 +8,7 @@
 
         <span class="d-flex">
           <div id="shortBtnChart">
-            <headerButtonsAddToChart></headerButtonsAddToChart>
+            <AddToChart></AddToChart>
           </div>
           <button class="btn border-0 navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -32,20 +32,20 @@
           </li>
           <hr v-if="isAdmin">
           <li class="position-relative">
-            <HeaderButtonsCategoryButton @mouseenter="submenuCategorias = true" @mouseleave="submenuCategorias = false">
-            </HeaderButtonsCategoryButton>
-            <HeaderSubmenusCategoriasSubmenu v-if="submenuCategorias" @mouseenter="submenuCategorias = true"
-              @mouseleave="submenuCategorias = false"></HeaderSubmenusCategoriasSubmenu>
+            <CategoryButton @mouseenter="submenuCategorias = true" @mouseleave="submenuCategorias = false">
+            </CategoryButton>
+            <CategoriasSubmenu v-if="submenuCategorias" @mouseenter="submenuCategorias = true"
+              @mouseleave="submenuCategorias = false"></CategoriasSubmenu>
           </li>
           <hr>
           <li v-if="!userStore.auth" class="position-relative">
             <!-- Boton de login -->
-            <ButtonsLoginButon colorProp="white"></ButtonsLoginButon>
+            <LoginButon colorProp="white"></LoginButon>
           </li>
           <li v-else class="position-relative">
             <!-- boton cerrar sesion -->
-            <HeaderButtonsMyAccount @mouseenter="submenuMyAccount= true" @mouseleave="submenuMyAccount = false"></HeaderButtonsMyAccount>
-            <HeaderSubmenusMyAccountSubmenu v-if="submenuMyAccount" @mouseenter="submenuMyAccount = true" @mouseleave="submenuMyAccount = false"></HeaderSubmenusMyAccountSubmenu>
+            <MyAccount @mouseenter="submenuMyAccount= true" @mouseleave="submenuMyAccount = false"></MyAccount>
+            <MyAccountSubmenu v-if="submenuMyAccount" @mouseenter="submenuMyAccount = true" @mouseleave="submenuMyAccount = false"></MyAccountSubmenu>
           </li>
           <hr>
           <li id="longBtnChart">

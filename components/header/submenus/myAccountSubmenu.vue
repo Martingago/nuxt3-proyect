@@ -11,7 +11,7 @@
                 <NuxtLink to="/">Devoluciones</NuxtLink>
             </li>
             <li class="list-el-item text-center">
-                <ButtonsLogOutButon></ButtonsLogOutButon>
+                <LogOutButon></LogOutButon>
             </li>
         </ol>
     </aside>

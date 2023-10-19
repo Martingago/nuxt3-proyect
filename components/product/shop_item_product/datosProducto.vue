@@ -5,8 +5,8 @@
         </p>
         <div class="price-data-product">
             <p class="fs-5 fw-bold">{{ precioTotal + "€" }}</p>
-            <shop-item-btn-item-count class="btn-cant" @update:count="calculo"
-                :stock="dataProduct.stock_articulo"></shop-item-btn-item-count>
+            <ContadorItemsBtn class="btn-cant" @update:count="calculo"
+                :stock="dataProduct.stock_articulo"></ContadorItemsBtn>
             <button class="text-light" :disabled="blockBtn" @click="manageItemChart(dataProduct)">Añadir al carrito</button>
             
 
