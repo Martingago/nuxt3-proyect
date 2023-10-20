@@ -2,10 +2,10 @@
         <headset></headset>
         <div class="container d-grid gap-4">
             <carrousel-product-component></carrousel-product-component>
-            <banner-speaker></banner-speaker>
-            <banner-product></banner-product>
-            <hearphones></hearphones>
-            <call-to-action></call-to-action> 
+            <productSpotLight></productSpotLight>
+            <productBackdrop></productBackdrop>
+            <ProductShowCase></ProductShowCase>
+            <mediaBlock></mediaBlock> 
         </div>
   
 </template>

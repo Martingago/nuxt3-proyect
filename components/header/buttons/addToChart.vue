@@ -1,7 +1,7 @@
 <template>
     <ClientOnly>
         <teleport :to="isSmallScreen ? '#shortBtnChart' : '#longBtnChart'" >
-            <button class="btn-navbar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+            <button class="btn-addChart rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                 aria-controls="offcanvasExample">
                 <div class="d-inline-flex position-relative">
                     <font-awesome-icon class="chart-icon " :icon="['fas', 'cart-shopping']" />
@@ -53,13 +53,22 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.btn-addChart{
+    padding: .75rem .25rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid transparent;
+}
+.btn-addChart:hover{
+    border: 1px solid white;
+}
 
-.btn-navbar svg {
+.btn-addChart svg {
   font-size: 1.3rem;
   margin-right: .3rem;
 }
 
-.btn-navbar .chart-icon{
+.btn-addChart .chart-icon{
     font-size: 1.75rem;
 }
 .chart-count{

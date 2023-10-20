@@ -10,8 +10,9 @@
 }
 
 
+
 /* btn menu navbar */
-.btn-navbar{
+/* .btn-navbar{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +28,7 @@
 .btn-navbar:hover{
     border:1px solid white;
     background-color: var(--color-dark);
-}
+} */
 
 /* submenu del navegador */
 .submenu-navbar {
@@ -51,10 +52,10 @@
 }
 
 /* links del submenu */
-.submenu-navbar li a{
+/* .submenu-navbar li a{
     color: white;
     padding-bottom: .25rem;
 }
 .submenu-navbar li a:hover{
     text-decoration: underline !important;
-}
+} */

@@ -12,7 +12,7 @@
             </NuxtLink>
             <h2 class="mb-3">Auriculares</h2>
             <anchorVisit @mouseenter="activado($event)" @mouseleave="activado($event)" 
-            btn_text="Ver categoría" navigate="/categoria/Auriculares"/>
+            btn_text="Ver categoría" navigate="/categoria/Auriculares" extra-class="px-3 py-2 border-3"/>
         </article>
 
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
@@ -25,7 +25,7 @@
             </NuxtLink>
             <h2 class="mb-3">Altavoces</h2>
             <anchorVisit @mouseenter="activado($event)" @mouseleave="activado($event)"
-             btn_text="Ver categoría" navigate="/categoria/Altavoces"/>
+             btn_text="Ver categoría" navigate="/categoria/Altavoces" extra-class="px-3 py-2 border-3" />
         </article>
         
         <article class="d-flex flex-fill flex-grow-1 flex-column justify-content-center align-items-center my-3  shadow rounded p-3 col-md-3 ">
@@ -39,7 +39,7 @@
             <h2 class="mb-3">In-ear</h2>
             
             <anchorVisit @mouseenter="activado($event)" @mouseleave="activado($event)" 
-            btn_text="Ver categoría" navigate="/categoria/In-ear"/>
+            btn_text="Ver categoría" navigate="/categoria/In-ear" extra-class="px-3 py-2 border-3"/>
         </article>
 
     </section>

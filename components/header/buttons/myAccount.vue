@@ -1,5 +1,5 @@
 <template>
-        <button class="btn-user-info rounded flex-column m-auto" @mouseenter="showPopOver = true" @mouseleave="showPopOver = false">
+        <button class="btn-user-info rounded d-flex h-100 flex-column m-auto" @mouseenter="showPopOver = true" @mouseleave="showPopOver = false">
             <span class="welcome-txt mb-0">Hola: {{ userStore?.info?.user_name}}</span>
             <span class="my-account-component">
                 Cuenta y datos
@@ -29,10 +29,8 @@ onUnmounted(() => {
 </script>
 <style scoped>
 .btn-user-info {
-    display: flex;
+    
     background-color: transparent;
-    padding: .75rem .25rem;
-    margin: 0;
     border: 1px solid transparent;
     color: white;
     text-align: left;
