@@ -1,13 +1,11 @@
 <template>
-    <ul class="submenu-navbar">
-        <li v-if="!storeCategorias.categorias.length">
-            <Loading></Loading>
-        </li>
-        <li v-else v-for="categoria in storeCategorias.categorias" :key="categoria.id">
+    <ul  class="submenu-navbar"> 
+        <li  v-for="categoria in storeCategorias.categorias" :key="categoria.id">
             <NuxtLink class="btn-navbar-sub"  :to="`/categoria/${categoria.nombre}`">{{ categoria.nombre }}</NuxtLink>
             <LineSeparator/>
         </li>
     </ul>
+       
 </template>
 
 <script setup>

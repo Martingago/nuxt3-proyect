@@ -44,7 +44,7 @@
                 <input type="checkbox" v-model="userData.accept_promotions" name="receibe-emails" id="receibe-emails">
             </div>
             <div class="d-flex flex-row-reverse gap-2 justify-content-center align-items-center">
-                <p class="terms-txt mb-0">Al continuar acepto los <NuxtLink class="link-terms">terminos y condiciones
+                <p class="terms-txt mb-0">Al continuar acepto los <NuxtLink to="aviso-legal" target="_blank" class="link-terms">terminos y condiciones
                     </NuxtLink>
                 </p>
                 <input type="checkbox" v-model="userData.accept_terms" name="accept-terms" id="check-terms">
