@@ -1,5 +1,6 @@
 <template>
-        <button class="btn-user-info rounded d-flex h-100 flex-column m-auto" @mouseenter="showPopOver = true" @mouseleave="showPopOver = false">
+        <button class="btn-user-info rounded d-flex justify-content-center h-100 flex-column m-auto" @mouseenter="showPopOver = true" 
+        @mouseleave="showPopOver = false">
             <span class="welcome-txt mb-0">Hola: {{ userStore?.info?.user_name}}</span>
             <span class="my-account-component">
                 Cuenta y datos
@@ -11,19 +12,8 @@ import { useUserStore } from '~~/store/authUser';
 
 const userStore = useUserStore();
 const showPopOver = ref(false);
-const isSmallScreen = ref(false);
-const updateWidth = () => {
-    isSmallScreen.value = window.innerWidth < 992;
-}
 
 
-onMounted(async () => {
-    window.addEventListener('resize', updateWidth)
-})
-
-onUnmounted(() => {
-    window.removeEventListener('resize', updateWidth);
-})
 
 
 </script>

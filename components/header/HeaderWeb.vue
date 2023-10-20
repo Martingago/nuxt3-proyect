@@ -32,52 +32,20 @@
 
 <script setup>
 
-onBeforeMount(() => {
-  const navLinks = document.querySelectorAll('.navbar-nav .btn');
+// Elimina el submenu en pantallas moviles cuando haces click de navegacion
+onMounted(() => {
+  const navbar = document.querySelector('.navbar');
   const navbarToggler = document.querySelector('.navbar-toggler');
-  navLinks.forEach((navLink) => {
-    navLink.addEventListener('click', () => {
+
+  navbar.addEventListener('click', (event) => {
+    if (event.target.matches('.btn-navbar, .btn-navbar-sub, .btn-navbar-especial, .btn-element')) {
       if (navbarToggler.getAttribute('aria-expanded') === 'true') {
         navbarToggler.click();
       }
-    });
+    }
   });
-})
+});
+
 
 </script>
 
-
-<style scoped>
-.navbar {
-  width: auto;
-  height: var(--height-headerweb-lg);
-}
-
-.navbar-brand {
-  width: 200px;
-}
-
-.container-fluid {
-  max-width: 1400px;
-}
-
-.navbar-toggler:not(:disabled):not(.disabled):focus {
-  outline: none;
-  box-shadow: none;
-}
-
-@media screen and (max-width: 991px) {
-
-  .container-main-el,
-  .navbar {
-    height: var(--height-headerweb-md);
-    width: 100%;
-  }
-
-  .navbar-nav {
-    height: calc(100vh - var(--height-headerweb-md));
-    background-color: var(--color-dark);
-    padding-top: 1rem;
-  }
-}
-</style>

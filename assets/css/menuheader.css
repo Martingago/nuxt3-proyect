@@ -1,0 +1,112 @@
+.navbar {
+    width: auto;
+    height: var(--height-headerweb-lg);
+  }
+  
+  .navbar-brand {
+    width: 200px;
+  }
+  
+  .container-fluid {
+    max-width: 1400px;
+  }
+  
+  .navbar-toggler:not(:disabled):not(.disabled):focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+.btn-navbar, .btn-navbar-sub, .btn-navbar-especial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+/* Submenu del navegador resoluciones pequeñas */
+@media screen and (max-width: 991px) {
+
+    .container-main-el,
+    .navbar {
+      height: var(--height-headerweb-md);
+      width: 100%;
+    }
+  
+    .navbar-nav {
+      height: calc(100vh - var(--height-headerweb-md));
+      background-color: var(--color-dark);
+      padding-top: 1rem;
+    }
+  
+
+    .navbar-nav li{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 450px
+    }
+
+    .btn-navbar, .btn-navbar-sub{
+        width: 200px;
+        height: 100%;
+        margin: auto;
+        height: auto;
+        color: rgb(172, 172, 172)
+    }
+
+    .btn-navbar, .btn-navbar-especial{
+        font-size: 1rem;
+        text-transform: uppercase;
+        color: white;
+        font-weight: 600;
+    }
+    
+    .submenu-navbar li{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* submenu del navegador grandes resoluciones*/
+@media screen and (min-width: 992px) {
+    .submenu-navbar {
+        position: absolute;
+        right: 50%;
+        top: 100%;
+        transform: translateX(50%);
+        width: 180px;
+        padding: .25rem;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        background-color: var(--color-dark);
+    }
+
+    .submenu-navbar:hover {
+        border: 1px solid white;
+    }
+
+    .submenu-navbar li {
+        padding: .25rem .5rem;
+        margin-bottom: .25rem;
+    }
+
+    .btn-navbar{
+        width: 140px;
+        height: 100%;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        transition: all .2s linear;
+        color: white;
+    }
+    .btn-navbar:hover{
+        border:1px solid white;
+        background-color: var(--color-dark);
+    }
+
+    .btn-navbar-sub, .btn-navbar-especial{
+        color: white;
+        width: 100%;
+    }
+    .btn-navbar-sub:hover, .btn-navbar-especial:hover{
+        text-decoration: underline !important;
+    }
+}

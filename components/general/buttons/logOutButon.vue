@@ -13,20 +13,31 @@ const disconnect = async () => {
 <style scoped>
 
 .btn-element{
-    width: 120px;
     background-color: transparent;
     padding: 0;
     border: none;
     color: white;
+    margin: auto;
 }
 
-.btn-element:hover{
+
+@media screen and (min-width: 993px){
+    .btn-element{
+    width: 100%;
+}
+    .btn-element:hover{
     text-decoration: underline;
 }
+}
 
+
+/* pequeñas resoluciones */
 @media screen and (max-width: 992px) {
     .btn-element{
-        width: 100%;
+        font-size: 1rem;
+        width: 200px;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 }
 

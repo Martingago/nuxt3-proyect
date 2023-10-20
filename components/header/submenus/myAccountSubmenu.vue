@@ -1,29 +1,22 @@
 <template>
     <aside class="submenu-navbar">
         <ol>
-            <li class="list-el-item text-center">
-                <NuxtLink to="/">Mi cuenta</NuxtLink>
+            <li>
+                <NuxtLink class="btn-navbar-especial" to="/" >Mi cuenta</NuxtLink>
+                <LineSeparator/>
             </li>
-            <li class="list-el-item text-center">
-                <NuxtLink to="/">Pedidos</NuxtLink>
+            <li>
+                <NuxtLink class="btn-navbar-sub" to="/">Pedidos</NuxtLink>
+                <LineSeparator/>
             </li>
-            <li class="list-el-item text-center">
-                <NuxtLink to="/">Devoluciones</NuxtLink>
+            <li>
+                <NuxtLink class="btn-navbar-sub" to="/">Devoluciones</NuxtLink>
+                <LineSeparator/>
             </li>
-            <li class="list-el-item text-center">
+            <li>
                 <LogOutButon></LogOutButon>
+                <LineSeparator/>
             </li>
         </ol>
     </aside>
 </template>
-
-<style scoped>
-@media screen and (max-width: 991px) {
-    .submenu-navbar{
-        position: relative;
-        background-color: transparent;
-    }
-    
-}
-
-</style>

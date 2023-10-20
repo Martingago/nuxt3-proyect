@@ -3,8 +3,9 @@
         <li v-if="!storeCategorias.categorias.length">
             <Loading></Loading>
         </li>
-        <li class="text-center" v-else v-for="categoria in storeCategorias.categorias" :key="categoria.id">
-            <NuxtLink  :to="`/categoria/${categoria.nombre}`">{{ categoria.nombre }}</NuxtLink>
+        <li v-else v-for="categoria in storeCategorias.categorias" :key="categoria.id">
+            <NuxtLink class="btn-navbar-sub"  :to="`/categoria/${categoria.nombre}`">{{ categoria.nombre }}</NuxtLink>
+            <LineSeparator/>
         </li>
     </ul>
 </template>
@@ -21,9 +22,3 @@ onBeforeMount(async () => {
 
 </script>
 
-<style scoped>
-
-.list-categorias li {
-    text-align: center;
-}
-</style>
