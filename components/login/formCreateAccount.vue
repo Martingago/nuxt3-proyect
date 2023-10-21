@@ -44,7 +44,7 @@
                 <input type="checkbox" v-model="userData.accept_promotions" name="receibe-emails" id="receibe-emails">
             </div>
             <div class="d-flex flex-row-reverse gap-2 justify-content-center align-items-center">
-                <p class="terms-txt mb-0">Al continuar acepto los <NuxtLink to="aviso-legal" target="_blank" class="link-terms">terminos y condiciones
+                <p class="terms-txt mb-0">Al continuar acepto los <NuxtLink to="terminos-y-condiciones" target="_blank" class="link-terms">terminos y condiciones
                     </NuxtLink>
                 </p>
                 <input type="checkbox" v-model="userData.accept_terms" name="accept-terms" id="check-terms">
@@ -73,7 +73,10 @@
 <script setup>
 
 import { manageCreateUsers } from '~~/store/createUser';
+import { useUserStore } from '~~/store/authUser';
 
+
+const userStore = useUserStore(); //store de usuario
 const store = manageCreateUsers();
 store.initUser();
 const userData = ref(store.user);
@@ -90,9 +93,9 @@ const createAccount = async () => {
                 const result = await createUser(userData.value);
                 
                 if (result === true) {
-                    
                     store.initUser(); //se resetea el form
                     userData.value = store.user;
+                    userStore.pushUser();
                 } else {
                     userAlert.value.status = true;
                     userAlert.value.message = result;

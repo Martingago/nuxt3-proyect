@@ -1,6 +1,7 @@
 <template>
+    <header-container></header-container>
     <!-- Seccion de productos -->
-    <section v-if="data.length" class="productos-container  container mb-4">
+    <section v-if="data.length" class="productos-container  container my-4">
         <ProductView v-for="producto in data" :key="producto.id" :datoProducto="producto">
         </ProductView>
     </section>

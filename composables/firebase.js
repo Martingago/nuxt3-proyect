@@ -102,7 +102,6 @@ const uploadDataWithIDtoStore = async (coleccion, uid, docData) => {
     const { $db } = useNuxtApp();
     try {
         await setDoc(doc($db, coleccion, uid), docData);
-        console.log("documento escrito con UID:", uid)
     } catch (error) {
         console.log("error al subir datos:", error)
     }

@@ -24,23 +24,21 @@
 </template>
 
 <script setup>
+import { useUserStore } from "~~/store/authUser";
 
-const router = useRouter();
 const email = ref("");
 const password = ref("");
 const invalidData = ref(false);
 
 const signIn = async () => {
+    const user = useUserStore();
     const credentials = await signInUser(email.value, password.value)
     if (credentials) {
-        
-        router.back();
+        user.pushUser();
         return credentials;
     } else {
         invalidData.value = true;
     }
-
-
 }
 
 </script>

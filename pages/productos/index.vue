@@ -2,7 +2,7 @@
     <HeaderContainer></HeaderContainer>
        
         <Loading v-if="loading"></Loading>
-        <section v-else id="productos-container" class="mb-4 container">
+        <section v-else id="productos-container" class="my-4 container">
             <ProductView v-for="producto in store.productos" :key="producto.id" :datoProducto="producto">
             </ProductView>
         </section>

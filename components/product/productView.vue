@@ -1,8 +1,9 @@
 <template>
     <article  :class="{ 'shadow border': showBtn || isSmallScreen }"
+        
         @mouseenter="showBtn = true" @mouseleave="showBtn = false"
         class="product-article d-flex flex-column p-2 rounded position-relative">
-        <div @click="visitProductPage(datoProducto.slug)">
+        <div @click="visitProductPage(datoProducto.slug)" title="Ver producto">
             <div class="img-container">
                 <nuxtImg class="img-fluida " :src="datoProducto.imagenes_producto.portada?.url"
                 loading="lazy"
@@ -27,7 +28,10 @@
             </div>
         </div>
         <div class="container-btn mt-2" v-if="!isSmallScreen">
-            <button v-if="showBtn" :disabled="disableBtn" @click="manageItemToChart($event, datoProducto)" class="btn btn-dark w-100" aria-label="Añadir producto al carrt">Añadir al carrito</button>
+            <button v-if="showBtn" :disabled="disableBtn" 
+            @click="manageItemToChart($event, datoProducto)" class="btn btn-dark w-100"
+            title="Añadir al carrito"
+             aria-label="Añadir producto al carrito">Añadir al carrito</button>
         </div>
         <p v-if="disableBtn" class="limit-stock alert alert-danger text-center position-absolute">Límite de stock alcanzado</p>
     </article>
@@ -56,8 +60,8 @@ const updateWidth = () => {
     isSmallScreen.value = window.innerWidth < 1110;
 }
 
-
 onMounted(async () => {
+    updateWidth();
     window.addEventListener('resize', updateWidth)
 })
 
