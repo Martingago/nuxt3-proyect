@@ -16,7 +16,11 @@ export const manageCreateUsers = defineStore("manage_users", {
                 user_confirm_email: "",
                 user_password: "",
                 user_confirm_password: "",
-                user_chart: [],
+                user_chart: {
+                    products_in_chart:[],
+                    product_count: 0,
+                    product_sum: 0
+                },
                 user_orders: [],
                 user_returns: [],
                 accept_promotions: true,

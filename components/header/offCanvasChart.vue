@@ -23,7 +23,7 @@
         </ol>
         <aside class="total-chart  p-2 d-flex flex-column justify-content-center align-items-center">
           <p class="mb-1"><strong>Subtotal: 999€</strong></p>
-          <button class="btn btn-warning">Tramitar pedido</button>
+          <NuxtLink to="/tramitar-pedido" class="btn btn-warning">Tramitar pedido</NuxtLink>
         </aside>
       </div>
       <!-- Apartado notificacion -->
@@ -46,7 +46,8 @@ watch(
   () => userStore.info ,
   (newVal) => {
     if (newVal) {
-      carrito.value = newVal.user_chart;
+      carrito.value = newVal.user_chart.products_in_chart;
+      console.log(carrito.value)
     }
   },
   { inmediate: true }

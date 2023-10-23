@@ -52,17 +52,19 @@ onMounted(async () => {
 })
 
 const handleDeleteChart = async (producto) => {
-    let carrito = userStore.info.user_chart;
+    let carrito = userStore.info.user_chart.products_in_chart;
     if(producto.count >0){
+        console.log("quitando 1")
         producto.count -= 1;
     }
   if (producto.count === 0) {
     const idRemove = producto.productID;
     carrito = carrito.filter((producto) => producto.productID !== idRemove); //Se elimina del array el producto con count  de 0
   }
-  userStore.info.user_chart = carrito;
+  userStore.info.user_chart.products_in_chart = carrito;
   //Actualizar los datos de firebase con el nuevo array:
-  await updateDataAtribute(userStore.info.userID, userStore.info.user_chart);
+ 
+  await updateDataAtribute(userStore.info.userID, userStore.info.user_chart.products_in_chart);
 };
 
 </script>

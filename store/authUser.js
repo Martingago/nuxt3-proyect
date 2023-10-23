@@ -5,10 +5,12 @@ export const useUserStore = defineStore("initialize_userdata", {
         info: null,
         auth: false,
         previusRoute: null,
+        loaded: false
     }),
     actions: {
         setUserInfo(userInfo, userID){
             this.info = {...userInfo, userID};
+            this.loaded = true;
         },
         setAuth(value){
             this.auth = value;

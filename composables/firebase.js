@@ -143,7 +143,7 @@ const updateDataAtribute = async (id, carrito) => {
   const {$db} = useNuxtApp();
     const docRef = doc($db, "datos_usuarios", id);
     await updateDoc(docRef,{
-        user_chart : carrito
+        "user_chart.products_in_chart" : carrito
     })
 
 }
