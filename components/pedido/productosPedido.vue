@@ -1,35 +1,42 @@
 <template>
-    <section class="container gap-2">
-        <loading v-if="!userStore?.loaded"></loading>
-        <div v-else>
-            <div v-if="userStore?.info?.user_chart.length">
-                <ul class="justify-content-center justify-content-md-start d-flex flex-wrap gap-2">
-                    <li class="item-chart rounded border border-2" v-for="producto in userStore?.info?.user_chart"
-                        :key="producto.productID">
-                        <ProductChart :item="producto"></ProductChart>
-                    </li>
-                </ul>
+    <section class="myaccount-container container">
+        <!-- Formulario -->
+        <UserDetails></UserDetails>
+        
+            <div>
+                <loading v-if="!userStore?.loaded"></loading>
                 
-                    <p class="d-flex fs-5 shadow rounded justify-content-center align-items-center p-2 mb-0">
-                        <span class="flex-grow-1">Subtotal:</span> <span>1000€</span>
-                    </p>
+                    <listItemsInChart v-else></listItemsInChart>
                 
             </div>
-            <div v-else>
-                <p>No has añadido nada a tu carrito</p>
-            </div>
-        </div>
     </section>
 </template>
 <script setup>
 import { useUserStore } from "~~/store/authUser";
-
 const userStore = useUserStore();
 
 </script>
 
 <style scoped>
-.item-chart {
-    width: 200px;
+.myaccount-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-self: center;
+    align-self: center;
+    gap: 1rem;
+    max-width: 1150px;
+}
+
+@media screen and (max-width: 992px) {
+    .myaccount-container {
+        grid-template-columns: 1fr;
+        margin: 1rem;
+    }
+}
+
+@media screen and (max-width: 592px) {
+    .myaccount-container {
+        margin: .5rem;
+    }
 }
 </style>
