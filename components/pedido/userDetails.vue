@@ -1,6 +1,7 @@
 <template>
     <form class="m-0 p-2 p-md-3 shadow rounded border border-1">
         <fieldset class="mb-2 mb-md-3">
+            <h3 class="form-title  text-uppercase fs-1">Detalles de facturación</h3>
             <legend>Datos de usuario</legend>
             <div >
                 <label class="form-label" for="user_nombre">Nombre y apellidos</label>
@@ -77,6 +78,12 @@ label{
 input{
     margin-bottom: .5rem;
 }
+
+.form-title{
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
 @media screen and (min-width: 993px) {
     form {
         max-width: 800px

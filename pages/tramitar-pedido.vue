@@ -1,4 +1,3 @@
 <template>
-    <h2>Tramita tu pedido</h2>
-    <productosPedido></productosPedido>
+    <productosPedido class="my-4"></productosPedido>
 </template>
