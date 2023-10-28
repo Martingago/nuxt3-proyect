@@ -22,7 +22,7 @@
           </li>
         </ol>
         <aside class="total-chart  p-2 d-flex flex-column justify-content-center align-items-center">
-          <p class="mb-1"><strong>Subtotal: 999€</strong></p>
+          <p class="mb-1"><strong>Subtotal: {{ count}}</strong></p>
           <NuxtLink to="/tramitar-pedido" class="btn btn-warning">Tramitar pedido</NuxtLink>
         </aside>
       </div>
@@ -38,6 +38,7 @@
 <script setup>
 import { useUserStore } from "~~/store/authUser";
 const userStore = useUserStore();
+const count = ref(0);
 
 const emit = defineEmits(['emit:chartLength'])
 
@@ -47,7 +48,7 @@ watch(
   (newVal) => {
     if (newVal) {
       carrito.value = newVal.user_chart.products_in_chart;
-      console.log(carrito.value)
+      count.value = newVal.user_chart.product_sum;
     }
   },
   { inmediate: true }

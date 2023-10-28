@@ -17,7 +17,7 @@
     
         <div class="total-price d-flex flex-column mx-2 pb-2">
             <p  class=" d-flex fs-5 justify-content-center align-items-center p-2 mb-0">
-                <span class="flex-grow-1">Subtotal:</span> <span class="price">1000€</span>
+                <span class="flex-grow-1">Subtotal:</span> <span class="price">{{ userStore?.info?.user_chart?.product_sum }}</span>
             </p>
             <button :disabled="userStore?.info?.user_chart.products_in_chart.length === 0" 
             class="btn btn-confirm m-2" @click="handlePedido">Continuar y pagar</button>

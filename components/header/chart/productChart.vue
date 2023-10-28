@@ -20,7 +20,7 @@
                     {{txt }}:
                     <em class="count border border-1 rounded text-center">{{ item.count }}</em>
                 </p>
-                <button class="btn p-0 px-2 border border-1 rounded" @click="handleDeleteChart(item)">
+                <button class="btn p-0 px-2 border border-1 rounded" @click="deleteProductFromChart(item)">
                     Eliminar
                 </button>
             </div>
@@ -31,6 +31,7 @@
 <script setup>
 import Loading from '~~/components/general/loading.vue';
 import { useUserStore } from '~~/store/authUser';
+import { getSingleDocumentData } from '~~/composables/firebase';
 const userStore = useUserStore();
 
 const props = defineProps({
@@ -51,21 +52,7 @@ onMounted(async () => {
     totalProducto.value = Number(productData.value.precio_venta) * props.item.count;
 })
 
-const handleDeleteChart = async (producto) => {
-    let carrito = userStore.info.user_chart.products_in_chart;
-    if (producto.count > 0) {
-        console.log("quitando 1")
-        producto.count -= 1;
-    }
-    if (producto.count === 0) {
-        const idRemove = producto.productID;
-        carrito = carrito.filter((producto) => producto.productID !== idRemove); //Se elimina del array el producto con count  de 0
-    }
-    userStore.info.user_chart.products_in_chart = carrito;
-    //Actualizar los datos de firebase con el nuevo array:
 
-    await updateDataAtribute(userStore.info.userID, userStore.info.user_chart.products_in_chart);
-};
 
 </script>
 <style scoped>

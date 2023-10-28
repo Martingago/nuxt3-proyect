@@ -139,11 +139,18 @@ const updateDataToStore = async (coleccion, identificador, data) => {
     }
 }
 
-const updateDataAtribute = async (id, carrito) => {
+/**
+ * 
+ * @param {*} database string del nombre de la base de datos en la que se va a realizar la modificacion 
+ * @param {*} id id del objeto que vamos a modifiar
+ * @param {*} atributo atributo que queremos modificar
+ * @param {*} info informacion que vamos a actualizar
+ */
+const updateDataAtribute = async (database, id, atributo, info) => {
   const {$db} = useNuxtApp();
-    const docRef = doc($db, "datos_usuarios", id);
+    const docRef = doc($db, database, id);
     await updateDoc(docRef,{
-        "user_chart.products_in_chart" : carrito
+        [atributo] : info
     })
 
 }
