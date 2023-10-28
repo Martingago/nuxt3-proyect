@@ -19,7 +19,8 @@
             <p  class=" d-flex fs-5 justify-content-center align-items-center p-2 mb-0">
                 <span class="flex-grow-1">Subtotal:</span> <span class="price">1000€</span>
             </p>
-            <button :disabled="userStore?.info?.user_chart.products_in_chart.length === 0" class="btn btn-confirm m-2">Continuar y pagar</button>
+            <button :disabled="userStore?.info?.user_chart.products_in_chart.length === 0" 
+            class="btn btn-confirm m-2" @click="handlePedido">Continuar y pagar</button>
         </div>
     </aside>
 
@@ -29,6 +30,12 @@
 
 import { useUserStore } from "~~/store/authUser";
 const userStore = useUserStore();
+
+
+const handlePedido = () => {
+    console.log(userStore.info);
+}
+
 
 </script>
 <style scoped>
