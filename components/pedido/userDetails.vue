@@ -5,17 +5,17 @@
             <legend>Datos de usuario</legend>
             <div >
                 <label class="form-label" for="user_nombre">Nombre y apellidos</label>
-                <input class="form-control" type="text" name="nombre y apellidos"  value="Don Quijote de la Mancha" readonly id="user_nombre">
+                <input class="form-control" v-model="userDetails.nombre" type="text" name="nombre y apellidos" readonly id="user_nombre">
             </div>
             <div class="d-flex flex-column flex-md-row gap-2">
 
                 <div class="flex-grow-1">
                     <label class="form-label" for="user_mail">Dirección E-mail</label>
-                    <input class="form-control" type="email" value="example@example.com" readonly name="dirección de email" id="user_mail">
+                    <input class="form-control" v-model="userDetails.email" type="email"  readonly name="dirección de email" id="user_mail">
                 </div>
                 <div class="flex-grow-1">
                     <label class="form-label" for="user_phone">Número de telefono</label>
-                    <input class="form-control" type="text" value="+34 000 000 000" readonly name="número de telefono" id="user_phone">
+                    <input class="form-control" v-model="userDetails.telefono" type="text" readonly name="número de telefono" id="user_phone">
                 </div>
 
             </div>
@@ -25,16 +25,16 @@
             <legend>Datos de envío</legend>
             <div>
                 <label class="form-label" for="user_addres">Dirección</label>
-                <input class="form-control" type="text" value="Calle de mis Santos Nº12" readonly name="direccion del envio" id="user_addres">
+                <input class="form-control" type="text" v-model="userDetails.direccion" readonly name="direccion del envio" id="user_addres">
             </div>
             <div class="d-flex flex-column flex-md-row gap-2">
                 <div class="flex-grow-1">
                     <label class="form-label" for="user_zip">Código postal</label>
-                    <input class="form-control" value="00000" readonly type="number" name="codigo postal" id="user_zip">
+                    <input class="form-control" v-model="userDetails.cp" readonly type="number" name="codigo postal" id="user_zip">
                 </div>
                 <div class="flex-grow-1">
                     <label class="form-label" for="user_city">Ciudad</label>
-                    <input class="form-control" value="Madrid" readonly type="text" name="nombre de la ciudad" id="user_city">
+                    <input class="form-control" v-model="userDetails.ciudad" readonly type="text" name="nombre de la ciudad" id="user_city">
                 </div>
 
             </div>
@@ -43,7 +43,7 @@
             <legend> Datos del pago</legend>
                 <div>
                     <label class="form-label" for="user_target">Número de tarjeta</label>
-                    <input class="form-control" type="string" value="0000 0000 0000 0000" readonly name="Número de la tarjeta" id="user_pin">
+                    <input class="form-control" type="string" value="0000 0000 0000 0000" readonly name="Número de la tarjeta" id="user_target">
                 </div>
                 <div class="d-flex flex-column flex-md-row gap-2">
                     <div class="flex-grow-1">
@@ -63,6 +63,25 @@
 
     </form>
 </template>
+
+<script setup>
+import { useStorePedidos } from '~~/store/pedidosUsuarios';
+const storePedido = useStorePedidos();
+
+const userDetails = ref({
+    nombre: "Don Quijote de la Mancha",
+    email: "example@example.com",
+    telefono: "+34 000 000 000",
+    direccion: "Calle de mis Santos Nº12",
+    cp: "00000",
+    ciudad: "Madrid"
+})
+storePedido.setUserDetails(userDetails.value);
+   
+</script>
+
+
+
 <style scoped>
 legend {
     color: var(--color-terciario);

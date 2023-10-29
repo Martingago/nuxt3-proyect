@@ -16,14 +16,14 @@
 
         <!-- Listado ordenador de productos -->
         <ol class="container-item-chart mt-2 mx-0 my-0 p-0 rounded">
-          <li class="article-chart d-flex flex-column border border-1 rounded mb-2" v-for="item in carrito"
+          <li class="article-chart d-flex flex-column border border-1 rounded mb-2" v-for="item in userStore?.info?.user_chart?.products_in_chart"
             :key="item.productID">
             <ProductChart :item="item" txt="cant" container-direction="flex-column" subcontainer-direction="flex-row"></ProductChart>
           </li>
         </ol>
         <aside class="total-chart  p-2 d-flex flex-column justify-content-center align-items-center">
           <p class="mb-1"><strong>Subtotal: {{ count}}</strong></p>
-          <NuxtLink to="/tramitar-pedido" class="btn btn-warning">Tramitar pedido</NuxtLink>
+          <button class="btn btn-warning" :disabled="!userStore?.info?.user_chart?.products_in_chart.length" @click="pushToPath('/tramitar-pedido')">Tramitar pedido</button>
         </aside>
       </div>
       <!-- Apartado notificacion -->

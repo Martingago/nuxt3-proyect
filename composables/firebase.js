@@ -90,12 +90,14 @@ const getDataFromStore = async (coleccion) => {
  */
 const uploadDatatoStore = async (coleccion, docData) => {
     const { $db } = useNuxtApp();
+    let docRef
     try {
-        const docRef = await addDoc(collection($db, coleccion), docData);
+        docRef = await addDoc(collection($db, coleccion), docData);
         console.log("Document written with ID: ", docRef.id);
     } catch (error) {
         console.log("Error al subir el fichero: ", error)
     }
+    return docRef.id;
 }
 
 const uploadDataWithIDtoStore = async (coleccion, uid, docData) => {
