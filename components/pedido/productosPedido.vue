@@ -1,14 +1,12 @@
 <template>
-    <section class="myaccount-container container">
+    <section class="myaccount-container container my-4">
         <!-- Formulario -->
         <UserDetails></UserDetails>
-        
-            <div>
-                <loading v-if="!userStore?.loaded"></loading>
-                
-                    <listItemsInChart v-else></listItemsInChart>
-                
-            </div>
+
+        <div class="container-listchart shadow rounded border border-2 d-flex justify-content-center">
+            <loading  v-if="!userStore?.loaded"></loading>
+            <listItemsInChart v-else></listItemsInChart>
+        </div>
     </section>
 </template>
 <script setup>
@@ -27,10 +25,23 @@ const userStore = useUserStore();
     max-width: 1150px;
 }
 
+.container-listchart{
+    max-width: 400px;
+    min-width: 350px;
+    width:100%;
+    height: 646.42px;
+}
+
 @media screen and (max-width: 992px) {
     .myaccount-container {
         grid-template-columns: 1fr;
         margin: 1rem;
+    }
+    .container-listchart{
+        max-width: none;
+        height: auto;
+        overflow: auto;
+        min-width: auto;
     }
 }
 

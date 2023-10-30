@@ -1,7 +1,7 @@
 <template>
     <ClientOnly>
         <teleport :to="isSmallScreen ? '#shortBtnChart' : '#longBtnChart'" >
-            <button class="btn-addChart rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+            <button class="btn-addChart rounded" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasChart"
                 aria-controls="offcanvasExample">
                 <div class="d-inline-flex position-relative">
                     <font-awesome-icon class="chart-icon " :icon="['fas', 'cart-shopping']" />

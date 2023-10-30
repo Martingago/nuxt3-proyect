@@ -3,15 +3,24 @@ import { defineStore } from "pinia";
 export const useStorePedidos = defineStore("pedidos_usuario", {
 
     state: ()=> ({
+        pedido_complete: false,
         pedido : null,
-        user_details : null
+        user_details : null,
+        pedido_status: {
+            error : false,
+            error_message: ""
+        }
 
     }),
 
     actions:  {
+        setPedidoComplete(value){
+            this.pedido_complete = value;
+        },
         setPedido(pedido) {
             this.pedido = pedido;
         },
+        //establece los detalles del usuario
         setUserDetails(details){
             this.user_details = details;
         },
@@ -39,6 +48,14 @@ export const useStorePedidos = defineStore("pedidos_usuario", {
         },
         setProductosPedido(productos){
             this.pedido.productos_pedido = productos;
+        },
+        //Errores
+        setErrorStatus(status){
+            this.pedido_status.error = status;
+        },
+        setErrorMessage(message){
+            this.pedido_status.error_message = message;
         }
+
     }
 })

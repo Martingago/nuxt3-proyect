@@ -44,7 +44,7 @@ div ul li>p:first-child {
     text-align: left;
 }
 
-@media screen and (max-width:1399px) {
+@media screen and (max-width:992px) {
     .caracteristicas-producto{
         grid-template-columns: repeat(1, auto);
     }

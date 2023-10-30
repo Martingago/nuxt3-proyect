@@ -1,7 +1,7 @@
 <template>
   <!-- Carrito de la compra -->
   <section class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    id="offcanvasChart" aria-labelledby="offcanvasExampleLabel">
     <!-- Header del carrito -->
     <header class="offcanvas-header infline-flex p-1">
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -22,8 +22,8 @@
           </li>
         </ol>
         <aside class="total-chart  p-2 d-flex flex-column justify-content-center align-items-center">
-          <p class="mb-1"><strong>Subtotal: {{ count}}</strong></p>
-          <button class="btn btn-warning" :disabled="!userStore?.info?.user_chart?.products_in_chart.length" @click="pushToPath('/tramitar-pedido')">Tramitar pedido</button>
+          <p class="mb-1"><strong>Subtotal: {{ userStore?.info?.user_chart?.product_sum}}€</strong></p>
+          <button class="btn btn-warning" data-bs-dismiss="offcanvas" aria-label="Close" :disabled="!userStore?.info?.user_chart?.products_in_chart.length" @click="tramitarPedido">Tramitar pedido</button>
         </aside>
       </div>
       <!-- Apartado notificacion -->
@@ -38,21 +38,12 @@
 <script setup>
 import { useUserStore } from "~~/store/authUser";
 const userStore = useUserStore();
-const count = ref(0);
 
-const emit = defineEmits(['emit:chartLength'])
 
-const carrito = ref([]);
-watch(
-  () => userStore.info ,
-  (newVal) => {
-    if (newVal) {
-      carrito.value = newVal.user_chart.products_in_chart;
-      count.value = newVal.user_chart.product_sum;
-    }
-  },
-  { inmediate: true }
-);
+const tramitarPedido = () => {
+  pushToPath('/tramitar-pedido')
+}
+
 
 
 </script>

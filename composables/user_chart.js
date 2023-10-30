@@ -1,6 +1,8 @@
 import { useUserStore } from '~~/store/authUser';
+import { useModalAlert } from '~~/store/openModal';
 export {addProductToChart, deleteProductFromChart}
 const storeUser = useUserStore();
+const useModal = useModalAlert();
 
 /**
  * Funcion que añade "N" cantidades de "PRODUCTO" al carrito del usuario.
@@ -16,6 +18,7 @@ const addProductToChart = async (product, count) => {
     const datos_producto = {
         productID: product.id,
         count: count,
+        nombre_producto: product.nombre_articulo,
         price: Number(product.precio_venta)
     }
     const searchID = datos_producto.productID; //id del producto a buscar
@@ -39,6 +42,8 @@ const addProductToChart = async (product, count) => {
     
     await updateDataAtribute("datos_usuarios", storeUser.info.userID, "user_chart.products_in_chart", storeUser.info.user_chart.products_in_chart);
     calcularPrecioChart();
+    useModal.setMessage(product.nombre_articulo + " se ha añadido al carrito");
+    useModal.openModal();
     return blockBtn;
 }
 

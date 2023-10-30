@@ -154,9 +154,9 @@ const updateDataAtribute = async (database, id, atributo, info) => {
     await updateDoc(docRef,{
         [atributo] : info
     })
-
 }
 
+  
 
 
 
