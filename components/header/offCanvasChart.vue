@@ -37,11 +37,14 @@
 
 <script setup>
 import { useUserStore } from "~~/store/authUser";
+import { useStorePedidos } from "~~/store/pedidosUsuarios";
 const userStore = useUserStore();
-
+const  userPedido = useStorePedidos();
 
 const tramitarPedido = () => {
-  pushToPath('/tramitar-pedido')
+  pushToPath('/tramitar-pedido');
+  userPedido.setPedidoComplete(false);
+
 }
 
 

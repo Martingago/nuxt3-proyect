@@ -2,40 +2,43 @@ import { defineStore } from "pinia";
 
 export const useStorePedidos = defineStore("pedidos_usuario", {
 
-    state: ()=> ({
+    state: () => ({
         pedido_complete: false,
-        pedido : null,
-        user_details : null,
+        pedido: null,
+        user_details: null,
         pedido_status: {
-            error : false,
+            error: false,
             error_message: ""
-        }
+        },
+        formated_fecha: null
 
     }),
 
-    actions:  {
-        setPedidoComplete(value){
+    actions: {
+        setPedidoComplete(value) {
             this.pedido_complete = value;
         },
         setPedido(pedido) {
             this.pedido = pedido;
         },
         //establece los detalles del usuario
-        setUserDetails(details){
+        setUserDetails(details) {
             this.user_details = details;
         },
-        initPedido(){
+        initPedido() {
             this.pedido = {
                 codigo_pedido: this.generarCodigo(),
                 identificador_cliente: "",
                 nombre: this.user_details.nombre,
                 direccion_pedido: this.user_details.direccion + " " + this.user_details.cp + " " + this.user_details.ciudad,
+                telefono_contacto: this.user_details.telefono,
+                email_contacto: this.user_details.email,
                 productos_pedido: [],
                 fecha_pedido: new Date(),
                 precio_total: ""
             }
         },
-        setIdentificadorCliente(identificador){
+        setIdentificadorCliente(identificador) {
             this.pedido.identificador_cliente = identificador;
         },
         generarCodigo() {
@@ -43,19 +46,18 @@ export const useStorePedidos = defineStore("pedidos_usuario", {
             const numero = Math.floor(Math.random() * 10000);
             return letra + numero;
         },
-        setPrecioPedido(precio){
+        setPrecioPedido(precio) {
             this.pedido.precio_total = precio;
         },
-        setProductosPedido(productos){
+        setProductosPedido(productos) {
             this.pedido.productos_pedido = productos;
         },
         //Errores
-        setErrorStatus(status){
+        setErrorStatus(status) {
             this.pedido_status.error = status;
         },
-        setErrorMessage(message){
+        setErrorMessage(message) {
             this.pedido_status.error_message = message;
-        }
-
+        },
     }
 })

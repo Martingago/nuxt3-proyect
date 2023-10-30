@@ -1,7 +1,6 @@
 <template>
-    <section class="container shadow rounded my-4 p-2">
-        <h3 class="text-center">Tu pedido se ha procesado con éxito</h3>
-        <pre>{{ pedidoInfo }}</pre>
+    <section class="container my-4">
+        <h3 class="text-center mb-4">Tu pedido se ha procesado con éxito</h3>
         <pedidoDetails :pedido-details="pedidoInfo"></pedidoDetails>
     </section>
 

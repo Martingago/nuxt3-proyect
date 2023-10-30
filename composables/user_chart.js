@@ -17,6 +17,7 @@ const addProductToChart = async (product, count) => {
     //datos que añadiran en el products_in_chart
     const datos_producto = {
         productID: product.id,
+        return: false,
         count: count,
         nombre_producto: product.nombre_articulo,
         price: Number(product.precio_venta)

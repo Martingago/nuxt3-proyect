@@ -1,12 +1,16 @@
 <template>
-    <productosPedido v-if="!usePedidos.pedido_complete" :key="'form' + usePedidos.pedido_complete"></productosPedido>
-    <confirm-pedido v-else :pedido-info="usePedidos.pedido" :key="'complete' + usePedidos.pedido_complete"></confirm-pedido>
+    <productosPedido v-if="!usePedidos.pedido_complete"></productosPedido>
+    <div v-else >
+        <confirm-pedido :pedido-info="usePedidos.pedido"></confirm-pedido>
+        <div class="container d-flex mt-4 justify-content-end">
+            <NuxtLink to="/" class="d-flex justify-contend-end btn btn-dark">Volver al inicio</NuxtLink>
+        </div>
+    </div>
 </template>
 
 <script setup>
 import { useStorePedidos } from '~~/store/pedidosUsuarios';
 
 const usePedidos = useStorePedidos();
-console.log(usePedidos.pedido)
 
 </script>

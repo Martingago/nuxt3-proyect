@@ -35,7 +35,6 @@ const tramitarPedido = async () => {
             storePedido.setErrorStatus(false);
             storePedido.setErrorMessage("");
             storePedido.setPedidoComplete(true);
-            console.log(storePedido.pedido_complete);
             return true;
         } catch (error) {
             storePedido.setErrorStatus(true);
