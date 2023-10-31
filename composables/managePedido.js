@@ -1,7 +1,7 @@
 import { useUserStore } from "~~/store/authUser";
 import { useStorePedidos } from "~~/store/pedidosUsuarios";
 
-export { tramitarPedido, getPedidosInfo }
+export { tramitarPedido, getPedidosInfo, getPedidosInfoIndex }
 
 /**
  * Realiza el proceso de tramite de un pedido
@@ -15,7 +15,7 @@ const tramitarPedido = async () => {
     const storeUsuario = useUserStore();
     const storePedido = useStorePedidos();
 
-    if(storeUsuario.info.user_chart.products_in_chart.length > 0){
+    if (storeUsuario.info.user_chart.products_in_chart.length > 0) {
         storePedido.initPedido();
         storePedido.setIdentificadorCliente(storeUsuario.info.userID); //establecemos identificador
         storePedido.setPrecioPedido(storeUsuario.info.user_chart.product_sum); //establecemos precio total
@@ -32,6 +32,7 @@ const tramitarPedido = async () => {
             storeUsuario.info.user_chart.product_sum = 0;
             await updateDataAtribute("datos_usuarios", storeUsuario.info.userID, "user_chart.products_in_chart", carrito);
             await updateDataAtribute("datos_usuarios", storeUsuario.info.userID, "user_chart.product_sum", 0);
+            storeUsuario.user_pedido.unshift(storePedido.pedido);
             storePedido.setErrorStatus(false);
             storePedido.setErrorMessage("");
             storePedido.setPedidoComplete(true);
@@ -41,10 +42,10 @@ const tramitarPedido = async () => {
             storePedido.setErrorMessage("Se ha producido un error al gesionar el pedido. Lamentamos la indicencia, vuelva a intentarlo más tarde")
             return false;
         }
-    }else{
+    } else {
         storePedido.setErrorStatus(true);
         storePedido.setErrorMessage("No se ha podido realizar el pedido ya que el carrito está vacio")
-        
+
     }
 }
 
@@ -56,30 +57,46 @@ const tramitarPedido = async () => {
  * En caso de que existan diferencias de tamaños, se cargarán únicamente los nuevos valores, y se añadiran al principio de array 
  * (orden descendente:  más reciente a más antiguo);
  */
-const getPedidosInfo = async (info, putInfo) => {
-    if(putInfo.length !== info.length && putInfo.length !== 0){
+const getPedidosInfo = async (info, putInfo) => { 
         //Se ha añadido un nuevo producto al carrito. Debemos cargar la nueva informacion
-        for(let i = info.length -1; i> putInfo.length -1; i--){
+        let datos = putInfo;
+        for (let i = info.length -1; i > putInfo.length; i--) {
             let data = await getSingleDocumentData("pedidos_usuarios", info[i]);
-            data = {...data,
+            data = {
+                ...data,
                 formattedDate: getFormatoFecha(data.fecha_pedido)
             }
-            putInfo.unshift(data);
+            
+            datos = datos.unshift(data);
         }
-        
-    } else if(putInfo.length === 0){
-        //La informacion está vacia, el usuario carga datos por primera vez
-        for(let i = info.length -1; i>0; i--){
-            let data = await getSingleDocumentData("pedidos_usuarios", info[i]);
-            data = {...data,
-                formattedDate: getFormatoFecha(data.fecha_pedido)
-            }
-            putInfo.push(data);
-        }
-    }
-
+        return datos;
 }
 
+/**
+ * Funcion que recibe 4 parámetros
+ * @param {*} info array con TODA la información que queremos obtener de la BBDD
+ * @param {*} putInfo array en el que queremos guardar la información extraida de cada objeto de "info".
+ * @param {number} start índice de inicio de paginacion
+ * @param {number} step cantidad de saltos que hace el ciclo
+ * @returns {number} valor con la posicion en la que se quedó en anterior indice
+ */
+const getPedidosInfoIndex = async (info, putInfo, start, step) => {
+    // Asegurarse de que los índices están dentro del rango del array
+    step = Math.max(0, step -1);
+    start = Math.max(0, start);
+    let newStart = Math.max(0, start - step);
+        // Recorrer el array desde el índice final hasta el inicio (en orden inverso)
+        for (let i = start; i >= newStart; i--) {
+            let data = await getSingleDocumentData("pedidos_usuarios", info[i]);
+            data = {
+                ...data,
+                formattedDate: getFormatoFecha(data.fecha_pedido)
+            }
+            putInfo.push(data); // Añadir al principio del array
+        }
+        
+        return newStart = newStart -1;
+}
 
 const getFormatoFecha = (timeStamp) => {
     let fecha = "";

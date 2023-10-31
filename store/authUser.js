@@ -4,6 +4,7 @@ export const useUserStore = defineStore("initialize_userdata", {
     state: ()=> ({
         info: null,
         user_pedido: [],
+        user_mostrado: [],
         auth: false,
         previusRoute: null,
         loaded: false

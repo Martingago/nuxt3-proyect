@@ -29,11 +29,13 @@
 <script setup>
 
 import { useUserStore } from "~~/store/authUser";
+import { tramitarPedido } from "~~/composables/managePedido";
 const userStore = useUserStore();
 
 
 const handlePedido = async () => { 
    const resultado =  await tramitarPedido();
+
    if(resultado){
     console.log("Pedido realizado con éxito")
    }else{

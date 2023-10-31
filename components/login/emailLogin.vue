@@ -35,6 +35,8 @@ const signIn = async () => {
     const credentials = await signInUser(email.value, password.value)
     if (credentials) {
         user.pushUser();
+        user.user_pedido = [];
+        user.user_mostrado = [];
         return credentials;
     } else {
         invalidData.value = true;

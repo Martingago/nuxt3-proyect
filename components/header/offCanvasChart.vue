@@ -11,16 +11,16 @@
     </header>
     <!-- Articulos -->
     <article class="offcanvas-body py-0 px-1">
-      <div v-if="userStore.auth" class="container-user-chart">
+      <div v-if="userStore.auth" class="container-item-list d-flex flex-column">
    
-
         <!-- Listado ordenador de productos -->
-        <ol class="container-item-chart mt-2 mx-0 my-0 p-0 rounded">
-          <li class="article-chart d-flex flex-column border border-1 rounded mb-2" v-for="item in userStore?.info?.user_chart?.products_in_chart"
+        <ol v-if="userStore?.info?.user_chart?.products_in_chart?.length" class="container-item-chart flex-grow-1 mt-2 mx-0 my-0 p-0 rounded">
+          <li class="article-chart d-flex flex-column border border-1 rounded mb-2 p-2" v-for="item in userStore?.info?.user_chart?.products_in_chart"
             :key="item.productID">
-            <ProductChart :item="item" txt="cant" container-direction="flex-column" subcontainer-direction="flex-row"></ProductChart>
+            <ProductChart class="m-auto" :item="item" txt="cant" container-direction="flex-column" subcontainer-direction="flex-row"></ProductChart>
           </li>
         </ol>
+        <p class="flex-grow-1 p-2 text-center" v-else>No hay elementos en el carrito</p>
         <aside class="total-chart  p-2 d-flex flex-column justify-content-center align-items-center">
           <p class="mb-1"><strong>Subtotal: {{ userStore?.info?.user_chart?.product_sum}}€</strong></p>
           <button class="btn btn-warning" data-bs-dismiss="offcanvas" aria-label="Close" :disabled="!userStore?.info?.user_chart?.products_in_chart.length" @click="tramitarPedido">Tramitar pedido</button>
@@ -41,6 +41,7 @@ import { useStorePedidos } from "~~/store/pedidosUsuarios";
 const userStore = useUserStore();
 const  userPedido = useStorePedidos();
 
+
 const tramitarPedido = () => {
   pushToPath('/tramitar-pedido');
   userPedido.setPedidoComplete(false);
@@ -53,8 +54,11 @@ const tramitarPedido = () => {
 <style scoped>
 
 /* Estructura de la lista */
+.container-item-list{
+  height: calc(100vh - 38px);
+}
+
 .container-item-chart{
-  height: calc(100vh - 130px);
   overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;

@@ -1,15 +1,14 @@
 <template>
     <Loading v-if="loading"></Loading>
-
+    
     <figure v-else :class="`item-chart d-flex justify-content-center mb-0 ${containerDirection}`">
-        <div class="product-container d-flex flex-column justify-content-center p-1" title="Ver producto"
-            @mouseenter="hover = true" @mouseleave="hover = false" :class="{ 'shadow rounded': hover }">
+        <div class="product-container d-flex flex-column justify-content-center p-1">
             <img class="img-product-chart img-fluid w-75 m-auto" :src="productData.imagenes_producto.portada.url"
                 :alt='`imagen del producto ${productData.nombre_articulo}`'
                 :title="`Producto añadido en el carrito: ${productData.nombre_articulo}`" loading="lazy">
         </div>
         <figcaption
-            class="`count-details d-flex gap-1 flex-column justify-content-center align-items-center mx-2 my-1">
+            class="`count-details d-flex gap-1 flex-column justify-content-center align-items-center">
 
             <p class="w-100 mb-0">
                 <strong>{{ productData.precio_venta }}€</strong>
@@ -43,7 +42,6 @@ const props = defineProps({
 
 const totalProducto = ref(Number);
 const loading = ref(true);
-const hover = ref(false);
 
 const productData = ref({}); //datos del producto
 onMounted(async () => {
