@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore("initialize_userdata", {
     state: ()=> ({
         info: null,
+        user_pedido: [],
         auth: false,
         previusRoute: null,
         loaded: false

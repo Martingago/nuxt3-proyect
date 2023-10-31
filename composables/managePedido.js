@@ -1,7 +1,7 @@
 import { useUserStore } from "~~/store/authUser";
 import { useStorePedidos } from "~~/store/pedidosUsuarios";
 
-export { tramitarPedido }
+export { tramitarPedido, getPedidosInfo }
 
 /**
  * Realiza el proceso de tramite de un pedido
@@ -46,6 +46,48 @@ const tramitarPedido = async () => {
         storePedido.setErrorMessage("No se ha podido realizar el pedido ya que el carrito está vacio")
         
     }
- 
+}
 
+/**
+ * Funcion que recibe 2 parámetros
+ * @param {*} info array con TODA la información que queremos obtener de la BBDD
+ * @param {*} putInfo array en el que queremos guardar la información extraida de cada objeto de "info".
+ * Si el array de putInfo está vacio se recorrerá al completo el array de info, ya que el usuario carga por primera vez la información
+ * En caso de que existan diferencias de tamaños, se cargarán únicamente los nuevos valores, y se añadiran al principio de array 
+ * (orden descendente:  más reciente a más antiguo);
+ */
+const getPedidosInfo = async (info, putInfo) => {
+    if(putInfo.length !== info.length && putInfo.length !== 0){
+        //Se ha añadido un nuevo producto al carrito. Debemos cargar la nueva informacion
+        for(let i = info.length -1; i> putInfo.length -1; i--){
+            let data = await getSingleDocumentData("pedidos_usuarios", info[i]);
+            data = {...data,
+                formattedDate: getFormatoFecha(data.fecha_pedido)
+            }
+            putInfo.unshift(data);
+        }
+        
+    } else if(putInfo.length === 0){
+        //La informacion está vacia, el usuario carga datos por primera vez
+        for(let i = info.length -1; i>0; i--){
+            let data = await getSingleDocumentData("pedidos_usuarios", info[i]);
+            data = {...data,
+                formattedDate: getFormatoFecha(data.fecha_pedido)
+            }
+            putInfo.push(data);
+        }
+    }
+
+}
+
+
+const getFormatoFecha = (timeStamp) => {
+    let fecha = "";
+    timeStamp = timeStamp.toDate();
+    let dia = timeStamp.getDate();
+    let mes = timeStamp.getMonth() + 1;
+    let ano = timeStamp.getFullYear();
+    if (dia < 10) dia = '0' + dia;
+    if (mes < 10) mes = '0' + mes;
+    return fecha = dia + '/' + mes + '/' + ano;
 }

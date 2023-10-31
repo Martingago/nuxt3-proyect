@@ -21,8 +21,6 @@
 <script setup>
 const { id } = useRoute().params;
 const data = ref({});
-console.log(id);
-
 const loading = ref(true);
 const existe = ref(true);
 

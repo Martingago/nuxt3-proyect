@@ -1,5 +1,5 @@
 <template>
-        <button class="btn-user-info rounded d-flex justify-content-center h-100 flex-column m-auto" @mouseenter="showPopOver = true" 
+        <button class="btn-user-info rounded d-flex justify-content-center h-100 flex-column m-auto" @click="pushToPath('/mi-cuenta')" @mouseenter="showPopOver = true" 
         @mouseleave="showPopOver = false">
             <span class="welcome-txt mb-0">Hola: {{ userStore?.info?.user_name}}</span>
             <span class="my-account-component">
@@ -12,10 +12,6 @@ import { useUserStore } from '~~/store/authUser';
 
 const userStore = useUserStore();
 const showPopOver = ref(false);
-
-
-
-
 </script>
 <style scoped>
 .btn-user-info {
