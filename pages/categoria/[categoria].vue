@@ -1,20 +1,23 @@
 <template>
     <header-container></header-container>
     <!-- Seccion de productos -->
-    <section v-if="data.length" class="productos-container  container my-4">
-        <ProductView v-for="producto in data" :key="producto.id" :datoProducto="producto">
+    <section v-if="storeCategoria?.categoria_productos[categoria]?.length" class="productos-container  container my-4">
+        <ProductView v-for="producto in storeCategoria.categoria_productos[categoria]" :key="producto.id" :datoProducto="producto">
         </ProductView>
     </section>
     <!-- loading -->
     <Loading v-else></Loading>
+    <div></div>
 </template>
 <script setup>
-const {categoria } = useRoute().params;
 
-const data = ref([]);
+import {storeProducts} from '@/store/productStore';
+
+const {categoria } = useRoute().params;
+const storeCategoria = storeProducts();
 onMounted(async () => {
     const identificador = await getProductByAtribute("categoria_productos", "nombre", categoria);
-    data.value = await getProductsByEtiqueta("productos", identificador.id);
+    storeCategoria.fetchData(identificador);
 })
 
 

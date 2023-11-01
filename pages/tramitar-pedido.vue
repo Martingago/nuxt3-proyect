@@ -2,7 +2,7 @@
     <productosPedido v-if="!usePedidos.pedido_complete"></productosPedido>
     <div v-else >
         <confirm-pedido :pedido-info="usePedidos.pedido"></confirm-pedido>
-        <div class="container d-flex mt-4 justify-content-end">
+        <div class="container d-flex my-4 justify-content-end">
             <NuxtLink to="/" class="d-flex justify-contend-end btn btn-dark">Volver al inicio</NuxtLink>
         </div>
     </div>

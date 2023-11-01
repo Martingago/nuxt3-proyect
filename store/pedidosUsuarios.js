@@ -11,7 +11,6 @@ export const useStorePedidos = defineStore("pedidos_usuario", {
             error_message: ""
         },
         formated_fecha: null
-
     }),
 
     actions: {

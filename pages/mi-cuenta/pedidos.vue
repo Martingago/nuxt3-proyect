@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-
 import { useUserStore } from '~~/store/authUser';
 
 const storeUsuario = useUserStore();

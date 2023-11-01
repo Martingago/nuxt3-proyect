@@ -1,7 +1,7 @@
 import { useUserStore } from "~~/store/authUser";
 import { useStorePedidos } from "~~/store/pedidosUsuarios";
 
-export { tramitarPedido, getPedidosInfo, getPedidosInfoIndex }
+export { tramitarPedido, getPedidosInfo, getPedidosInfoIndex, getFormatoFecha }
 
 /**
  * Realiza el proceso de tramite de un pedido

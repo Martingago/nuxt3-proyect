@@ -5,22 +5,27 @@ export const storeProducts = defineStore("productos_tienda", {
     state: () => {
         return {
             productos: [],
+            categoria_productos: {
+              
+            },
             loading: true
         }
     },
     actions: {
-        async fetchData() {
-            if (!this.productos.length) {
-                console.log("bajando productos desde el store")
-                this.productos = await getDataFromStore("productos");
+        async fetchData(categoria) {
+            if (!this.categoria_productos[categoria.nombre]) {
+                this.categoria_productos = {...this.categoria_productos, [categoria.nombre]: []}
             }
-            console.log("productos => ", this.productos)
+            if(!this.categoria_productos[categoria.nombre].length){    
+                this.categoria_productos[categoria.nombre] = await getProductsByEtiqueta("productos", categoria.id);
+            } 
             this.loading = false;
         },
 
+
+
         async getProductData(coleccion) {
             const { $db } = useNuxtApp();
-
             if (!this.productos.length) {
                 try {
                     const querySnapshot = await getDocs(collection($db, coleccion));

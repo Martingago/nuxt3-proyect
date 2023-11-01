@@ -4,7 +4,7 @@ import { useUserStore } from "~~/store/authUser";
 
 export {initializeAuthUser}
 
-const initializeAuthUser = () => {
+const initializeAuthUser = async () => {
     const { $auth } = useNuxtApp();
     const userStore = useUserStore();
     onAuthStateChanged($auth, async (user) => {

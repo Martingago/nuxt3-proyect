@@ -2,9 +2,9 @@ import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("initialize_userdata", {
     state: ()=> ({
-        info: null,
-        user_pedido: [],
-        user_mostrado: [],
+        info: null, //objeto
+        user_pedido: [], //array
+        user_mostrado: [], //array
         auth: false,
         previusRoute: null,
         loaded: false
@@ -22,8 +22,8 @@ export const useUserStore = defineStore("initialize_userdata", {
         },
         pushUser(){
             const router = useRouter();
-            if(this.previusRoute === '/crear-cuenta'){
-                router.push({name: 'index'});
+            if(this.previusRoute === '/crear-cuenta' || this.previusRoute === '/login'){
+                router.push("/");
             }else{
                 router.back();
             }
