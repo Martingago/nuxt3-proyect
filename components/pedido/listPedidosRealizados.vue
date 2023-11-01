@@ -3,7 +3,6 @@
         <ol>
             <li v-for="pedido in userStore.user_mostrado" :key="pedido.codigo_pedido" class="mb-3">
                 <article class="border border-2 rounded p-2">
-                    <pre>{{ pedido }}</pre>
                     <div class="d-flex justify-content-between">
                         <p>Código del pedido: <span class="fw-600">{{ pedido?.codigo_pedido }}</span></p>
                         <p>Fecha del pedido: <span class="fw-600">{{ pedido?.formattedDate }}</span></p>
