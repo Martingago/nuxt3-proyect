@@ -25,19 +25,19 @@
           <h3 class="text-light fs-5 mb-1">Tienda:</h3>
           <ul class="list-footer mb-0">
             <li>
-              <NuxtLink class="text-lightgray" to="/">Ver productos</NuxtLink>
+              <NuxtLink class="text-lightgray" to="/productos">Ver productos</NuxtLink>
               <line-separator/>
             </li>
             <li>
-              <NuxtLink class="text-lightgray" to="/">In-ear</NuxtLink>
+              <NuxtLink class="text-lightgray" to="/categoria/In-ear">In-ear</NuxtLink>
               <line-separator/>
             </li>
             <li>
-              <NuxtLink class="text-lightgray" to="/">Auriculares</NuxtLink>
+              <NuxtLink class="text-lightgray" to="/categoria/Auriculares">Auriculares</NuxtLink>
               <line-separator/>
             </li>
             <li>
-              <NuxtLink class="text-lightgray" to="/">Altavoces</NuxtLink>
+              <NuxtLink class="text-lightgray" to="/categoria/Altavoces">Altavoces</NuxtLink>
               <line-separator/>
             </li>
           </ul>
