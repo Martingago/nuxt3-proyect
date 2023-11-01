@@ -21,7 +21,7 @@ const userStore = useUserStore();
 const tam = ref(0); //Valor por defecto del store
 //Cada vez que se produzca un cambio en el tamaño del array del usuario se actualizará el valor de tam
 watchEffect(() => {
-  tam.value = userStore.info?.user_chart?.products_in_chart.length;
+  tam.value = userStore.info?.user_chart?.products_in_chart?.length;
 });
 
 const isSmallScreen = ref(false);

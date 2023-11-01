@@ -14,7 +14,4 @@ import { useUserStore } from "~~/store/authUser";
 
 const storeUsuario = useUserStore();
 
-console.log(storeUsuario.auth)
-
-
 </script>

@@ -37,7 +37,6 @@ const handlePedido = async () => {
    const resultado =  await tramitarPedido();
 
    if(resultado){
-    console.log("Pedido realizado con éxito")
    }else{
     console.log("Se ha producido un error en el procesado del producto, intentelo de nuevo más tarde")
    }
