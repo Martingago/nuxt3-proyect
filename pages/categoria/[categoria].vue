@@ -14,9 +14,27 @@
 import {storeProducts} from '@/store/productStore';
 
 const {categoria } = useRoute().params;
+const titulo = ref("BRAVUS");
+const descripcion = ref("BRAVUS: Página de categoria");
+useHead(
+    {
+        title: titulo,
+        meta: [
+            {
+                name: 'description',
+                content: descripcion
+            }
+
+        ]
+    }    
+);
+
+
 const storeCategoria = storeProducts();
 onMounted(async () => {
     const identificador = await getProductByAtribute("categoria_productos", "nombre", categoria);
+    titulo.value = "BRAVUS - Categoría: " + identificador.nombre;
+    descripcion.value = identificador.descripcion;
     storeCategoria.fetchData(identificador);
 })
 

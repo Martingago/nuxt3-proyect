@@ -10,7 +10,20 @@
 
 <script setup>
 import { useStorePedidos } from '~~/store/pedidosUsuarios';
-
 const usePedidos = useStorePedidos();
+
+useHead(
+    {
+        title: "BRAVUS - Tramitar pedido",
+        meta: [
+            {
+                name: 'description',
+                content: 'BRAVUS: Página para tramitar tu pedido Online'
+            }
+
+        ]
+    }    
+);
+
 
 </script>

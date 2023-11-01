@@ -38,6 +38,9 @@
 </template>
 
 <script setup>
+import { useUserStore } from "~~/store/authUser";
+
+const userStore = useUserStore();
 const disableBtn = ref(false); //desctiva el boton cuando se llega al stock máximo
 const showBtn = ref(false);
 const props = defineProps({
@@ -52,7 +55,13 @@ const visitProductPage = (producto) => {
 
 const manageItemToChart = async (event, producto) => {
     event.stopPropagation();
-    disableBtn.value =  await addProductToChart(producto, 1);
+    if(userStore.auth === true){
+        disableBtn.value =  await addProductToChart(producto, 1);
+    }else{
+        const router =  useRouter();
+        router.push("/login");
+    }
+    
 
 }
 const isSmallScreen = ref(false);

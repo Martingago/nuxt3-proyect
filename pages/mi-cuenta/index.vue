@@ -14,4 +14,18 @@ import { useUserStore } from "~~/store/authUser";
 
 const storeUsuario = useUserStore();
 
+useHead(
+    {
+        title: "BRAVUS - Mi cuenta",
+        meta: [
+            {
+                name: 'description',
+                content: 'BRAVUS: Página de información personal de tu cuenta'
+            }
+
+        ]
+    }    
+);
+
+
 </script>

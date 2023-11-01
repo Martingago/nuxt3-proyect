@@ -12,13 +12,25 @@
 
 
 <script setup>
-import historyRouter from '~~/middleware/history-router.global';
+
 
 
 definePageMeta({
     layout: "simple",
-    // middleware:[historyRouter]
 });
+
+useHead(
+    {
+        title: "BRAVUS - Iniciar sesión",
+        meta: [
+            {
+                name: 'description',
+                content: 'BRAVUS: Página de inicio de sesión'
+            }
+
+        ]
+    }    
+);
 
 
 </script>

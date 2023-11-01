@@ -8,10 +8,8 @@ export default defineNuxtPlugin(nuxtApp => {
     const config = useRuntimeConfig()
     const firebaseConfig = {
         apiKey: config.FIREBASE_API_KEY,
-        // authDomain: "audiophile-product.firebaseapp.com",
         projectId: config.FIREBASE_PROJECT_ID,
-        storageBucket: config.FIREBASE_STORAGE_BUCKET,
-        // messagingSenderId: "638214144572",
+        storageBucket: config.FIREBASE_STORAGE_BUCKET, 
          appId: config.FIREBASE_APPID,
     
     };

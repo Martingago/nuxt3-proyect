@@ -18,7 +18,8 @@
 </template>
 
 <script setup>
-
+import { useUserStore } from "~~/store/authUser";
+const userStore = useUserStore();
 const props = defineProps({
     dataProduct: Object,
     required: true
@@ -35,7 +36,13 @@ const calculo = (value) => {
 }
 
 const manageItemChart = async (producto) => {
-    blockBtn.value = await addProductToChart(producto, count.value);
+    if(userStore.auth === true){
+        blockBtn.value = await addProductToChart(producto, count.value);
+    }else{
+        const router =  useRouter();
+        router.push("/login");
+    }
+    
 }
 
 </script>

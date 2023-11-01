@@ -48,6 +48,23 @@
     </section>
 </template>
 
+<script setup>
+
+useHead(
+    {
+        title: "BRAVUS - Aviso Legal",
+        meta: [
+            {
+                name: 'description',
+                content: 'BRAVUS: Página de aviso legal'
+            }
+
+        ]
+    }    
+);
+
+</script>
+
 <style scoped>
 
 .contenedor{

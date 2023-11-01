@@ -9,4 +9,19 @@ definePageMeta({
     layout: "simple",
 });
 
+useHead(
+    {
+        title: "BRAVUS - Crear cuenta",
+        meta: [
+            {
+                name: 'description',
+                content: 'BRAVUS: Crea tu cuenta y realiza todas tus compras!'
+            }
+
+        ]
+    }    
+);
+
+
+
 </script>

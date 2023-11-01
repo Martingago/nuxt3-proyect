@@ -41,6 +41,24 @@
 
 </template>
 
+<script setup>
+
+useHead(
+    {
+        title: "BRAVUS - Términos y condiciones",
+        meta: [
+            {
+                name: 'description',
+                content: 'BRAVUS: Página de Términos y condiciones'
+            }
+
+        ]
+    }    
+);
+
+
+</script>
+
 <style scoped>
 
 .contenedor{

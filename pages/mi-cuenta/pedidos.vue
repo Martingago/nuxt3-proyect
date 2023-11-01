@@ -14,6 +14,20 @@
 
 <script setup>
 import { useUserStore } from '~~/store/authUser';
-
 const storeUsuario = useUserStore();
+
+useHead(
+    {
+        title: "BRAVUS - Mis pedidos",
+        meta: [
+            {
+                name: 'description',
+                content: 'BRAVUS: Página de información de tus pedidos'
+            }
+
+        ]
+    }    
+);
+
+
 </script>
