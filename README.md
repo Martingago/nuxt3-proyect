@@ -1,42 +1,69 @@
-# Nuxt 3 Minimal Starter
+# BRAVUS - Demo Tienda Online
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+**BRAVUS** es un proyecto de tienda online desarrollado utilizando **NUXT3** como framework principal y **Firebase** como backend para el almacenamiento de datos de usuarios y productos. Además, el diseño visual fue realizado con la ayuda de **Bootstrap**.
 
-## Setup
+## 🌟 Funcionalidades Principales
 
-Make sure to install the dependencies:
+- **Carga de productos**: Los productos se cargan dinámicamente desde una base de datos en Firebase.
+- **Autenticación de usuarios**: Permite a los usuarios registrarse mediante autenticación con Google.
+- **Gestión de carritos**: Cada usuario puede gestionar su propio carrito de compras.
+- **Registro de compras**: Historial de compras registrado para cada usuario.
+- **Área administrativa**: Funcionalidad para añadir, eliminar o modificar productos y categorías.
+- **Google Analytics**: Integración para el seguimiento del comportamiento de los usuarios.
+
+## 🌐 Demo en Línea
+
+Puedes acceder a la demo del proyecto a través del siguiente enlace:
+
+[BRAVUS Demo](https://bravus.vercel.app/)
+
+## 🚀 Ejecución Local
+
+### Clonar el repositorio
 
 ```bash
-# yarn
+https://github.com/Martingago/nuxt3-proyect
+```
+
+### Instalar dependencias
+
+Elige tu gestor de paquetes preferido:
+
+```bash
+# Con Yarn
 yarn install
 
-# npm
+# Con npm
 npm install
 
-# pnpm
+# Con pnpm
 pnpm install
 ```
 
-## Development Server
+### Iniciar el servidor de desarrollo
 
-Start the development server on http://localhost:3000
+Ejecuta el siguiente comando para iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
 ```
 
-## Production
+El proyecto estará disponible en: [http://localhost:3000](http://localhost:3000).
 
-Build the application for production:
+## ⚙️ Configuración de Firebase
 
-```bash
-npm run build
+Para habilitar la conexión con Firebase, es necesario crear un archivo `.env` en la raíz del proyecto con la siguiente estructura:
+
+```env
+FIREBASE_API_KEY=your.api.key.here
+FIREBASE_PROJECT_ID=your.project.id.here
+FIREBASE_STORAGE_BUCKET=your.storage.bucket.here
 ```
 
-Locally preview production build:
+Reemplaza los valores con las credenciales de tu proyecto en Firebase.
 
-```bash
-npm run preview
-```
+---
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+**Autor**: [Martingago](https://www.linkedin.com/in/martin-gago-choren/)
+
+© 2023 BRAVUS. Todos los derechos reservados.
